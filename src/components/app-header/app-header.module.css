@@ -1,0 +1,42 @@
+.appHeader {
+    display: grid;
+    grid-template-columns: 0.75fr repeat(3, 1fr) 0.75fr;
+    justify-content: center;
+    background-color: var(--background);
+    box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
+.menu {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.menuItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.menuItemText {
+    color: var(--text-primary-color);
+}
+
+.secondaryMenuItemText {
+    color: var(--text-inactive-color);
+}
+
+.logo {
+    grid-column: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileMenuItem {
+    grid-column: 4;
+    display: flex;
+    justify-content: flex-end;
+}
