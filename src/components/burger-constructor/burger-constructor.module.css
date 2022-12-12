@@ -1,0 +1,63 @@
+.constructor {
+    display: flex;
+    flex-direction: column;
+}
+
+.elements {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fillersList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 464px;
+}
+
+.filler {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.scrollBar {
+    overflow: auto;
+}
+
+.scrollBar::-webkit-scrollbar {
+    overflow: auto;
+    width: 8px;
+}
+
+.scrollBar::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.summary {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+}
+
+.totalSum {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.currencyIconWrapper {
+    width: 36px;
+    height: 36px;
+    transform: scale(1.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
