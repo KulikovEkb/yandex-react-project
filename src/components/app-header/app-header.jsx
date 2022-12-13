@@ -29,7 +29,7 @@ const LogoWrapper = () => {
     <div className={styles.logo}>
       <Logo/>
     </div>
-  )
+  );
 }
 
 const Profile = ({isActive}) => {

@@ -70,7 +70,6 @@
 }
 
 .scrollBar::-webkit-scrollbar {
-    overflow: auto;
     width: 8px;
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import appStyles from './app.module.css';
+import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import data from "../../data/data.json";
 
@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <AppHeader/>
-      <div className={appStyles.App}>
+      <div className={styles.app}>
         <BurgerIngredients ingredients={ingredients}/>
         <BurgerConstructor elements={elements}/>
       </div>
