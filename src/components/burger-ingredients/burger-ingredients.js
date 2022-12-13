@@ -1,9 +1,9 @@
 import styles from './burger-ingredients.module.css';
 import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
+import PropTypes from "prop-types";
 
 const BurgerIngredients = ({ingredients}) => {
-
   return (
     <div className={`${styles.ingredients} pt-10`}>
       <Header/>
@@ -63,8 +63,9 @@ const IngredientsCards = ({ingredients, header}) => {
 const IngredientCard = ({data}) => {
   return (
     <div className={styles.card}>
+      {/*todo(kulikov): positioning doesn't work and I don't understand why*/}
+      {/*<Counter count={1} size='default' extraClass='m-5'/>*/}
       <img className={styles.image} src={data.image} alt={data.name}/>
-      {/*<Counter count={1} size="default" extraClass="m-1"/>*/}
       <div className={styles.price}>
         <p className={`text text_type_digits-default`}>{data.price}</p>
         <CurrencyIcon type="primary"/>
@@ -73,5 +74,22 @@ const IngredientCard = ({data}) => {
     </div>
   );
 }
+
+const ingredientShape = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+});
+
+const ingredientsShape = PropTypes.shape({
+  buns: PropTypes.arrayOf(ingredientShape),
+  sauces: PropTypes.arrayOf(ingredientShape),
+  fillers: PropTypes.arrayOf(ingredientShape),
+})
+
+BurgerIngredients.propTypes = {
+  ingredients: ingredientsShape.isRequired,
+};
 
 export default BurgerIngredients;
