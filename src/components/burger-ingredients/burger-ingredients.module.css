@@ -64,19 +64,3 @@
     width: 240px;
     height: 120px;
 }
-
-.scrollBar {
-    overflow: auto;
-}
-
-.scrollBar::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scrollBar::-webkit-scrollbar-track {
-    background: #2F2F37;
-}
-
-.scrollBar::-webkit-scrollbar-thumb {
-    background: #8585AD;
-}

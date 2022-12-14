@@ -13,19 +13,11 @@
     gap: 8px;
 }
 
-.menuItem {
+.headerLink {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
-}
-
-.menuItemText {
-    color: var(--text-primary-color);
-}
-
-.secondaryMenuItemText {
-    color: var(--text-inactive-color);
 }
 
 .logo {
@@ -35,7 +27,7 @@
     align-items: center;
 }
 
-.profileMenuItem {
+.profile {
     grid-column: 4;
     display: flex;
     justify-content: flex-end;

@@ -34,7 +34,7 @@ const LogoWrapper = () => {
 
 const Profile = ({isActive}) => {
   return (
-    <div className={styles.profileMenuItem}>
+    <div className={styles.profile}>
       <HeaderLink
         icon={<ProfileIcon type={getIconType({isActive: isActive})}/>}
         text={<p className={getLinkTextType({isActive: isActive})}>Личный&nbsp;кабинет</p>}/>
@@ -44,7 +44,7 @@ const Profile = ({isActive}) => {
 
 const HeaderLink = ({icon, text}) => {
   return (
-    <div className={`${styles.menuItem} pt-4 pr-5 pb-4 pl-5`}>
+    <div className={`${styles.headerLink} pt-4 pr-5 pb-4 pl-5`}>
       {icon}
       {text}
     </div>

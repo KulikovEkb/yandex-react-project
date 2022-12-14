@@ -1,4 +1,5 @@
 import styles from './burger-constructor.module.css'
+import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {Button, ConstructorElement, DragIcon, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
@@ -44,7 +45,7 @@ const FillersList = (props) => {
   }
 
   const className = props.fillers.length > 5
-    ? `${styles.fillersList} ${styles.scrollBar} pr-2`
+    ? `${styles.fillersList} ${scrollBarStyles.scrollBar} pr-2`
     : `${styles.fillersList} pr-4`;
 
   return (

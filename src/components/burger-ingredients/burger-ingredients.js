@@ -1,4 +1,5 @@
 import styles from './burger-ingredients.module.css';
+import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import PropTypes from "prop-types";
@@ -42,7 +43,7 @@ const IngredientsTab = () => {
 
 const IngredientsSection = ({ingredientsData}) => {
   return (
-    <div className={`${styles.ingredientsSection} ${styles.scrollBar}`}>
+    <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar}`}>
       <IngredientsCards ingredients={ingredientsData.buns} header='Булки'/>
       <IngredientsCards ingredients={ingredientsData.sauces} header='Соусы'/>
       <IngredientsCards ingredients={ingredientsData.fillers} header='Начинки'/>
