@@ -2,6 +2,7 @@ import styles from './burger-ingredients.module.css';
 import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import PropTypes from "prop-types";
+import {ingredientShape} from "../../shapes/shapes";
 
 const BurgerIngredients = ({ingredients}) => {
   return (
@@ -74,13 +75,6 @@ const IngredientCard = ({data}) => {
     </div>
   );
 }
-
-const ingredientShape = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-});
 
 const ingredientsShape = PropTypes.shape({
   buns: PropTypes.arrayOf(ingredientShape),

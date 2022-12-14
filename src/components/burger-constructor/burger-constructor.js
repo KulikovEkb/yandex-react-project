@@ -1,6 +1,7 @@
 import styles from './burger-constructor.module.css'
 import {Button, ConstructorElement, DragIcon, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {ingredientShape} from "../../shapes/shapes";
 
 const BurgerConstructor = ({elements}) => {
   const totalSum = elements.fillers.reduce((x, y) => x + y.price, 0) + elements.top.price + elements.bottom.price;
@@ -83,17 +84,10 @@ const Summary = (props) => {
     </div>);
 }
 
-const elementShape = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-});
-
 const elementsShape = PropTypes.shape({
-  top: elementShape,
-  bottom: elementShape,
-  fillers: PropTypes.arrayOf(elementShape),
+  top: ingredientShape,
+  bottom: ingredientShape,
+  fillers: PropTypes.arrayOf(ingredientShape),
 })
 
 BurgerConstructor.propTypes = {
