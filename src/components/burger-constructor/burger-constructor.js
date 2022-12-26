@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 
 const BurgerConstructor = ({elements}) => {
+  if (!elements || Object.keys(elements).length === 0) return null;
+
   const totalSum = elements.fillers.reduce((x, y) => x + y.price, 0) + elements.top.price + elements.bottom.price;
 
   return (

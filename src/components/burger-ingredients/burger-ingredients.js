@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 
 const BurgerIngredients = ({ingredients}) => {
+  if (!ingredients || Object.keys(ingredients).length === 0) return null;
+
   return (
     <div className={`${styles.ingredients} pt-10`}>
       <Header/>
