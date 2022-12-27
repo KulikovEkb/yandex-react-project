@@ -1,0 +1,20 @@
+.modal {
+  position: fixed; /* position the modal in a fixed location on the screen */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex; /* use flexbox layout to center the modal */
+  align-items: center; /* center the modal vertically */
+  justify-content: center; /* center the modal horizontally */
+  background-color: rgba(0, 0, 0, 0.5); /* add a semi-transparent black background */
+}
+
+.modalContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+}

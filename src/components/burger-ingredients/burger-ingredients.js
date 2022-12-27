@@ -4,6 +4,7 @@ import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-u
 import React from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
+import Modal from "../modal/modal";
 
 const BurgerIngredients = ({ingredients}) => {
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
@@ -75,6 +76,7 @@ const IngredientCard = ({data}) => {
         <CurrencyIcon type="primary"/>
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
+      <Modal></Modal>
     </div>
   );
 }
