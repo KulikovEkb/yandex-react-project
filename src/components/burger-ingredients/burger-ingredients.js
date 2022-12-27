@@ -76,7 +76,7 @@ const IngredientCard = ({data}) => {
         <CurrencyIcon type="primary"/>
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
-      <Modal></Modal>
+      <Modal ingredient={data}> </Modal>
     </div>
   );
 }
