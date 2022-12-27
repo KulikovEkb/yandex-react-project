@@ -5,6 +5,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import Modal from "../modal/modal";
+import ModalOrder from "../modal-order/modal-order";
 
 const BurgerIngredients = ({ingredients}) => {
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
@@ -77,6 +78,7 @@ const IngredientCard = ({data}) => {
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
       <Modal ingredient={data}> </Modal>
+      <ModalOrder> </ModalOrder>
     </div>
   );
 }
