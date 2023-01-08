@@ -3,7 +3,7 @@ import categorizeIngredients from "./helpers/ingredients-categorizer";
 class normaClient {
   static baseUri = 'https://norma.nomoreparties.space/api';
 
-  getIngredients = async () => {
+  getIngredients = () => {
     return fetch(`${normaClient.baseUri}/ingredients`, {
       method: 'GET',
     })

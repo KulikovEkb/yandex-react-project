@@ -3,6 +3,8 @@ import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {Button, ConstructorElement, DragIcon, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
+import React, {useState} from "react";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = ({elements}) => {
   if (!elements || Object.keys(elements).length === 0) return null;
@@ -71,6 +73,16 @@ const Filler = (props) => {
 }
 
 const Summary = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <div className={`${styles.summary} mt-10 mr-4`}>
       <div className={styles.totalSum}>
@@ -81,9 +93,10 @@ const Summary = (props) => {
           <CurrencyIcon type="primary"/>
         </div>
       </div>
-      <Button htmlType="button" type="primary" size="large">
+      <Button htmlType="button" type="primary" size="large" onClick={openModal}>
         Оформить заказ
       </Button>
+      {isOpen && <OrderDetails closeModal={closeModal}/>}
     </div>);
 }
 
