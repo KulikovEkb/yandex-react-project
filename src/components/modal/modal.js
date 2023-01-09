@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import PropTypes from "prop-types";
 
 const Modal = ({headerText, children, closeModal}) => {
   function handleKeyDown(event) {
@@ -40,4 +41,10 @@ const ModalHeader = ({text, closeModal}) => {
     </div>
   );
 }
+
+Modal.propTypes = {
+  headerText: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+}
+
 export default Modal;

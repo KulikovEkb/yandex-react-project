@@ -1,6 +1,8 @@
 import styles from './ingredient-details.module.css'
 import React from 'react';
 import Modal from "../modal/modal";
+import PropTypes from "prop-types";
+import {ingredientDetailsShape} from "../../shapes/shapes";
 
 const IngredientDetails = ({ingredient, closeModal}) => {
   return (
@@ -29,6 +31,11 @@ const Detail = ({header, value}) => {
       <p className={`${styles.ingredientDetailText} text text_type_digits-default`}>{value}</p>
     </div>
   );
+}
+
+IngredientDetails.propTypes = {
+  ingredient: ingredientDetailsShape.isRequired,
+  closeModal: PropTypes.func.isRequired,
 }
 
 export default IngredientDetails;

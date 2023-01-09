@@ -2,9 +2,10 @@ import styles from './order-details.module.css'
 import React from 'react';
 import Modal from "../modal/modal";
 import doneImage from "../../images/done.png";
+import PropTypes from "prop-types";
 
 const OrderDetails = ({closeModal}) => {
-  const getRandomInteger = (min = 1, max = 999_999) => {
+  function getRandomInteger(min = 1, max = 999_999) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -34,6 +35,10 @@ const OrderDetails = ({closeModal}) => {
         </p>
       </div>
     </Modal>);
+}
+
+OrderDetails.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 }
 
 export default OrderDetails;
