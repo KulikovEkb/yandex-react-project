@@ -4,6 +4,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import normaClient from "../../clients/norma-client";
+import ErrorBoundary from "../../utils/error-boundary";
 
 function App() {
   const [hasError, setHasError] = useState(false);
@@ -45,7 +46,7 @@ function App() {
   }
 
   return (
-    <>
+    <ErrorBoundary>
       <AppHeader/>
       {hasError ? (
         <p className={styles.app}>
@@ -57,7 +58,7 @@ function App() {
           <BurgerConstructor elements={state.elements}/>
         </div>
       )}
-    </>
+    </ErrorBoundary>
   );
 }
 
