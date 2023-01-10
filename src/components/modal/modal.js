@@ -21,13 +21,14 @@ const Modal = ({headerText, children, closeModal}) => {
   }, []);
 
   return createPortal(
-    <ModalOverlay closeModal={closeModal}>
+    <>
+      <ModalOverlay closeModal={closeModal}></ModalOverlay>
       <div className={`${styles.modalContent} pt-10 pr-10 pl-10 pb-15`}>
         <ModalHeader text={headerText} closeModal={closeModal}/>
 
         {children}
       </div>
-    </ModalOverlay>, document.getElementById('modals'));
+    </>, document.getElementById('modals'));
 }
 
 const ModalHeader = ({text, closeModal}) => {
