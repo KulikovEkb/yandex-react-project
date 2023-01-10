@@ -1,11 +1,15 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
 const BurgerIngredients = ({ingredients}) => {
+  if (!ingredients || Object.keys(ingredients).length === 0) return null;
+
   return (
     <div className={`${styles.ingredients} pt-10`}>
       <Header/>
@@ -63,16 +67,31 @@ const IngredientsCards = ({ingredients, header}) => {
 }
 
 const IngredientCard = ({data}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <div className={styles.card}>
       {/*todo(kulikov): positioning doesn't work and I don't understand why*/}
       {/*<Counter count={1} size='default' extraClass='m-5'/>*/}
-      <img className={styles.image} src={data.image} alt={data.name}/>
+      <img className={styles.image} src={data.image} alt={data.name} onClick={openModal}/>
       <div className={styles.price}>
         <p className={`text text_type_digits-default`}>{data.price}</p>
         <CurrencyIcon type="primary"/>
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
+      {isOpen && (
+        <Modal headerText='Детали ингредиента' closeModal={closeModal}>
+          <IngredientDetails ingredient={data}/>
+        </Modal>
+      )}
     </div>
   );
 }
