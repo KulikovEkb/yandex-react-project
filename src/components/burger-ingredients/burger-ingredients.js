@@ -5,6 +5,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
 const BurgerIngredients = ({ingredients}) => {
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
@@ -86,7 +87,11 @@ const IngredientCard = ({data}) => {
         <CurrencyIcon type="primary"/>
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
-      {isOpen && <IngredientDetails ingredient={data} closeModal={closeModal}/>}
+      {isOpen && (
+        <Modal headerText='Детали ингредиента' closeModal={closeModal}>
+          <IngredientDetails ingredient={data}/>
+        </Modal>
+      )}
     </div>
   );
 }

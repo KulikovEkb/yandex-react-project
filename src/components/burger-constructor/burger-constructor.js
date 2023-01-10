@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import React, {useState} from "react";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 
 const BurgerConstructor = ({elements}) => {
   if (!elements || Object.keys(elements).length === 0) return null;
@@ -96,7 +97,11 @@ const Summary = (props) => {
       <Button htmlType="button" type="primary" size="large" onClick={openModal}>
         Оформить заказ
       </Button>
-      {isOpen && <OrderDetails closeModal={closeModal}/>}
+      {isOpen && (
+        <Modal headerText='' closeModal={closeModal}>
+          <OrderDetails/>
+        </Modal>
+      )}
     </div>);
 }
 
