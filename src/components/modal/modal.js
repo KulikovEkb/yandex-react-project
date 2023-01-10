@@ -22,7 +22,7 @@ const Modal = ({headerText, children, closeModal}) => {
 
   return createPortal(
     <>
-      <ModalOverlay closeModal={closeModal}></ModalOverlay>
+      <ModalOverlay closeModal={closeModal}/>
       <div className={`${styles.modalContent} pt-10 pr-10 pl-10 pb-15`}>
         <ModalHeader text={headerText} closeModal={closeModal}/>
 
