@@ -78,21 +78,22 @@ const IngredientCard = ({data}) => {
   }
 
   return (
-    <div className={styles.card}>
-      {/*todo(kulikov): positioning doesn't work and I don't understand why*/}
-      {/*<Counter count={1} size='default' extraClass='m-5'/>*/}
-      <img className={styles.image} src={data.image} alt={data.name} onClick={openModal}/>
-      <div className={styles.price}>
-        <p className={`text text_type_digits-default`}>{data.price}</p>
-        <CurrencyIcon type="primary"/>
+    <>
+      <div className={styles.card} onClick={openModal}>
+        <Counter count={1} size='default'/>
+        <img className={styles.image} src={data.image} alt={data.name}/>
+        <div className={styles.price}>
+          <p className={`text text_type_digits-default`}>{data.price}</p>
+          <CurrencyIcon type="primary"/>
+        </div>
+        <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
       </div>
-      <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
       {isOpen && (
         <Modal headerText='Детали ингредиента' closeModal={closeModal}>
           <IngredientDetails ingredient={data}/>
         </Modal>
       )}
-    </div>
+    </>
   );
 }
 
