@@ -45,6 +45,7 @@
   justify-content: center;
   gap: 4px;
   max-width: 272px;
+  cursor: pointer;
 }
 
 .price {
@@ -64,5 +65,4 @@
 .image {
   width: 240px;
   height: 120px;
-  cursor: pointer;
 }
