@@ -27,7 +27,7 @@ const Modal = ({headerText, children, closeModal}) => {
 
         {children}
       </div>
-    </ModalOverlay>, document.body);
+    </ModalOverlay>, document.getElementById('modals'));
 }
 
 const ModalHeader = ({text, closeModal}) => {

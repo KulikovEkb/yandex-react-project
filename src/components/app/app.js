@@ -15,21 +15,20 @@ function App() {
 
   useEffect(() => {
     const getState = async () => {
-
-      let ingredients!: { buns: any[], sauces: any[], fillers: any[] };
+      let ingredients;
       try {
         ingredients = await normaClient.getIngredients();
+
+        ingredients && setState({elements: getElements(ingredients), ingredients});
       } catch {
         setHasError(true);
       }
-
-      return ingredients && {elements: getElements(ingredients), ingredients};
     }
 
-    getState().then(x => x && setState(x));
+    getState();
   }, []);
 
-  function getElements(ingredients: { buns: any[]; sauces: any[]; fillers: any[] }) {
+  function getElements(ingredients) {
     return {
       top: ingredients.buns[0],
       bottom: ingredients.buns[0],
