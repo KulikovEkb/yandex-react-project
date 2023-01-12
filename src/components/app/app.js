@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from './app.module.css';
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerConstructor from "../burger-constructor";
 import normaClient from "../../clients/norma-client";
 import ErrorBoundary from "../../utils/error-boundary";
 import {BurgerElementsContext} from "../../services/burger-constructor-context";
