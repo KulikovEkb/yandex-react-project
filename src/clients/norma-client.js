@@ -7,14 +7,22 @@ class NormaClient {
     return fetch(`${NormaClient.baseUri}/ingredients`, {
       method: 'GET',
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
+      .then(response => response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`))
       .then(response => categorizeIngredients(response.data));
+  }
+
+  createOrder = (elementsIds) => {
+    return fetch(`${NormaClient.baseUri}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ingredients: elementsIds})
+    })
+      .then(response => response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`))
+      .then(result => {
+        if (result.success) return result.order.number;
+
+        return Promise.reject(`Ошибка ${result}`);
+      });
   }
 }
 
