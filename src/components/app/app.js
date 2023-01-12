@@ -5,13 +5,12 @@ import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import normaClient from "../../clients/norma-client";
 import ErrorBoundary from "../../utils/error-boundary";
+import {BurgerElementsContext} from "../../services/burger-constructor-context";
 
 function App() {
   const [hasError, setHasError] = useState(false);
-  const [state, setState] = useState({
-    elements: {},
-    ingredients: {},
-  });
+  const [elements, setElements] = useState({});
+  const [ingredients, setIngredients] = useState({});
 
   useEffect(() => {
     const getState = async () => {
@@ -19,7 +18,10 @@ function App() {
       try {
         ingredients = await normaClient.getIngredients();
 
-        ingredients && setState({elements: getElements(ingredients), ingredients});
+        if (!ingredients) return;
+
+        setIngredients(ingredients);
+        setElements(getElements(ingredients));
       } catch {
         setHasError(true);
       }
@@ -53,8 +55,10 @@ function App() {
         </p>
       ) : (
         <div className={styles.app}>
-          <BurgerIngredients ingredients={state.ingredients}/>
-          <BurgerConstructor elements={state.elements}/>
+          <BurgerIngredients ingredients={ingredients}/>
+          <BurgerElementsContext.Provider value={{elements, setElements}}>
+            <BurgerConstructor/>
+          </BurgerElementsContext.Provider>
         </div>
       )}
     </ErrorBoundary>
