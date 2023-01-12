@@ -3,17 +3,30 @@ import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {Button, ConstructorElement, DragIcon, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
-import React, {useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {BurgerElementsContext} from "../../services/burger-constructor-context";
 
+const calculateTotalSum = (elements) => {
+  if (!elements || Object.keys(elements).length === 0) return 0;
+
+  return  elements.fillers.reduce((x, y) => x + y.price, 0) + elements.top.price + elements.bottom.price;
+};
+
+function totalSumReducer(state, action) {
+  return calculateTotalSum(action.elements);
+}
+
 const BurgerConstructor = () => {
   const {elements} = React.useContext(BurgerElementsContext);
+  const [totalSum, dispatchTotalSum] = useReducer(totalSumReducer, 0, undefined);
+
+  useEffect(() => {
+    dispatchTotalSum({elements});
+  }, [elements])
 
   if (!elements || Object.keys(elements).length === 0) return null;
-
-  const totalSum = elements.fillers.reduce((x, y) => x + y.price, 0) + elements.top.price + elements.bottom.price;
 
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
@@ -114,7 +127,7 @@ const elementsShape = PropTypes.shape({
   top: ingredientShape,
   bottom: ingredientShape,
   fillers: PropTypes.arrayOf(ingredientShape),
-})
+});
 
 BurgerConstructor.contextTypes = {
   elements: elementsShape,
