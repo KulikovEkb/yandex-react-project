@@ -28,17 +28,24 @@ const Header = () => {
 }
 
 const IngredientsTab = () => {
-  const [current, setCurrent] = React.useState('Булки')
+  const [current, setCurrent] = React.useState('buns')
+
+  const onTabClick = (tab) => {
+    setCurrent(tab);
+
+    const tabElement = document.getElementById(tab);
+    if (tabElement) tabElement.scrollIntoView({behavior: 'smooth'});
+  }
 
   return (
     <div className={`${styles.ingredientsTab}`}>
-      <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
+      <Tab value='buns' active={current === 'buns'} onClick={onTabClick}>
         Булки
       </Tab>
-      <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+      <Tab value='sauces' active={current === 'sauces'} onClick={onTabClick}>
         Соусы
       </Tab>
-      <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+      <Tab value='fillers' active={current === 'fillers'} onClick={onTabClick}>
         Начинки
       </Tab>
     </div>
@@ -48,16 +55,16 @@ const IngredientsTab = () => {
 const IngredientsSection = ({ingredientsData}) => {
   return (
     <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar}`}>
-      <IngredientsCards ingredients={ingredientsData.buns} header='Булки'/>
-      <IngredientsCards ingredients={ingredientsData.sauces} header='Соусы'/>
-      <IngredientsCards ingredients={ingredientsData.fillers} header='Начинки'/>
+      <IngredientsCards id='buns' ingredients={ingredientsData.buns} header='Булки'/>
+      <IngredientsCards id='sauces' ingredients={ingredientsData.sauces} header='Соусы'/>
+      <IngredientsCards id='fillers' ingredients={ingredientsData.fillers} header='Начинки'/>
     </div>
   );
 }
 
-const IngredientsCards = ({ingredients, header}) => {
+const IngredientsCards = ({id, ingredients, header}) => {
   return (
-    <div className={styles.cards}>
+    <div className={styles.cards} id={id}>
       <p className='text text_type_main-medium'>{header}</p>
       <div className={`${styles.cardsList} pl-4 pr-2`}>
         {ingredients.map(ingredient => <IngredientCard key={ingredient._id} data={ingredient}/>)}
