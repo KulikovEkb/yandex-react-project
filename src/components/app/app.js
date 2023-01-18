@@ -54,12 +54,12 @@ function App() {
           Ошибка при загрузке данных. Попробуйте ещё раз.
         </p>
       ) : (
-        <div className={styles.app}>
+        <main className={styles.app}>
           <BurgerIngredients ingredients={ingredients}/>
           <BurgerElementsContext.Provider value={{elements, setElements}}>
             <BurgerConstructor/>
           </BurgerElementsContext.Provider>
-        </div>
+        </main>
       )}
     </ErrorBoundary>
   );
