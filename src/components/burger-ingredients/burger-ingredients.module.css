@@ -1,7 +1,6 @@
 .ingredients {
   display: flex;
   flex-direction: column;
-  gap: 40px;
 }
 
 .header {
@@ -16,7 +15,7 @@
 }
 
 .ingredientsSection {
-  max-height: 700px;
+  max-height: 650px;
   display: flex;
   flex-direction: column;
   gap: 40px;

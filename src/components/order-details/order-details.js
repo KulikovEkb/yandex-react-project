@@ -1,16 +1,13 @@
 import styles from './order-details.module.css'
 import doneImage from "../../images/done.png";
+import PropTypes from "prop-types";
 
-const OrderDetails = () => {
-  function getRandomInteger(min = 1, max = 999_999) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
+const OrderDetails = ({orderNumber}) => {
   return (
     <>
       <div className='mt-4'>
         <p className={`${styles.orderId} text text_type_digits-large`}>
-          {getRandomInteger().toString().padStart(6, '0')}
+          {orderNumber.toString().padStart(6, '0')}
         </p>
       </div>
 
@@ -35,6 +32,7 @@ const OrderDetails = () => {
 }
 
 OrderDetails.propTypes = {
+  orderNumber: PropTypes.number.isRequired,
 }
 
 export default OrderDetails;

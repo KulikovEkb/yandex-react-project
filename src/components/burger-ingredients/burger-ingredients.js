@@ -1,13 +1,16 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useState} from "react";
+import React, {forwardRef, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import {BurgerContext} from "../../services/burger-context";
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
+  const {ingredients} = React.useContext(BurgerContext);
+
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
 
   return (
@@ -22,49 +25,60 @@ const Header = () => {
   return (
     <div className={styles.header}>
       <p className='text text_type_main-large'>Соберите бургер</p>
-      <IngredientsTab/>
-    </div>
-  );
-}
-
-const IngredientsTab = () => {
-  const [current, setCurrent] = React.useState('Булки')
-
-  return (
-    <div className={`${styles.ingredientsTab}`}>
-      <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
-        Булки
-      </Tab>
-      <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
-        Начинки
-      </Tab>
     </div>
   );
 }
 
 const IngredientsSection = ({ingredientsData}) => {
+  const tabsRef = useRef({});
+
   return (
-    <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar}`}>
-      <IngredientsCards ingredients={ingredientsData.buns} header='Булки'/>
-      <IngredientsCards ingredients={ingredientsData.sauces} header='Соусы'/>
-      <IngredientsCards ingredients={ingredientsData.fillers} header='Начинки'/>
-    </div>
+    <>
+      <IngredientsTabs ref={tabsRef}/>
+
+      <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar} mt-10`}>
+        <IngredientsCards ref={tabsRef} ingredients={ingredientsData.buns} header='Булки'/>
+        <IngredientsCards ref={tabsRef} ingredients={ingredientsData.sauces} header='Соусы'/>
+        <IngredientsCards ref={tabsRef} ingredients={ingredientsData.fillers} header='Начинки'/>
+      </div>
+    </>
   );
 }
 
-const IngredientsCards = ({ingredients, header}) => {
+const IngredientsTabs = forwardRef((props, ref) => {
+  const [current, setCurrent] = React.useState('Булки');
+
+  const onTabClick = (tab) => {
+    setCurrent(tab);
+
+    ref.current[tab].scrollIntoView({behavior: 'smooth'});
+  }
+
   return (
-    <div className={styles.cards}>
+    <div className={`${styles.ingredientsTab} mt-5`}>
+      <Tab value='Булки' active={current === 'Булки'} onClick={onTabClick}>
+        Булки
+      </Tab>
+      <Tab value='Соусы' active={current === 'Соусы'} onClick={onTabClick}>
+        Соусы
+      </Tab>
+      <Tab value='Начинки' active={current === 'Начинки'} onClick={onTabClick}>
+        Начинки
+      </Tab>
+    </div>
+  );
+});
+
+const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
+  return (
+    <div className={styles.cards} ref={x => ref.current[header] = x}>
       <p className='text text_type_main-medium'>{header}</p>
       <div className={`${styles.cardsList} pl-4 pr-2`}>
         {ingredients.map(ingredient => <IngredientCard key={ingredient._id} data={ingredient}/>)}
       </div>
     </div>
   );
-}
+});
 
 const IngredientCard = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -103,8 +117,17 @@ const ingredientsShape = PropTypes.shape({
   fillers: PropTypes.arrayOf(ingredientShape),
 })
 
-BurgerIngredients.propTypes = {
-  ingredients: ingredientsShape.isRequired,
+IngredientsSection.propTypes = {
+  ingredientsData: ingredientsShape.isRequired,
+};
+
+IngredientsCards.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientShape).isRequired,
+  header: PropTypes.string.isRequired,
+};
+
+IngredientCard.propTypes = {
+  data: ingredientShape.isRequired,
 };
 
 export default BurgerIngredients;

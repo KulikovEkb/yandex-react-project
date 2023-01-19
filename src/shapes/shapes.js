@@ -9,6 +9,13 @@ const baseIngredient = {
 
 export const ingredientShape = PropTypes.shape(baseIngredient);
 
+export const elementsShape = PropTypes.shape({
+  top: ingredientShape,
+  bottom: ingredientShape,
+  fillers: PropTypes.arrayOf(ingredientShape),
+});
+
+
 export const ingredientDetailsShape = PropTypes.shape({
   ...baseIngredient,
   image_large: PropTypes.string.isRequired,
