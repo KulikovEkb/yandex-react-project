@@ -1,5 +1,15 @@
-export function request(url, options) {
-  return fetch(url, options).then(checkResponse)
+export function sendPostRequest(url, body) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body)
+  }).then(checkResponse);
+}
+
+export function sendGetRequest(url) {
+  return fetch(url, {
+    method: 'GET',
+  }).then(checkResponse);
 }
 
 function checkResponse(response) {
@@ -8,4 +18,7 @@ function checkResponse(response) {
   }
 
   return Promise.reject(`Ошибка ${response.status}`);
+}
+
+export class request {
 }
