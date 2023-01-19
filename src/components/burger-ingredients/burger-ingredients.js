@@ -8,28 +8,41 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 
 const BurgerIngredients = ({ingredients}) => {
-  const tabsRef = useRef({});
-
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
 
   return (
     <div className={`${styles.ingredients} pt-10`}>
-      <Header ref={tabsRef}/>
-      <IngredientsSection ref={tabsRef} ingredientsData={ingredients}/>
+      <Header/>
+      <IngredientsSection ingredientsData={ingredients}/>
     </div>
   );
 }
 
-const Header = forwardRef((props, ref) => {
+const Header = () => {
   return (
     <div className={styles.header}>
       <p className='text text_type_main-large'>Соберите бургер</p>
-      <IngredientsTab ref={ref}/>
     </div>
   );
-});
+}
 
-const IngredientsTab = forwardRef((props, ref) => {
+const IngredientsSection = ({ingredientsData}) => {
+  const tabsRef = useRef({});
+
+  return (
+    <>
+      <IngredientsTabs ref={tabsRef}/>
+
+      <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar} mt-10`}>
+        <IngredientsCards ref={tabsRef} ingredients={ingredientsData.buns} header='Булки'/>
+        <IngredientsCards ref={tabsRef} ingredients={ingredientsData.sauces} header='Соусы'/>
+        <IngredientsCards ref={tabsRef} ingredients={ingredientsData.fillers} header='Начинки'/>
+      </div>
+    </>
+  );
+}
+
+const IngredientsTabs = forwardRef((props, ref) => {
   const [current, setCurrent] = React.useState('Булки');
 
   const onTabClick = (tab) => {
@@ -39,7 +52,7 @@ const IngredientsTab = forwardRef((props, ref) => {
   }
 
   return (
-    <div className={`${styles.ingredientsTab}`}>
+    <div className={`${styles.ingredientsTab} mt-5`}>
       <Tab value='Булки' active={current === 'Булки'} onClick={onTabClick}>
         Булки
       </Tab>
@@ -49,16 +62,6 @@ const IngredientsTab = forwardRef((props, ref) => {
       <Tab value='Начинки' active={current === 'Начинки'} onClick={onTabClick}>
         Начинки
       </Tab>
-    </div>
-  );
-});
-
-const IngredientsSection = forwardRef(({ingredientsData}, ref) => {
-  return (
-    <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar}`}>
-      <IngredientsCards ref={ref} ingredients={ingredientsData.buns} header='Булки'/>
-      <IngredientsCards ref={ref} ingredients={ingredientsData.sauces} header='Соусы'/>
-      <IngredientsCards ref={ref} ingredients={ingredientsData.fillers} header='Начинки'/>
     </div>
   );
 });

@@ -5,6 +5,7 @@ import {elementsShape} from "../../shapes/shapes";
 import React from "react";
 import {BurgerElementsContext} from "../../services/burger-constructor-context";
 import Summary from "./summary";
+import {v4 as newGuid} from 'uuid';
 
 const BurgerConstructor = () => {
   return (
@@ -54,7 +55,7 @@ const FillersList = ({fillers}) => {
 
   return (
     <div className={className}>
-      {fillers.map((fillerData, index) => <Filler key={index} filler={fillerData}/>)}
+      {fillers.map(fillerData => <Filler key={newGuid()} filler={fillerData}/>)}
     </div>
   );
 }
