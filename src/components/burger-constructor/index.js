@@ -1,25 +1,45 @@
 import styles from './burger-constructor.module.css'
 import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {elementsShape} from "../../shapes/shapes";
-import React from "react";
-import {BurgerElementsContext} from "../../services/burger-constructor-context";
+import {elementsShape, ingredientShape} from "../../shapes/shapes";
+import React, {useMemo} from "react";
+import {BurgerContext} from "../../services/burger-context";
 import Summary from "./summary";
 import {v4 as newGuid} from 'uuid';
+import PropTypes from "prop-types";
+
+function getElements(ingredients) {
+  if (!ingredients || Object.keys(ingredients).length === 0) return null;
+
+  return {
+    top: ingredients.buns[0],
+    bottom: ingredients.buns[0],
+    fillers: [
+      ingredients.fillers[0],
+      ingredients.sauces[0],
+      ingredients.fillers[1],
+      ingredients.sauces[1],
+      ingredients.fillers[2],
+      ingredients.fillers[3],
+      ingredients.fillers[4],
+    ],
+  };
+}
 
 const BurgerConstructor = () => {
+  const {ingredients} = React.useContext(BurgerContext);
+  const elements = useMemo(() => getElements(ingredients), [ingredients]);
+
+  if (!elements) return null;
+
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
-      <Elements/>
-      <Summary/>
+      <Elements elements={elements}/>
+      <Summary elements={elements}/>
     </div>);
 }
 
-const Elements = () => {
-  const {elements} = React.useContext(BurgerElementsContext);
-
-  if (!elements || Object.keys(elements).length === 0) return null;
-
+const Elements = ({elements}) => {
   return (
     <div className={styles.elements}>
       <Bun bun={elements.top} type='top'/>
@@ -73,8 +93,21 @@ const Filler = ({filler}) => {
   );
 }
 
-BurgerConstructor.contextTypes = {
-  elements: elementsShape,
+Elements.propTypes = {
+  elements: elementsShape.isRequired,
+};
+
+Bun.propTypes = {
+  bun: ingredientShape.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+FillersList.propTypes = {
+  fillers: PropTypes.arrayOf(ingredientShape).isRequired,
+};
+
+Filler.propTypes = {
+  filler: ingredientShape.isRequired,
 };
 
 export default BurgerConstructor;

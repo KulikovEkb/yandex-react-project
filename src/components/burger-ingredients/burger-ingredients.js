@@ -6,8 +6,11 @@ import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import {BurgerContext} from "../../services/burger-context";
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
+  const {ingredients} = React.useContext(BurgerContext);
+
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
 
   return (
@@ -114,8 +117,17 @@ const ingredientsShape = PropTypes.shape({
   fillers: PropTypes.arrayOf(ingredientShape),
 })
 
-BurgerIngredients.propTypes = {
-  ingredients: ingredientsShape.isRequired,
+IngredientsSection.propTypes = {
+  ingredientsData: ingredientsShape.isRequired,
+};
+
+IngredientsCards.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientShape).isRequired,
+  header: PropTypes.string.isRequired,
+};
+
+IngredientCard.propTypes = {
+  data: ingredientShape.isRequired,
 };
 
 export default BurgerIngredients;

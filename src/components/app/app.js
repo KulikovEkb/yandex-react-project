@@ -5,11 +5,10 @@ import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor";
 import normaClient from "../../clients/norma-client";
 import ErrorBoundary from "../../utils/error-boundary";
-import {BurgerElementsContext} from "../../services/burger-constructor-context";
+import {BurgerContext} from "../../services/burger-context";
 
 function App() {
   const [hasError, setHasError] = useState(false);
-  const [elements, setElements] = useState({});
   const [ingredients, setIngredients] = useState({});
 
   useEffect(() => {
@@ -21,7 +20,6 @@ function App() {
         if (!ingredients) return;
 
         setIngredients(ingredients);
-        setElements(getElements(ingredients));
       } catch {
         setHasError(true);
       }
@@ -29,22 +27,6 @@ function App() {
 
     getState();
   }, []);
-
-  function getElements(ingredients) {
-    return {
-      top: ingredients.buns[0],
-      bottom: ingredients.buns[0],
-      fillers: [
-        ingredients.fillers[0],
-        ingredients.sauces[0],
-        ingredients.fillers[1],
-        ingredients.sauces[1],
-        ingredients.fillers[2],
-        ingredients.fillers[3],
-        ingredients.fillers[4],
-      ],
-    };
-  }
 
   return (
     <ErrorBoundary>
@@ -55,10 +37,10 @@ function App() {
         </p>
       ) : (
         <main className={styles.app}>
-          <BurgerIngredients ingredients={ingredients}/>
-          <BurgerElementsContext.Provider value={{elements, setElements}}>
+          <BurgerContext.Provider value={{ingredients, setIngredients}}>
+            <BurgerIngredients/>
             <BurgerConstructor/>
-          </BurgerElementsContext.Provider>
+          </BurgerContext.Provider>
         </main>
       )}
     </ErrorBoundary>

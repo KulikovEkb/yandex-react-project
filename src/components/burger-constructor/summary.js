@@ -1,5 +1,4 @@
 import React, {useEffect, useReducer, useState} from "react";
-import {BurgerElementsContext} from "../../services/burger-constructor-context";
 import normaClient from "../../clients/norma-client";
 import styles from "./burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,18 +6,17 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {elementsShape} from "../../shapes/shapes";
 
-const calculateTotalSum = (elements) => {
+function calculateTotalSum(elements) {
   if (!elements || Object.keys(elements).length === 0) return 0;
 
   return elements.fillers.reduce((x, y) => x + y.price, 0) + elements.top.price + elements.bottom.price;
-};
+}
 
 function totalSumReducer(state, action) {
   return calculateTotalSum(action.elements);
 }
 
-const Summary = () => {
-  const {elements} = React.useContext(BurgerElementsContext);
+const Summary = ({elements}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [orderNumber, setOrderNumber] = useState(null);
@@ -26,7 +24,7 @@ const Summary = () => {
 
   useEffect(() => {
     dispatchTotalSum({elements});
-  }, [elements])
+  }, [elements]);
 
   async function createOrder() {
     const elementsIds = elements.fillers.map(x => x._id);
@@ -79,8 +77,8 @@ const Summary = () => {
     </div>);
 }
 
-Summary.contextTypes = {
-  elements: elementsShape,
+Summary.propTypes = {
+  elements: elementsShape.isRequired,
 };
 
 export default Summary;
