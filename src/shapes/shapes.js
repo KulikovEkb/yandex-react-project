@@ -15,7 +15,6 @@ export const elementsShape = PropTypes.shape({
   fillers: PropTypes.arrayOf(ingredientShape),
 });
 
-
 export const ingredientDetailsShape = PropTypes.shape({
   ...baseIngredient,
   image_large: PropTypes.string.isRequired,

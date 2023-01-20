@@ -6,11 +6,13 @@ import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import {BurgerContext} from "../../services/burger-context";
+import {useDispatch, useSelector} from "react-redux";
+import {INGREDIENT_MODAL_CLOSED, INGREDIENT_MODAL_OPEN} from "../../services/actions/common-actions";
 
 const BurgerIngredients = () => {
-  const {ingredients} = React.useContext(BurgerContext);
+  const {ingredients} = useSelector(store => store.common);
 
+  // todo(kulikov): create util
   if (!ingredients || Object.keys(ingredients).length === 0) return null;
 
   return (
@@ -82,13 +84,16 @@ const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
 
 const IngredientCard = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
   function openModal() {
     setIsOpen(true);
+    dispatch({type: INGREDIENT_MODAL_OPEN, ingredient: data})
   }
 
   function closeModal() {
     setIsOpen(false);
+    dispatch({type: INGREDIENT_MODAL_CLOSED})
   }
 
   return (
@@ -104,7 +109,7 @@ const IngredientCard = ({data}) => {
       </div>
       {isOpen && (
         <Modal headerText='Детали ингредиента' closeModal={closeModal}>
-          <IngredientDetails ingredient={data}/>
+          <IngredientDetails/>
         </Modal>
       )}
     </>

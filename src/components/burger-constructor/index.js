@@ -2,40 +2,22 @@ import styles from './burger-constructor.module.css'
 import scrollBarStyles from '../../utils/scroll-bar.module.css'
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {elementsShape, ingredientShape} from "../../shapes/shapes";
-import React, {useMemo} from "react";
-import {BurgerContext} from "../../services/burger-context";
+import React from "react";
 import Summary from "./summary";
 import {v4 as newGuid} from 'uuid';
 import PropTypes from "prop-types";
-
-function getElements(ingredients) {
-  if (!ingredients || Object.keys(ingredients).length === 0) return null;
-
-  return {
-    top: ingredients.buns[0],
-    bottom: ingredients.buns[0],
-    fillers: [
-      ingredients.fillers[0],
-      ingredients.sauces[0],
-      ingredients.fillers[1],
-      ingredients.sauces[1],
-      ingredients.fillers[2],
-      ingredients.fillers[3],
-      ingredients.fillers[4],
-    ],
-  };
-}
+import {useSelector} from "react-redux";
 
 const BurgerConstructor = () => {
-  const {ingredients} = React.useContext(BurgerContext);
-  const elements = useMemo(() => getElements(ingredients), [ingredients]);
+  const {ingredients, constructorIngredients} = useSelector(store => store.common);
 
-  if (!elements) return null;
+  // todo(kulikov): create util
+  if (!constructorIngredients || Object.keys(constructorIngredients).length === 0) return null;
 
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
-      <Elements elements={elements}/>
-      <Summary elements={elements}/>
+      <Elements elements={constructorIngredients}/>
+      <Summary elements={constructorIngredients}/>
     </div>);
 }
 

@@ -5,6 +5,8 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {elementsShape} from "../../shapes/shapes";
+import {useDispatch} from "react-redux";
+import {createOrder} from "../../services/actions/common-actions";
 
 function calculateTotalSum(elements) {
   if (!elements || Object.keys(elements).length === 0) return 0;
@@ -25,18 +27,6 @@ const Summary = ({elements}) => {
   useEffect(() => {
     dispatchTotalSum({elements});
   }, [elements]);
-
-  async function createOrder() {
-    const elementsIds = elements.fillers.map(x => x._id);
-    elementsIds.push(elements.top._id);
-    elementsIds.push(elements.bottom._id);
-
-    try {
-      return await normaClient.createOrder(elementsIds);
-    } catch {
-      setHasError(true);
-    }
-  }
 
   async function openModal() {
     const orderNumber = await createOrder();
@@ -70,7 +60,7 @@ const Summary = ({elements}) => {
               Ошибка при создании заказа.<br/>Попробуйте ещё раз.
             </p>
           ) : (
-            <OrderDetails orderNumber={orderNumber}/>
+            <OrderDetails/>
           )}
         </Modal>
       )}

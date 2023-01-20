@@ -1,8 +1,22 @@
 import styles from './order-details.module.css'
 import doneImage from "../../images/done.png";
 import PropTypes from "prop-types";
+import {createOrder} from "../../services/actions/common-actions";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 
-const OrderDetails = ({orderNumber}) => {
+const OrderDetails = () => {
+  const {constructorIngredients, orderNumber} = useSelector(store => store.common);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const elementsIds = constructorIngredients.fillers.map(x => x._id);
+    elementsIds.push(constructorIngredients.top._id);
+    elementsIds.push(constructorIngredients.bottom._id);
+
+    dispatch(createOrder(elementsIds))
+  }, []);
+
   return (
     <>
       <div className='mt-4'>
@@ -32,7 +46,7 @@ const OrderDetails = ({orderNumber}) => {
 }
 
 OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
+  //orderNumber: PropTypes.number.isRequired,
 }
 
 export default OrderDetails;
