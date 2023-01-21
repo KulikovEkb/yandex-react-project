@@ -1,12 +1,9 @@
 import React, {useEffect, useReducer, useState} from "react";
-import normaClient from "../../clients/norma-client";
 import styles from "./burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {elementsShape} from "../../shapes/shapes";
-import {useDispatch} from "react-redux";
-import {createOrder} from "../../services/actions/common-actions";
 
 function calculateTotalSum(elements) {
   if (!elements || Object.keys(elements).length === 0) return 0;
@@ -21,7 +18,6 @@ function totalSumReducer(state, action) {
 const Summary = ({elements}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(null);
   const [totalSum, dispatchTotalSum] = useReducer(totalSumReducer, 0, undefined);
 
   useEffect(() => {
@@ -29,14 +25,10 @@ const Summary = ({elements}) => {
   }, [elements]);
 
   async function openModal() {
-    const orderNumber = await createOrder();
-    setOrderNumber(orderNumber);
-
     setIsOpen(true);
   }
 
   function closeModal() {
-    setOrderNumber(null);
     setIsOpen(false);
   }
 

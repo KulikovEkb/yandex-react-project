@@ -15,7 +15,7 @@ const OrderDetails = () => {
     elementsIds.push(constructorIngredients.bottom._id);
 
     dispatch(createOrder(elementsIds))
-  }, []);
+  }, [dispatch, constructorIngredients]);
 
   return (
     <>
