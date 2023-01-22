@@ -4,12 +4,9 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
 
 const Summary = ({totalSum}) => {
   const [isOpen, setIsOpen] = useState(false);
-  // todo(kulikov): useLoader
-  const {createOrderFail} = useSelector(store => store.orderDetails);
 
   async function openModal() {
     setIsOpen(true);
@@ -29,18 +26,13 @@ const Summary = ({totalSum}) => {
           <CurrencyIcon type="primary"/>
         </div>
       </div>
+      {/*todo(kulikov): disable for incomplete order*/}
       <Button htmlType="button" type="primary" size="large" onClick={openModal}>
         Оформить заказ
       </Button>
       {isOpen && (
         <Modal headerText='' closeModal={closeModal}>
-          {createOrderFail ? (
-            <p className={`${styles.error} text text_type_main-medium`}>
-              Ошибка при создании заказа.<br/>Попробуйте ещё раз.
-            </p>
-          ) : (
-            <OrderDetails/>
-          )}
+          <OrderDetails/>
         </Modal>
       )}
     </div>);

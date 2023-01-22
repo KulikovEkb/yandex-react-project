@@ -18,8 +18,6 @@ const BurgerConstructor = () => {
     return fillers.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
   }, [bun, fillers]);
 
-  if (!bun && arrayIsEmpty(fillers)) return null;
-
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
       <Ingredients bun={bun} fillers={fillers}/>
@@ -29,15 +27,26 @@ const BurgerConstructor = () => {
 
 const Ingredients = ({bun, fillers}) => {
   return (
-    <div className={styles.items}>
-      {bun && <Bun bun={bun} type='top'/>}
+    <div className={styles.ingredients}>
+      <Bun bun={bun} type='top'/>
       <FillersList fillers={fillers}/>
-      {bun && <Bun bun={bun} type='bottom'/>}
+      <Bun bun={bun} type='bottom'/>
     </div>);
 }
 
 const Bun = ({bun, type}) => {
-  const text = type === 'top' ? `${bun.name} (верх)` : `${bun.name} (низ)`;
+  const isTopBun = type === 'top';
+
+  if (!bun) {
+    return (
+      // todo(kulikov): deal with margin and paddings
+      <div className={`${isTopBun ? styles.emptyTopBun : styles.emptyBottomBun} ml-8`}>
+        Выберите булки
+      </div>
+    );
+  }
+
+  const text = isTopBun ? `${bun.name} (верх)` : `${bun.name} (низ)`;
 
   return (
     <div className='ml-8'>
@@ -54,7 +63,12 @@ const Bun = ({bun, type}) => {
 
 const FillersList = ({fillers}) => {
   if (arrayIsEmpty(fillers)) {
-    return null;
+    return (
+      // todo(kulikov): deal with margin and paddings
+      <div className={`${styles.emptyFiller} pr-4`}>
+        Выберите начинку
+      </div>
+    );
   }
 
   const className = fillers.length > 5
@@ -85,12 +99,12 @@ const Filler = ({filler}) => {
 }
 
 Ingredients.propTypes = {
-  bun: elementsShape.isRequired,
-  fillers: PropTypes.arrayOf(ingredientShape).isRequired,
+  bun: elementsShape,
+  fillers: PropTypes.arrayOf(ingredientShape),
 };
 
 Bun.propTypes = {
-  bun: ingredientShape.isRequired,
+  bun: ingredientShape,
   type: PropTypes.string.isRequired,
 };
 
