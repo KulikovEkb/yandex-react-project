@@ -8,13 +8,9 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import {useDispatch, useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
-import {
-  INCREMENT_INGREDIENT_COUNTER,
-  INGREDIENT_MODAL_CLOSED,
-  INGREDIENT_MODAL_OPEN,
-  SET_BUN_ID
-} from "./actions/ingredients-actions";
+import {INCREMENT_INGREDIENT_COUNTER, SET_BUN_ID} from "./actions/ingredients-actions";
 import {ADD_BUN, ADD_INGREDIENT} from "../burger-constructor/actions/constructor-actions";
+import {INGREDIENT_MODAL_CLOSED, INGREDIENT_MODAL_OPEN} from "../ingredient-details/actions/ingredient-details-actions";
 
 const BurgerIngredients = () => {
   const {ingredients} = useSelector(store => store.ingredients);

@@ -2,10 +2,11 @@ import styles from './order-details.module.css'
 import doneImage from "../../images/done.png";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {createOrder} from "../burger-constructor/actions/constructor-actions";
+import {createOrder} from "./actions/order-details-actions";
 
 const OrderDetails = () => {
-  const {bun, ingredients, orderNumber} = useSelector(store => store.constructorReducer);
+  const {orderNumber} = useSelector(store => store.orderDetails);
+  const {bun, ingredients} = useSelector(store => store.constructorReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

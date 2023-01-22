@@ -4,7 +4,7 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {elementsShape} from "../../shapes/shapes";
-import {arrayIsEmpty, objectIsEmpty} from "../../helpers/collection-helper";
+import {arrayIsEmpty} from "../../helpers/collection-helper";
 
 function calculateTotalSum(bun, ingredients) {
   if (!bun && arrayIsEmpty(ingredients)) return 0;

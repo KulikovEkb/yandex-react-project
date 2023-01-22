@@ -8,15 +8,6 @@ const initialState = {
 
   bunId: null,
   countersMap: null,
-
-  ingredientDetails: {
-    name: null,
-    image: null,
-    calories: null,
-    proteins: null,
-    fat: null,
-    carbohydrates: null,
-  },
 };
 
 export function ingredientsReducer(state = initialState, action) {
@@ -36,24 +27,6 @@ export function ingredientsReducer(state = initialState, action) {
 
     case actions.GET_INGREDIENTS_FAIL: {
       return {...state, getIngredientsRequest: false, getIngredientsFail: true};
-    }
-
-    case actions.INGREDIENT_MODAL_OPEN: {
-      return {
-        ...state,
-        ingredientDetails: {
-          name: action.ingredient.name,
-          image: action.ingredient.image_large,
-          calories: action.ingredient.calories,
-          proteins: action.ingredient.proteins,
-          fat: action.ingredient.fat,
-          carbohydrates: action.ingredient.carbohydrates,
-        }
-      };
-    }
-
-    case actions.INGREDIENT_MODAL_CLOSED: {
-      return {...state, ingredientDetails: initialState.ingredientDetails};
     }
 
     case actions.SET_BUN_ID: {
