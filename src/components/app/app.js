@@ -5,11 +5,11 @@ import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor";
 import ErrorBoundary from "../../helpers/error-boundary";
 import {useDispatch, useSelector} from "react-redux";
-import {getIngredients} from "../../services/actions/common-actions";
+import {getIngredients} from "../burger-ingredients/actions/ingredients-actions";
 
 function App() {
   // todo(kulikov): use loader
-  const {getIngredientsRequest, getIngredientsFail} = useSelector(store => store.common);
+  const {getIngredientsRequest, getIngredientsFail} = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
 
   useEffect(() => {

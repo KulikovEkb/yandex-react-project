@@ -7,16 +7,17 @@ import {ingredientShape} from "../../shapes/shapes";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import {useDispatch, useSelector} from "react-redux";
-import {
-  ADD_BUN,
-  ADD_INGREDIENT,
-  INGREDIENT_MODAL_CLOSED,
-  INGREDIENT_MODAL_OPEN
-} from "../../services/actions/common-actions";
 import {objectIsEmpty} from "../../helpers/collection-helper";
+import {
+  INCREMENT_INGREDIENT_COUNTER,
+  INGREDIENT_MODAL_CLOSED,
+  INGREDIENT_MODAL_OPEN,
+  SET_BUN_ID
+} from "./actions/ingredients-actions";
+import {ADD_BUN, ADD_INGREDIENT} from "../burger-constructor/actions/constructor-actions";
 
 const BurgerIngredients = () => {
-  const {ingredients} = useSelector(store => store.common);
+  const {ingredients} = useSelector(store => store.ingredients);
 
   if (objectIsEmpty(ingredients)) return null;
 
@@ -81,20 +82,20 @@ const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
     <div className={styles.cards} ref={x => ref.current[header] = x}>
       <p className='text text_type_main-medium'>{header}</p>
       <div className={`${styles.cardsList} pl-4 pr-2`}>
-        {ingredients.map(ingredient => <IngredientCard key={ingredient._id} data={ingredient}/>)}
+        {ingredients.map(ingredient => <IngredientCard key={ingredient._id} ingredient={ingredient}/>)}
       </div>
     </div>
   );
 });
 
-const IngredientCard = ({data}) => {
-  const {ingredientCountersMap} = useSelector(store => store.common);
+const IngredientCard = ({ingredient}) => {
+  const {bunId, countersMap} = useSelector(store => store.ingredients);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   function openModal() {
     setIsOpen(true);
-    dispatch({type: INGREDIENT_MODAL_OPEN, ingredient: data})
+    dispatch({type: INGREDIENT_MODAL_OPEN, ingredient: ingredient})
   }
 
   function closeModal() {
@@ -103,14 +104,21 @@ const IngredientCard = ({data}) => {
   }
 
   function addIngredient() {
-    if (data.type === 'bun') {
-      dispatch({type: ADD_BUN, bun: data});
+    if (ingredient.type === 'bun') {
+      dispatch({type: SET_BUN_ID, id: ingredient._id});
+      dispatch({type: ADD_BUN, bun: ingredient});
     } else {
-      dispatch({type: ADD_INGREDIENT, ingredient: data});
+      dispatch({type: INCREMENT_INGREDIENT_COUNTER, id: ingredient._id});
+      dispatch({type: ADD_INGREDIENT, ingredient});
     }
   }
 
-  const count = ingredientCountersMap.get(data._id);
+  let count;
+  if (ingredient.type === 'bun') {
+    count = bunId === ingredient._id ? 1 : null;
+  } else {
+    count = countersMap.get(ingredient._id);
+  }
 
   return (
     <>
@@ -118,12 +126,12 @@ const IngredientCard = ({data}) => {
       {/*<div className={styles.card} onClick={openModal}>*/}
       <div className={styles.card}>
         {count > 0 && <Counter count={count} size='default'/>}
-        <img className={styles.image} src={data.image} alt={data.name} onClick={openModal}/>
+        <img className={styles.image} src={ingredient.image} alt={ingredient.name} onClick={openModal}/>
         <div className={styles.price}>
-          <p className={`text text_type_digits-default`}>{data.price}</p>
+          <p className={`text text_type_digits-default`}>{ingredient.price}</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <p className={`text text_type_main-default ${styles.name}`}>{data.name}</p>
+        <p className={`text text_type_main-default ${styles.name}`}>{ingredient.name}</p>
         {/*todo(kulikov): remove*/}
         <button style={{display: 'flex', alignItems: 'center'}} onClick={addIngredient}>Add</button>
       </div>
@@ -152,7 +160,7 @@ IngredientsCards.propTypes = {
 };
 
 IngredientCard.propTypes = {
-  data: ingredientShape.isRequired,
+  ingredient: ingredientShape.isRequired,
 };
 
 export default BurgerIngredients;

@@ -1,9 +1,15 @@
 import styles from './ingredient-details.module.css'
-import {ingredientDetailsShape} from "../../shapes/shapes";
 import {useSelector} from "react-redux";
 
 const IngredientDetails = () => {
-  const {name, image, calories, proteins, fat, carbohydrates} = useSelector(store => store.common.ingredientDetails);
+  const {
+    name,
+    image,
+    calories,
+    proteins,
+    fat,
+    carbohydrates
+  } = useSelector(store => store.ingredients.ingredientDetails);
 
   return (
     <>
@@ -32,10 +38,6 @@ const Detail = ({header, value}) => {
       <p className={`${styles.ingredientDetailText} text text_type_digits-default`}>{value}</p>
     </div>
   );
-}
-
-IngredientDetails.propTypes = {
-  //ingredient: ingredientDetailsShape.isRequired,
 }
 
 export default IngredientDetails;

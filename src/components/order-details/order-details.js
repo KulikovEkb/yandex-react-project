@@ -1,21 +1,20 @@
 import styles from './order-details.module.css'
 import doneImage from "../../images/done.png";
-import PropTypes from "prop-types";
-import {createOrder} from "../../services/actions/common-actions";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+import {createOrder} from "../burger-constructor/actions/constructor-actions";
 
 const OrderDetails = () => {
-  const {constructorIngredients, orderNumber} = useSelector(store => store.common);
+  const {bun, ingredients, orderNumber} = useSelector(store => store.constructorReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const elementsIds = constructorIngredients.fillers.map(x => x._id);
-    elementsIds.push(constructorIngredients.bun._id);
-    elementsIds.push(constructorIngredients.bun._id);
+    const elementsIds = ingredients.map(x => x._id);
+    elementsIds.push(bun._id);
+    elementsIds.push(bun._id);
 
     dispatch(createOrder(elementsIds))
-  }, [dispatch, constructorIngredients]);
+  }, [dispatch, bun, ingredients]);
 
   return (
     <>
@@ -43,10 +42,6 @@ const OrderDetails = () => {
         </p>
       </div>
     </>);
-}
-
-OrderDetails.propTypes = {
-  //orderNumber: PropTypes.number.isRequired,
 }
 
 export default OrderDetails;

@@ -4,26 +4,26 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {elementsShape} from "../../shapes/shapes";
-import {objectIsEmpty} from "../../helpers/collection-helper";
+import {arrayIsEmpty, objectIsEmpty} from "../../helpers/collection-helper";
 
-function calculateTotalSum(elements) {
-  if (objectIsEmpty(elements)) return 0;
+function calculateTotalSum(bun, ingredients) {
+  if (!bun && arrayIsEmpty(ingredients)) return 0;
 
-  return elements.fillers.reduce((x, y) => x + y.price, 0) + ((elements.bun?.price ?? 0) * 2);
+  return ingredients.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
 }
 
 function totalSumReducer(state, action) {
-  return calculateTotalSum(action.elements);
+  return calculateTotalSum(action.bun, action.ingredients);
 }
 
-const Summary = ({elements}) => {
+const Summary = ({bun, ingredients}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [totalSum, dispatchTotalSum] = useReducer(totalSumReducer, 0, undefined);
 
   useEffect(() => {
-    dispatchTotalSum({elements});
-  }, [elements]);
+    dispatchTotalSum({bun, ingredients});
+  }, [bun, ingredients]);
 
   async function openModal() {
     setIsOpen(true);

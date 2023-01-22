@@ -1,6 +1,8 @@
 import {combineReducers} from "redux";
-import {commonReducers} from "./reducers/common-reducers";
+import {ingredientsReducer} from "../components/burger-ingredients/reducers/ingredients-reducer";
+import {constructorReducer} from "../components/burger-constructor/reducers/constructor-reducer";
 
 export const rootReducer = combineReducers({
-  common: commonReducers,
+  ingredients: ingredientsReducer,
+  constructorReducer: constructorReducer,
 });

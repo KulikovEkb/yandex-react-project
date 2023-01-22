@@ -4,30 +4,30 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import {elementsShape, ingredientShape} from "../../shapes/shapes";
 import React from "react";
 import Summary from "./summary";
-import {v4 as newGuid} from 'uuid';
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {REMOVE_INGREDIENT} from "../../services/actions/common-actions";
-import {objectIsEmpty} from "../../helpers/collection-helper";
+import {arrayIsEmpty, objectIsEmpty} from "../../helpers/collection-helper";
+import {DECREMENT_INGREDIENT_COUNTER} from "../burger-ingredients/actions/ingredients-actions";
+import {REMOVE_INGREDIENT} from "./actions/constructor-actions";
 
 const BurgerConstructor = () => {
-  const {ingredients, constructorIngredients} = useSelector(store => store.common);
+  const {bun, ingredients} = useSelector(store => store.constructorReducer);
 
-  if (objectIsEmpty(constructorIngredients)) return null;
+  if (!bun && arrayIsEmpty(ingredients)) return null;
 
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
-      <Items items={constructorIngredients}/>
-      <Summary elements={constructorIngredients}/>
+      <Items bun={bun} ingredients={ingredients}/>
+      <Summary bun={bun} ingredients={ingredients}/>
     </div>);
 }
 
-const Items = ({items}) => {
+const Items = ({bun, ingredients}) => {
   return (
     <div className={styles.items}>
-      {items.bun && <Bun bun={items.bun} type='top'/>}
-      <FillersList fillers={items.fillers}/>
-      {items.bun && <Bun bun={items.bun} type='bottom'/>}
+      {bun && <Bun bun={bun} type='top'/>}
+      <FillersList fillers={ingredients}/>
+      {bun && <Bun bun={bun} type='bottom'/>}
     </div>);
 }
 
@@ -67,7 +67,8 @@ const Filler = ({filler}) => {
   const dispatch = useDispatch();
 
   function removeIngredient() {
-    dispatch({type: REMOVE_INGREDIENT, key: filler.key, id: filler._id})
+    dispatch({type: DECREMENT_INGREDIENT_COUNTER, id: filler._id})
+    dispatch({type: REMOVE_INGREDIENT, key: filler.key})
   }
 
   return (
