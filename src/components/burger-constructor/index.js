@@ -1,32 +1,33 @@
 import styles from './burger-constructor.module.css'
-import scrollBarStyles from '../../utils/scroll-bar.module.css'
+import scrollBarStyles from '../../helpers/scroll-bar.module.css'
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {elementsShape, ingredientShape} from "../../shapes/shapes";
 import React from "react";
 import Summary from "./summary";
 import {v4 as newGuid} from 'uuid';
 import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {REMOVE_INGREDIENT} from "../../services/actions/common-actions";
+import {objectIsEmpty} from "../../helpers/collection-helper";
 
 const BurgerConstructor = () => {
   const {ingredients, constructorIngredients} = useSelector(store => store.common);
 
-  // todo(kulikov): create util
-  if (!constructorIngredients || Object.keys(constructorIngredients).length === 0) return null;
+  if (objectIsEmpty(constructorIngredients)) return null;
 
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
-      <Elements elements={constructorIngredients}/>
+      <Items items={constructorIngredients}/>
       <Summary elements={constructorIngredients}/>
     </div>);
 }
 
-const Elements = ({elements}) => {
+const Items = ({items}) => {
   return (
-    <div className={styles.elements}>
-      <Bun bun={elements.top} type='top'/>
-      <FillersList fillers={elements.fillers}/>
-      <Bun bun={elements.bottom} type='bottom'/>
+    <div className={styles.items}>
+      {items.bun && <Bun bun={items.bun} type='top'/>}
+      <FillersList fillers={items.fillers}/>
+      {items.bun && <Bun bun={items.bun} type='bottom'/>}
     </div>);
 }
 
@@ -57,12 +58,18 @@ const FillersList = ({fillers}) => {
 
   return (
     <div className={className}>
-      {fillers.map(fillerData => <Filler key={newGuid()} filler={fillerData}/>)}
+      {fillers.map(fillerData => <Filler key={fillerData.key} filler={fillerData}/>)}
     </div>
   );
 }
 
 const Filler = ({filler}) => {
+  const dispatch = useDispatch();
+
+  function removeIngredient() {
+    dispatch({type: REMOVE_INGREDIENT, key: filler.key, id: filler._id})
+  }
+
   return (
     <div className={styles.filler}>
       <DragIcon type="primary"/>
@@ -70,13 +77,14 @@ const Filler = ({filler}) => {
         text={filler.name}
         price={filler.price}
         thumbnail={filler.image}
+        handleClose={removeIngredient}
       />
     </div>
   );
 }
 
-Elements.propTypes = {
-  elements: elementsShape.isRequired,
+Items.propTypes = {
+  items: elementsShape.isRequired,
 };
 
 Bun.propTypes = {

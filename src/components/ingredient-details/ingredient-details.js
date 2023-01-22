@@ -3,23 +3,23 @@ import {ingredientDetailsShape} from "../../shapes/shapes";
 import {useSelector} from "react-redux";
 
 const IngredientDetails = () => {
-  const {modalIngredient} = useSelector(store => store.common);
+  const {name, image, calories, proteins, fat, carbohydrates} = useSelector(store => store.common.ingredientDetails);
 
   return (
     <>
       <div className={styles.ingredientImage}>
-        <img src={modalIngredient.image_large} alt={modalIngredient.name}/>
+        <img src={image} alt={name}/>
       </div>
 
       <div className='mt-4'>
-        <p className={`${styles.ingredientName} text text_type_main-medium`}>{modalIngredient.name}</p>
+        <p className={`${styles.ingredientName} text text_type_main-medium`}>{name}</p>
       </div>
 
       <div className={`${styles.ingredientDetails} mt-8`}>
-        <Detail header='Калории, ккал' value={modalIngredient.calories}/>
-        <Detail header='Белки, г' value={modalIngredient.proteins}/>
-        <Detail header='Жиры, г' value={modalIngredient.fat}/>
-        <Detail header='Углеводы, г' value={modalIngredient.carbohydrates}/>
+        <Detail header='Калории, ккал' value={calories}/>
+        <Detail header='Белки, г' value={proteins}/>
+        <Detail header='Жиры, г' value={fat}/>
+        <Detail header='Углеводы, г' value={carbohydrates}/>
       </div>
     </>
   );

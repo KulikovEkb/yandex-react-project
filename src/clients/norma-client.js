@@ -1,4 +1,3 @@
-import categorizeIngredients from "./helpers/ingredients-categorizer";
 import {sendGetRequest, sendPostRequest} from "./helpers/http-client-helper";
 
 class NormaClient {
@@ -6,7 +5,7 @@ class NormaClient {
 
   getIngredients = () => {
     return sendGetRequest(`${NormaClient.baseUri}/ingredients`)
-      .then(result => categorizeIngredients(result.data));
+      .then(result => result.data);
   }
 
   createOrder = (elementsIds) => {

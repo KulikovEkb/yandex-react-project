@@ -3,7 +3,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor";
-import ErrorBoundary from "../../utils/error-boundary";
+import ErrorBoundary from "../../helpers/error-boundary";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/actions/common-actions";
 

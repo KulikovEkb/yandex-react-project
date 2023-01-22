@@ -11,8 +11,8 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const elementsIds = constructorIngredients.fillers.map(x => x._id);
-    elementsIds.push(constructorIngredients.top._id);
-    elementsIds.push(constructorIngredients.bottom._id);
+    elementsIds.push(constructorIngredients.bun._id);
+    elementsIds.push(constructorIngredients.bun._id);
 
     dispatch(createOrder(elementsIds))
   }, [dispatch, constructorIngredients]);

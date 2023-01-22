@@ -4,11 +4,12 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {elementsShape} from "../../shapes/shapes";
+import {objectIsEmpty} from "../../helpers/collection-helper";
 
 function calculateTotalSum(elements) {
-  if (!elements || Object.keys(elements).length === 0) return 0;
+  if (objectIsEmpty(elements)) return 0;
 
-  return elements.fillers.reduce((x, y) => x + y.price, 0) + elements.top.price + elements.bottom.price;
+  return elements.fillers.reduce((x, y) => x + y.price, 0) + ((elements.bun?.price ?? 0) * 2);
 }
 
 function totalSumReducer(state, action) {

@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-.elements {
+.items {
     display: flex;
     flex-direction: column;
     gap: 16px;
