@@ -7,6 +7,6 @@ import {orderDetailsReducer} from "../components/order-details/reducers/order-de
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   ingredientDetails: ingredientDetailsReducer,
-  constructorReducer: constructorReducer,
+  burgerConstructor: constructorReducer,
   orderDetails: orderDetailsReducer,
 });

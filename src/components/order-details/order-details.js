@@ -6,16 +6,16 @@ import {createOrder} from "./actions/order-details-actions";
 
 const OrderDetails = () => {
   const {orderNumber} = useSelector(store => store.orderDetails);
-  const {bun, ingredients} = useSelector(store => store.constructorReducer);
+  const {bun, fillers} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const elementsIds = ingredients.map(x => x._id);
+    const elementsIds = fillers.map(x => x._id);
     elementsIds.push(bun._id);
     elementsIds.push(bun._id);
 
     dispatch(createOrder(elementsIds))
-  }, [dispatch, bun, ingredients]);
+  }, [dispatch, bun, fillers]);
 
   return (
     <>

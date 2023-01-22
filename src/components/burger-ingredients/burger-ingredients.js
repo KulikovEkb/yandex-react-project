@@ -8,8 +8,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import {useDispatch, useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
-import {INCREMENT_INGREDIENT_COUNTER, SET_BUN_ID} from "./actions/ingredients-actions";
-import {ADD_BUN, ADD_INGREDIENT} from "../burger-constructor/actions/constructor-actions";
+import {addIngredient} from "./actions/ingredients-actions";
 import {INGREDIENT_MODAL_CLOSED, INGREDIENT_MODAL_OPEN} from "../ingredient-details/actions/ingredient-details-actions";
 
 const BurgerIngredients = () => {
@@ -99,16 +98,6 @@ const IngredientCard = ({ingredient}) => {
     dispatch({type: INGREDIENT_MODAL_CLOSED})
   }
 
-  function addIngredient() {
-    if (ingredient.type === 'bun') {
-      dispatch({type: SET_BUN_ID, id: ingredient._id});
-      dispatch({type: ADD_BUN, bun: ingredient});
-    } else {
-      dispatch({type: INCREMENT_INGREDIENT_COUNTER, id: ingredient._id});
-      dispatch({type: ADD_INGREDIENT, ingredient});
-    }
-  }
-
   let count;
   if (ingredient.type === 'bun') {
     count = bunId === ingredient._id ? 1 : null;
@@ -129,7 +118,9 @@ const IngredientCard = ({ingredient}) => {
         </div>
         <p className={`text text_type_main-default ${styles.name}`}>{ingredient.name}</p>
         {/*todo(kulikov): remove*/}
-        <button style={{display: 'flex', alignItems: 'center'}} onClick={addIngredient}>Add</button>
+        <button style={{display: 'flex', alignItems: 'center'}}
+                onClick={() => dispatch(addIngredient(ingredient))}>Add
+        </button>
       </div>
       {isOpen && (
         <Modal headerText='Детали ингредиента' closeModal={closeModal}>

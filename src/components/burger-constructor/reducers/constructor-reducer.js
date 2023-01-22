@@ -4,11 +4,7 @@ import * as actions from '../actions/constructor-actions';
 
 const initialState = {
   bun: null,
-  ingredients: [],
-
-  orderNumber: {},
-  createdOrderRequest: false,
-  createOrderFail: false,
+  fillers: [],
 };
 
 export function constructorReducer(state = initialState, action) {
@@ -20,14 +16,14 @@ export function constructorReducer(state = initialState, action) {
     case actions.ADD_INGREDIENT: {
       return {
         ...state,
-        ingredients: [{...action.ingredient, key: newGuid()}, ...state.ingredients]
+        fillers: [{...action.ingredient, key: newGuid()}, ...state.fillers]
       };
     }
 
     case actions.REMOVE_INGREDIENT: {
       return {
         ...state,
-        ingredients: state.ingredients.filter(x => x.key !== action.key)
+        fillers: state.fillers.filter(x => x.key !== action.key)
       };
     }
 

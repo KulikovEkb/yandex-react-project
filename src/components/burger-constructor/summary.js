@@ -1,29 +1,15 @@
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useState} from "react";
 import styles from "./burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import {elementsShape} from "../../shapes/shapes";
-import {arrayIsEmpty} from "../../helpers/collection-helper";
+import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
 
-function calculateTotalSum(bun, ingredients) {
-  if (!bun && arrayIsEmpty(ingredients)) return 0;
-
-  return ingredients.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
-}
-
-function totalSumReducer(state, action) {
-  return calculateTotalSum(action.bun, action.ingredients);
-}
-
-const Summary = ({bun, ingredients}) => {
+const Summary = ({totalSum}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [totalSum, dispatchTotalSum] = useReducer(totalSumReducer, 0, undefined);
-
-  useEffect(() => {
-    dispatchTotalSum({bun, ingredients});
-  }, [bun, ingredients]);
+  // todo(kulikov): useLoader
+  const {createOrderFail} = useSelector(store => store.orderDetails);
 
   async function openModal() {
     setIsOpen(true);
@@ -48,7 +34,7 @@ const Summary = ({bun, ingredients}) => {
       </Button>
       {isOpen && (
         <Modal headerText='' closeModal={closeModal}>
-          {hasError ? (
+          {createOrderFail ? (
             <p className={`${styles.error} text text_type_main-medium`}>
               Ошибка при создании заказа.<br/>Попробуйте ещё раз.
             </p>
@@ -61,7 +47,7 @@ const Summary = ({bun, ingredients}) => {
 }
 
 Summary.propTypes = {
-  elements: elementsShape.isRequired,
+  totalSum: PropTypes.number.isRequired,
 };
 
 export default Summary;

@@ -1,4 +1,5 @@
 import normaClient from "../../../clients/norma-client";
+import {ADD_BUN, ADD_INGREDIENT} from "../../burger-constructor/actions/constructor-actions";
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -24,4 +25,16 @@ export function getIngredients() {
       dispatch({type: GET_INGREDIENTS_FAIL});
     }
   };
+}
+
+export function addIngredient(ingredient) {
+  return function (dispatch) {
+    if (ingredient.type === 'bun') {
+      dispatch({type: SET_BUN_ID, id: ingredient._id});
+      dispatch({type: ADD_BUN, bun: ingredient});
+    } else {
+      dispatch({type: INCREMENT_INGREDIENT_COUNTER, id: ingredient._id});
+      dispatch({type: ADD_INGREDIENT, ingredient});
+    }
+  }
 }

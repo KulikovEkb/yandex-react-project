@@ -2,31 +2,36 @@ import styles from './burger-constructor.module.css'
 import scrollBarStyles from '../../helpers/scroll-bar.module.css'
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {elementsShape, ingredientShape} from "../../shapes/shapes";
-import React from "react";
+import React, {useMemo} from "react";
 import Summary from "./summary";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {arrayIsEmpty, objectIsEmpty} from "../../helpers/collection-helper";
-import {DECREMENT_INGREDIENT_COUNTER} from "../burger-ingredients/actions/ingredients-actions";
-import {REMOVE_INGREDIENT} from "./actions/constructor-actions";
+import {arrayIsEmpty} from "../../helpers/collection-helper";
+import {removeIngredient} from "./actions/constructor-actions";
 
 const BurgerConstructor = () => {
-  const {bun, ingredients} = useSelector(store => store.constructorReducer);
+  const {bun, fillers} = useSelector(store => store.burgerConstructor);
 
-  if (!bun && arrayIsEmpty(ingredients)) return null;
+  const totalSum = useMemo(() => {
+    if (!bun && arrayIsEmpty(fillers)) return 0;
+
+    return fillers.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
+  }, [bun, fillers]);
+
+  if (!bun && arrayIsEmpty(fillers)) return null;
 
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
-      <Items bun={bun} ingredients={ingredients}/>
-      <Summary bun={bun} ingredients={ingredients}/>
+      <Ingredients bun={bun} fillers={fillers}/>
+      <Summary totalSum={totalSum}/>
     </div>);
 }
 
-const Items = ({bun, ingredients}) => {
+const Ingredients = ({bun, fillers}) => {
   return (
     <div className={styles.items}>
       {bun && <Bun bun={bun} type='top'/>}
-      <FillersList fillers={ingredients}/>
+      <FillersList fillers={fillers}/>
       {bun && <Bun bun={bun} type='bottom'/>}
     </div>);
 }
@@ -48,7 +53,7 @@ const Bun = ({bun, type}) => {
 }
 
 const FillersList = ({fillers}) => {
-  if (!fillers || fillers.length === 0) {
+  if (arrayIsEmpty(fillers)) {
     return null;
   }
 
@@ -66,11 +71,6 @@ const FillersList = ({fillers}) => {
 const Filler = ({filler}) => {
   const dispatch = useDispatch();
 
-  function removeIngredient() {
-    dispatch({type: DECREMENT_INGREDIENT_COUNTER, id: filler._id})
-    dispatch({type: REMOVE_INGREDIENT, key: filler.key})
-  }
-
   return (
     <div className={styles.filler}>
       <DragIcon type="primary"/>
@@ -78,14 +78,15 @@ const Filler = ({filler}) => {
         text={filler.name}
         price={filler.price}
         thumbnail={filler.image}
-        handleClose={removeIngredient}
+        handleClose={() => dispatch(removeIngredient(filler._id, filler.key))}
       />
     </div>
   );
 }
 
-Items.propTypes = {
-  items: elementsShape.isRequired,
+Ingredients.propTypes = {
+  bun: elementsShape.isRequired,
+  fillers: PropTypes.arrayOf(ingredientShape).isRequired,
 };
 
 Bun.propTypes = {
