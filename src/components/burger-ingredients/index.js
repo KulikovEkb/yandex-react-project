@@ -1,12 +1,13 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../helpers/scroll-bar.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {forwardRef, useRef} from "react";
+import React, {forwardRef, useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
 import {useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
 import IngredientCard from "./ingredient-card";
+import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
   const {ingredients} = useSelector(store => store.ingredients);
@@ -30,11 +31,38 @@ const Header = () => {
 }
 
 const IngredientsSection = ({ingredients}) => {
+  const [current, setCurrent] = React.useState('Булки');
   const tabsRef = useRef({});
+  const [ref, inView] = useInView({
+    threshold: 0
+  });
+
+  const [ref2, inView2] = useInView({
+    threshold: 0
+  });
+
+  const [ref3, inView3] = useInView({
+    threshold: 0
+  });
+
+  tabsRef.current['Булки'] = ref;
+  tabsRef.current['Соусы'] = ref2;
+  tabsRef.current['Начинки'] = ref3;
+
+  useEffect(() => {
+    if (inView) {
+      setCurrent('Булки');
+    } else if (inView2) {
+      setCurrent('Соусы');
+    } else if (inView3) {
+      setCurrent('Начинки');
+    }
+  }, [inView, inView2, inView3]);
 
   return (
     <>
-      <IngredientsTabs ref={tabsRef}/>
+      {/*<IngredientsTabs ref={tabsRef}/>*/}
+      <IngredientsTabs current={current} setCurrent={setCurrent} ref={tabsRef}/>
 
       <div className={`${styles.ingredientsSection} ${scrollBarStyles.scrollBar} mt-10`}>
         <IngredientsCards ref={tabsRef} ingredients={ingredients.buns} header='Булки'/>
@@ -45,13 +73,23 @@ const IngredientsSection = ({ingredients}) => {
   );
 }
 
-const IngredientsTabs = forwardRef((props, ref) => {
-  const [current, setCurrent] = React.useState('Булки');
+const IngredientsTabs = forwardRef(({current, setCurrent}, ref) => {
+  /*const { ref: inViewRef, inView, entry } = useInView({
+    /!* Optional options *!/
+    threshold: 0.5,
+  });
+  useEffect(() => {
+    if (inView) {
+      setCurrent(true);
+    } else {
+      setCurrent(false);
+    }
+  }, [inView]);*/
 
   const onTabClick = (tab) => {
     setCurrent(tab);
 
-    ref.current[tab].scrollIntoView({behavior: 'smooth'});
+    //ref.current[tab].scrollIntoView({behavior: 'smooth'});
   }
 
   return (
@@ -71,8 +109,9 @@ const IngredientsTabs = forwardRef((props, ref) => {
 
 const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
   return (
-    <div className={styles.cards} ref={x => ref.current[header] = x}>
-      <p className='text text_type_main-medium'>{header}</p>
+    //<div className={styles.cards} ref={x => ref.current[header] = x}>
+    <div className={styles.cards}>
+      <p ref={ref.current[header]} className='text text_type_main-medium'>{header}</p>
       <div className={`${styles.cardsList} pl-4 pr-2`}>
         {ingredients.map(ingredient => <IngredientCard key={ingredient._id} ingredient={ingredient}/>)}
       </div>
