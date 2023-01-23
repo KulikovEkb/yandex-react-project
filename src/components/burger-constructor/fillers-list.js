@@ -62,7 +62,7 @@ const EmptyFiller = () => {
 const Filler = ({filler, index, moveItem}) => {
   const dispatch = useDispatch();
 
-  const [{isDragging}, drag] = useDrag({
+  const [{isDragging}, dragRef] = useDrag({
     item: {...filler, index},
     type: filler.type,
     //item: {ingredient, index},
@@ -106,7 +106,8 @@ const Filler = ({filler, index, moveItem}) => {
   });
 
   return (
-    <div className={styles.filler} ref={(node) => drag(dropRef(node))}
+    // todo(kulikov): deal with style
+    <div className={styles.filler} ref={(node) => dragRef(dropRef(node))}
          style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
       <DragIcon type="primary"/>
       <ConstructorElement

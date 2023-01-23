@@ -4,8 +4,11 @@ import {elementsShape, ingredientShape} from "../../shapes/shapes";
 import React, {useMemo} from "react";
 import Summary from "./summary";
 import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import FillersList from "./fillers-list";
+import {objectIsEmpty} from "../../helpers/collection-helper";
+import {useDrop} from "react-dnd";
+import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
 
 const BurgerConstructor = () => {
   const {bun, fillers} = useSelector(store => store.burgerConstructor);
@@ -17,7 +20,7 @@ const BurgerConstructor = () => {
   return (
     <div className={`${styles.constructor} pt-25 pl-4`}>
       <Ingredients bun={bun} fillers={fillers}/>
-      <Summary totalSum={totalSum}/>
+      <Summary totalSum={totalSum} canOrder={!objectIsEmpty(bun)}/>
     </div>);
 }
 
@@ -31,12 +34,26 @@ const Ingredients = ({bun, fillers}) => {
 }
 
 const Bun = ({bun, type}) => {
+  const dispatch = useDispatch();
+
+  const [{isHover}, dropRef] = useDrop({
+    accept: 'bun',
+    drop(ingredient){
+      dispatch(addIngredient(ingredient));
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    })
+  });
+
   const isTopBun = type === 'top';
 
   if (!bun) {
     return (
       // todo(kulikov): deal with margin and paddings
-      <div className={`${isTopBun ? styles.emptyTopBun : styles.emptyBottomBun} ml-8`}>
+      // todo(kulikov): deal with style
+      <div ref={dropRef} className={`${isTopBun ? styles.emptyTopBun : styles.emptyBottomBun} ml-8`}
+           style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
         Выберите булки
       </div>
     );
@@ -45,7 +62,8 @@ const Bun = ({bun, type}) => {
   const text = isTopBun ? `${bun.name} (верх)` : `${bun.name} (низ)`;
 
   return (
-    <div className='ml-8'>
+    // todo(kulikov): deal with style
+    <div ref={dropRef} className='ml-8' style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
       <ConstructorElement
         type={type}
         isLocked={true}

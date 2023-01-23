@@ -5,7 +5,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
 
-const Summary = ({totalSum}) => {
+const Summary = ({totalSum, canOrder}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   async function openModal() {
@@ -27,7 +27,7 @@ const Summary = ({totalSum}) => {
         </div>
       </div>
       {/*todo(kulikov): disable for incomplete order*/}
-      <Button htmlType="button" type="primary" size="large" onClick={openModal}>
+      <Button disabled={!canOrder} htmlType="button" type="primary" size="large" onClick={openModal}>
         Оформить заказ
       </Button>
       {isOpen && (
