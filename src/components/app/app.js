@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerIngredients from "../burger-ingredients";
 import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor";
 import ErrorBoundary from "../../helpers/error-boundary";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../burger-ingredients/actions/ingredients-actions";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 function App() {
   // todo(kulikov): use loader
@@ -24,10 +26,12 @@ function App() {
           Ошибка при загрузке данных. Попробуйте ещё раз.
         </p>
       ) : (
-        <main className={styles.app}>
-          <BurgerIngredients/>
-          <BurgerConstructor/>
-        </main>
+        <DndProvider backend={HTML5Backend}>
+          <main className={styles.app}>
+            <BurgerIngredients/>
+            <BurgerConstructor/>
+          </main>
+        </DndProvider>
       )}
     </ErrorBoundary>
   );

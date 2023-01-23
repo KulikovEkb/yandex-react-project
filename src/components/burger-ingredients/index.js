@@ -1,15 +1,12 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../helpers/scroll-bar.module.css'
-import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {forwardRef, useRef, useState} from "react";
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {forwardRef, useRef} from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
-import {addIngredient} from "./actions/ingredients-actions";
-import {INGREDIENT_MODAL_CLOSED, INGREDIENT_MODAL_OPEN} from "../ingredient-details/actions/ingredient-details-actions";
+import IngredientCard from "./ingredient-card";
 
 const BurgerIngredients = () => {
   const {ingredients} = useSelector(store => store.ingredients);
@@ -83,54 +80,6 @@ const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
   );
 });
 
-const IngredientCard = ({ingredient}) => {
-  const {bunId, countersMap} = useSelector(store => store.ingredients);
-  const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  function openModal() {
-    setIsOpen(true);
-    dispatch({type: INGREDIENT_MODAL_OPEN, ingredient: ingredient})
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-    dispatch({type: INGREDIENT_MODAL_CLOSED})
-  }
-
-  let count;
-  if (ingredient.type === 'bun') {
-    count = bunId === ingredient._id ? 1 : null;
-  } else {
-    count = countersMap.get(ingredient._id);
-  }
-
-  return (
-    <>
-      {/*todo(kulikov): uncomment*/}
-      {/*<div className={styles.card} onClick={openModal}>*/}
-      <div className={styles.card}>
-        {count > 0 && <Counter count={count} size='default'/>}
-        <img className={styles.image} src={ingredient.image} alt={ingredient.name} onClick={openModal}/>
-        <div className={styles.price}>
-          <p className={`text text_type_digits-default`}>{ingredient.price}</p>
-          <CurrencyIcon type="primary"/>
-        </div>
-        <p className={`text text_type_main-default ${styles.name}`}>{ingredient.name}</p>
-        {/*todo(kulikov): remove*/}
-        <button style={{display: 'flex', alignItems: 'center'}}
-                onClick={() => dispatch(addIngredient(ingredient))}>Add
-        </button>
-      </div>
-      {isOpen && (
-        <Modal headerText='Детали ингредиента' closeModal={closeModal}>
-          <IngredientDetails/>
-        </Modal>
-      )}
-    </>
-  );
-}
-
 const ingredientsShape = PropTypes.shape({
   buns: PropTypes.arrayOf(ingredientShape),
   sauces: PropTypes.arrayOf(ingredientShape),
@@ -144,10 +93,6 @@ IngredientsSection.propTypes = {
 IngredientsCards.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientShape).isRequired,
   header: PropTypes.string.isRequired,
-};
-
-IngredientCard.propTypes = {
-  ingredient: ingredientShape.isRequired,
 };
 
 export default BurgerIngredients;

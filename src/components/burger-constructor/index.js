@@ -8,13 +8,13 @@ import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import {arrayIsEmpty} from "../../helpers/collection-helper";
 import {removeIngredient} from "./actions/constructor-actions";
+import {useDrop} from "react-dnd";
+import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
 
 const BurgerConstructor = () => {
   const {bun, fillers} = useSelector(store => store.burgerConstructor);
 
   const totalSum = useMemo(() => {
-    if (!bun && arrayIsEmpty(fillers)) return 0;
-
     return fillers.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
   }, [bun, fillers]);
 
@@ -62,10 +62,23 @@ const Bun = ({bun, type}) => {
 }
 
 const FillersList = ({fillers}) => {
+  const dispatch = useDispatch();
+
+  const [{isHover}, dropRef] = useDrop({
+    accept: ['main', 'sauce'],
+    drop(ingredient) {
+      dispatch(addIngredient(ingredient));
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    })
+  });
+
   if (arrayIsEmpty(fillers)) {
     return (
       // todo(kulikov): deal with margin and paddings
-      <div className={`${styles.emptyFiller} pr-4`}>
+      // todo(kulikov): deal with style
+      <div ref={dropRef} className={`${styles.emptyFiller} pr-4`} style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
         Выберите начинку
       </div>
     );
@@ -76,7 +89,7 @@ const FillersList = ({fillers}) => {
     : `${styles.fillersList} pr-4`;
 
   return (
-    <div className={className}>
+    <div ref={dropRef} className={className}>
       {fillers.map(fillerData => <Filler key={fillerData.key} filler={fillerData}/>)}
     </div>
   );

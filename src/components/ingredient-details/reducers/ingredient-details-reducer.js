@@ -11,7 +11,7 @@ const initialState = {
 
 export function ingredientDetailsReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.INGREDIENT_MODAL_OPEN: {
+    case actions.SET_DETAILS: {
       return {
         ...state,
         name: action.ingredient.name,
@@ -23,7 +23,7 @@ export function ingredientDetailsReducer(state = initialState, action) {
       };
     }
 
-    case actions.INGREDIENT_MODAL_CLOSED: {
+    case actions.RESET_DETAILS: {
       return {
         ...initialState,
       };
