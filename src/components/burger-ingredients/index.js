@@ -33,16 +33,16 @@ const Header = () => {
 const IngredientsSection = ({ingredients}) => {
   const [current, setCurrent] = React.useState('Булки');
   const tabsRef = useRef({});
-  const [ref, inView] = useInView({
-    threshold: 0
+  const [ref, inView, entry] = useInView({
+    threshold: 0.5
   });
 
-  const [ref2, inView2] = useInView({
-    threshold: 0
+  const [ref2, inView2, entry2] = useInView({
+    threshold: 0.5
   });
 
-  const [ref3, inView3] = useInView({
-    threshold: 0
+  const [ref3, inView3, entry3] = useInView({
+    threshold: 0.5
   });
 
   tabsRef.current['Булки'] = ref;
@@ -50,11 +50,11 @@ const IngredientsSection = ({ingredients}) => {
   tabsRef.current['Начинки'] = ref3;
 
   useEffect(() => {
-    if (inView) {
+    if (inView && entry.intersectionRatio > 0) {
       setCurrent('Булки');
-    } else if (inView2) {
+    } else if (inView2 && entry2.intersectionRatio > 0.5) {
       setCurrent('Соусы');
-    } else if (inView3) {
+    } else if (inView3 && entry3.intersectionRatio > 0.5) {
       setCurrent('Начинки');
     }
   }, [inView, inView2, inView3]);
