@@ -17,14 +17,21 @@ export function constructorReducer(state = initialState, action) {
     case actions.ADD_INGREDIENT: {
       return {
         ...state,
-        fillers: [{...action.ingredient, key: newGuid()}, ...state.fillers]
+        fillers: [{...action.ingredient, key: newGuid()}, ...state.fillers],
       };
     }
 
     case actions.REMOVE_INGREDIENT: {
       return {
         ...state,
-        fillers: state.fillers.filter(x => x.key !== action.key)
+        fillers: state.fillers.filter(x => x.key !== action.key),
+      };
+    }
+
+    case actions.SET_INGREDIENTS: {
+      return {
+        ...state,
+        fillers: action.ingredients,
       };
     }
 
