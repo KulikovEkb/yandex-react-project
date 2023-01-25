@@ -48,12 +48,12 @@ const Bun = ({bun, type}) => {
 
   const isTopBun = type === 'top';
 
+  let className = `${isTopBun ? styles.topBun : styles.bottomBun}`;
+  if (isHover) className += ` ${styles.hover}`;
+
   if (!bun) {
     return (
-      // todo(kulikov): deal with margin and paddings
-      // todo(kulikov): deal with style
-      <div ref={dropRef} className={`${isTopBun ? styles.emptyTopBun : styles.emptyBottomBun} ml-8`}
-           style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
+      <div ref={dropRef} className={className}>
         Выберите булки
       </div>
     );
@@ -62,8 +62,7 @@ const Bun = ({bun, type}) => {
   const text = isTopBun ? `${bun.name} (верх)` : `${bun.name} (низ)`;
 
   return (
-    // todo(kulikov): deal with style
-    <div ref={dropRef} className='ml-8' style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
+    <div ref={dropRef} className={className}>
       <ConstructorElement
         type={type}
         isLocked={true}

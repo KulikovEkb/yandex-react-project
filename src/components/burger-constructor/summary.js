@@ -26,7 +26,6 @@ const Summary = ({totalSum, canOrder}) => {
           <CurrencyIcon type="primary"/>
         </div>
       </div>
-      {/*todo(kulikov): disable for incomplete order*/}
       <Button disabled={!canOrder} htmlType="button" type="primary" size="large" onClick={openModal}>
         Оформить заказ
       </Button>

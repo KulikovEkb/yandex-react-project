@@ -2,22 +2,22 @@ import * as actions from '../actions/order-details-actions';
 
 const initialState = {
   orderNumber: {},
-  createdOrderRequest: false,
+  createOrderRequest: false,
   createOrderFail: false,
 };
 
 export function orderDetailsReducer(state = initialState, action) {
   switch (action.type) {
     case actions.CREATE_ORDER_REQUEST: {
-      return {...state, createdOrderRequest: true};
+      return {...state, createOrderRequest: true};
     }
 
     case actions.CREATE_ORDER_SUCCESS: {
-      return {...state, createdOrderRequest: false, orderNumber: action.orderNumber};
+      return {...state, createOrderRequest: false, orderNumber: action.orderNumber};
     }
 
     case actions.CREATE_ORDER_FAIL: {
-      return {...state, createdOrderRequest: false, createOrderFail: true};
+      return {...state, createOrderRequest: false, createOrderFail: true};
     }
 
     default: {

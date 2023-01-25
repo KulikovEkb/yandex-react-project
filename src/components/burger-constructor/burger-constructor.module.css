@@ -9,29 +9,37 @@
   gap: 16px;
 }
 
-.emptyIngredient {
-  min-width: 536px;
+.ingredient {
+  composes: text text_type_main-default from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
+  width: 536px;
   min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #37363F;
-  composes: text text_type_main-default from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
+  margin-left: 32px;
+  background-color: var(--background-element);
 }
 
-.emptyTopBun {
-  composes: emptyIngredient;
+.topBun {
+  composes: ingredient;
   border-radius: 88px 88px 40px 40px;
 }
 
-.emptyBottomBun {
-  composes: emptyIngredient;
+.bottomBun {
+  composes: ingredient;
   border-radius: 40px 40px 88px 88px;
 }
 
 .emptyFiller {
-  composes: emptyIngredient;
+  composes: ingredient;
   border-radius: 40px;
+  margin-right: 16px;
+}
+
+.fillerHover {
+  composes: ingredient;
+  border-radius: 40px;
+  margin-left: 0;
 }
 
 .fillersList {
@@ -69,4 +77,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hover {
+  box-shadow: 0px 0px 10px 5px violet;
 }

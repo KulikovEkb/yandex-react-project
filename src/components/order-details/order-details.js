@@ -3,10 +3,10 @@ import doneImage from "../../images/done.png";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {createOrder} from "./actions/order-details-actions";
+import {Loader} from "../loader/loader";
 
 const OrderDetails = () => {
-  // todo(kulikov): useLoader
-  const {orderNumber, createOrderFail} = useSelector(store => store.orderDetails);
+  const {orderNumber, createOrderRequest, createOrderFail} = useSelector(store => store.orderDetails);
   const {bun, fillers} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
 
@@ -19,6 +19,9 @@ const OrderDetails = () => {
   }, [dispatch, bun, fillers]);
 
   return (
+    createOrderRequest ? (
+      <Loader size='huge'/>
+      ) :
     createOrderFail ? (
       <p className={`${styles.error} text text_type_main-medium`}>
         Ошибка при создании заказа.<br/>Попробуйте ещё раз.

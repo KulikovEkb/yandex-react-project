@@ -26,13 +26,15 @@ const IngredientCard = ({ingredient}) => {
     count = countersMap.get(ingredient._id);
   }
 
+  let className = styles.card;
+  if (isDragging) className += ` ${styles.dragging}`;
+
   return (
     <>
       {/*todo(kulikov): uncomment*/}
-      {/*<div className={styles.card} onClick={() => dispatch(detailsModalIsOpen(ingredient))}>*/}
+      {/*<div className={styles.card} onClick={() => dispatch(openDetailsModal(ingredient))}>*/}
       {(
-        // todo(kulikov): deal with style
-        <div className={styles.card} style={{opacity: isDragging ? 0.5 : 1}} ref={drag}>
+        <div ref={drag} className={className}>
           {count > 0 && <Counter count={count} size='default'/>}
           <img className={styles.image}
                src={ingredient.image}

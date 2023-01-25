@@ -8,9 +8,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../burger-ingredients/actions/ingredients-actions";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {Loader} from "../loader/loader";
 
 function App() {
-  // todo(kulikov): use loader
   const {getIngredientsRequest, getIngredientsFail} = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
 
@@ -21,7 +21,10 @@ function App() {
   return (
     <ErrorBoundary>
       <AppHeader/>
-      {getIngredientsFail ? (
+      {getIngredientsRequest ? (
+        <Loader size='huge'/>
+        ) :
+        getIngredientsFail ? (
         <p className={styles.app}>
           Ошибка при загрузке данных. Попробуйте ещё раз.
         </p>

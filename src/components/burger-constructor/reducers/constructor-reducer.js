@@ -2,7 +2,6 @@ import {v4 as newGuid} from 'uuid';
 
 import * as actions from '../actions/constructor-actions';
 
-// todo(kulikov): use only IDs and match with 'burger-ingredients' during render?
 const initialState = {
   bun: null,
   fillers: [],

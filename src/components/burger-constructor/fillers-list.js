@@ -49,11 +49,11 @@ const EmptyFiller = () => {
     })
   });
 
+  let className = `${styles.emptyFiller}`;
+  if (isHover) className += ` ${styles.hover}`;
+
   return (
-    // todo(kulikov): deal with margin and paddings
-    // todo(kulikov): deal with style
-    <div ref={dropRef} className={`${styles.emptyFiller} pr-4`}
-         style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
+    <div ref={dropRef} className={className}>
       Выберите начинку
     </div>
   );
@@ -105,17 +105,20 @@ const Filler = ({filler, index, moveItem}) => {
     })
   });
 
+  let className = `${styles.fillerHover}`;
+  if (isHover) className += ` ${styles.hover}`;
+
   return (
-    // todo(kulikov): deal with style
-    <div className={styles.filler} ref={(node) => dragRef(dropRef(node))}
-         style={{backgroundColor: isHover ? 'pink' : '#37363F'}}>
+    <div className={styles.filler} ref={(node) => dragRef(dropRef(node))}>
       <DragIcon type="primary"/>
-      <ConstructorElement
-        text={filler.name}
-        price={filler.price}
-        thumbnail={filler.image}
-        handleClose={() => dispatch(removeIngredient(filler._id, filler.key))}
-      />
+      <div className={className}>
+        <ConstructorElement
+          text={filler.name}
+          price={filler.price}
+          thumbnail={filler.image}
+          handleClose={() => dispatch(removeIngredient(filler._id, filler.key))}
+        />
+      </div>
     </div>
   );
 }
