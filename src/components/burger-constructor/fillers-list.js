@@ -82,7 +82,7 @@ const Filler = ({filler, index, moveItem}) => {
 
       moveItem(ingredient.index, index);
     },
-    hover(payload, monitor) {
+    hover(payload) {
       if (!payload.isSorting) return;
 
       if (!isDragging) {

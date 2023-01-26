@@ -31,9 +31,7 @@ const IngredientCard = ({ingredient}) => {
 
   return (
     <>
-      {/*todo(kulikov): uncomment*/}
-      {/*<div className={styles.card} onClick={() => dispatch(openDetailsModal(ingredient))}>*/}
-      {(
+      <div className={styles.card} onClick={() => dispatch(openDetailsModal(ingredient))}>
         <div ref={drag} className={className}>
           {count > 0 && <Counter count={count} size='default'/>}
           <img className={styles.image}
@@ -45,12 +43,8 @@ const IngredientCard = ({ingredient}) => {
             <CurrencyIcon type="primary"/>
           </div>
           <p className={`text text_type_main-default ${styles.name}`}>{ingredient.name}</p>
-          {/*todo(kulikov): remove*/}
-          <button style={{display: 'flex', alignItems: 'center'}}
-                  onClick={() => dispatch(addIngredient(ingredient))}>Add
-          </button>
         </div>
-      )}
+      </div>
       {detailsModalIsOpen && (
         <Modal headerText='Детали ингредиента' closeModal={() => dispatch(closeDetailsModal())}>
           <IngredientDetails/>
