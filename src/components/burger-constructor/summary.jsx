@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styles from "./burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
+import Modal from "../modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
 

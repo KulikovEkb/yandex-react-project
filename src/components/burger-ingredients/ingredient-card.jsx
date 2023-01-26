@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {addIngredient, closeDetailsModal, openDetailsModal} from "./actions/ingredients-actions";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import {closeDetailsModal, openDetailsModal} from "./actions/ingredients-actions";
+import Modal from "../modal";
+import IngredientDetails from "../ingredient-details";
 import {ingredientShape} from "../../shapes/shapes";
 import {useDrag} from "react-dnd";
 
