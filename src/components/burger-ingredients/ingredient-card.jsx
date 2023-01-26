@@ -1,14 +1,16 @@
 import {useDispatch, useSelector} from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {closeDetailsModal, openDetailsModal} from "./actions/ingredients-actions";
 import Modal from "../modal";
 import IngredientDetails from "../ingredient-details";
 import {ingredientShape} from "../../shapes/shapes";
 import {useDrag} from "react-dnd";
+import {useState} from "react";
+import {RESET_DETAILS, SET_DETAILS} from "../ingredient-details/actions/ingredient-details-actions";
 
 const IngredientCard = ({ingredient}) => {
-  const {bunId, countersMap, detailsModalIsOpen} = useSelector(store => store.ingredients);
+  const [isOpen, setIsOpen] = useState(false);
+  const {bunId, countersMap} = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
 
   const [{isDragging}, drag] = useDrag({
@@ -18,6 +20,16 @@ const IngredientCard = ({ingredient}) => {
       isDragging: monitor.isDragging(),
     })
   });
+
+  function openModal() {
+    setIsOpen(true);
+    dispatch({type: SET_DETAILS, ingredient});
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+    dispatch({type: RESET_DETAILS});
+  }
 
   let count;
   if (ingredient.type === 'bun') {
@@ -31,13 +43,12 @@ const IngredientCard = ({ingredient}) => {
 
   return (
     <>
-      <div className={styles.card} onClick={() => dispatch(openDetailsModal(ingredient))}>
+      <div className={styles.card} onClick={openModal}>
         <div ref={drag} className={className}>
           {count > 0 && <Counter count={count} size='default'/>}
           <img className={styles.image}
                src={ingredient.image}
-               alt={ingredient.name}
-               onClick={() => dispatch(openDetailsModal(ingredient))}/>
+               alt={ingredient.name}/>
           <div className={styles.price}>
             <p className={`text text_type_digits-default`}>{ingredient.price}</p>
             <CurrencyIcon type="primary"/>
@@ -45,8 +56,8 @@ const IngredientCard = ({ingredient}) => {
           <p className={`text text_type_main-default ${styles.name}`}>{ingredient.name}</p>
         </div>
       </div>
-      {detailsModalIsOpen && (
-        <Modal headerText='Детали ингредиента' closeModal={() => dispatch(closeDetailsModal())}>
+      {isOpen && (
+        <Modal headerText='Детали ингредиента' closeModal={closeModal}>
           <IngredientDetails/>
         </Modal>
       )}

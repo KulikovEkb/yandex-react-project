@@ -8,8 +8,6 @@ const initialState = {
 
   bunId: null,
   countersMap: null,
-
-  detailsModalIsOpen: false,
 };
 
 export function ingredientsReducer(state = initialState, action) {
@@ -47,14 +45,6 @@ export function ingredientsReducer(state = initialState, action) {
       newMap.set(action.id, newMap.get(action.id) - 1);
 
       return {...state, countersMap: newMap};
-    }
-
-    case actions.DETAILS_MODAL_IS_OPEN: {
-      return {...state, detailsModalIsOpen: true};
-    }
-
-    case actions.DETAILS_MODAL_IS_CLOSED: {
-      return {...state, detailsModalIsOpen: false};
     }
 
     default: {
