@@ -1,5 +1,5 @@
-export const IngredientType = {
-  Bun: 'bun',
-  Sauce: 'sauce',
-  Filler: 'filler',
+export const IngredientCategory = {
+  Buns: 'Булки',
+  Sauces: 'Соусы',
+  Fillers: 'Начинки',
 }
