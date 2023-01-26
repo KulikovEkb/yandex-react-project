@@ -1,16 +1,15 @@
-import categorizeIngredients from "./helpers/ingredients-categorizer";
 import {sendGetRequest, sendPostRequest} from "./helpers/http-client-helper";
 
 class NormaClient {
   static baseUri = 'https://norma.nomoreparties.space/api';
 
-  getIngredients = () => {
-    return sendGetRequest(`${NormaClient.baseUri}/ingredients`)
-      .then(result => categorizeIngredients(result.data));
+  static getIngredients() {
+    return sendGetRequest(`${this.baseUri}/ingredients`)
+      .then(result => result.data);
   }
 
-  createOrder = (elementsIds) => {
-    return sendPostRequest(`${NormaClient.baseUri}/orders`, {ingredients: elementsIds})
+  static createOrder(elementsIds) {
+    return sendPostRequest(`${this.baseUri}/orders`, {ingredients: elementsIds})
       .then(result => {
         if (result.success) return result.order.number;
 
@@ -19,4 +18,4 @@ class NormaClient {
   }
 }
 
-export default new NormaClient();
+export default NormaClient;

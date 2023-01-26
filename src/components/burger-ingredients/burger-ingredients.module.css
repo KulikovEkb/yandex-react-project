@@ -65,3 +65,7 @@
   width: 240px;
   height: 120px;
 }
+
+.dragging {
+  opacity: 0.5;
+}
