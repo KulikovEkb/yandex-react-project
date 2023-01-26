@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import AppHeader from '../app-header/app-header';
+import AppHeader from '../app-header';
 import BurgerIngredients from "../burger-ingredients";
 import styles from './app.module.css';
 import BurgerConstructor from "../burger-constructor";

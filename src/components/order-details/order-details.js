@@ -11,8 +11,12 @@ const OrderDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const elementsIds = fillers.map(x => x._id);
-    elementsIds.push(bun._id);
+    const elementsIds = [bun._id];
+
+    for (const filler of fillers) {
+      elementsIds.push(filler._id);
+    }
+
     elementsIds.push(bun._id);
 
     dispatch(createOrder(elementsIds))
@@ -21,8 +25,7 @@ const OrderDetails = () => {
   return (
     createOrderRequest ? (
       <Loader size='huge'/>
-      ) :
-    createOrderFail ? (
+    ) : createOrderFail ? (
       <p className={`${styles.error} text text_type_main-medium`}>
         Ошибка при создании заказа.<br/>Попробуйте ещё раз.
       </p>

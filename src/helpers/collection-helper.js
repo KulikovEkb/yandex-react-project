@@ -3,5 +3,5 @@ export function objectIsEmpty(object) {
 }
 
 export function arrayIsEmpty(array) {
-  return !array || array.length === 0;
+  return !Array.isArray(array) || array.length === 0;
 }
