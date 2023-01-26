@@ -2,13 +2,12 @@ import {arrayIsEmpty} from "../../helpers/collection-helper";
 import styles from "./burger-constructor.module.css";
 import scrollBarStyles from "../../helpers/scroll-bar.module.css";
 import {useDispatch} from "react-redux";
-import {useDrag, useDrop} from "react-dnd";
-import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {removeIngredient, SET_INGREDIENTS} from "./actions/constructor-actions";
+import {SET_INGREDIENTS} from "./actions/constructor-actions";
 import React from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";
+import EmptyFiller from "./empty-filler";
+import Filler from "./filler";
 
 const FillersList = ({fillers}) => {
   const dispatch = useDispatch();
@@ -38,88 +37,8 @@ const FillersList = ({fillers}) => {
   );
 }
 
-const EmptyFiller = () => {
-  const dispatch = useDispatch();
-
-  const [{isHover}, dropRef] = useDrop({
-    accept: ['main', 'sauce'],
-    drop(ingredient) {
-      dispatch(addIngredient(ingredient));
-    },
-    collect: monitor => ({
-      isHover: monitor.isOver(),
-    })
-  });
-
-  let className = `${styles.emptyFiller}`;
-  if (isHover) className += ` ${styles.hover}`;
-
-  return (
-    <div ref={dropRef} className={className}>
-      Выберите начинку
-    </div>
-  );
-}
-
-const Filler = ({filler, index, moveItem}) => {
-  const dispatch = useDispatch();
-
-  const [{isDragging}, dragRef] = useDrag({
-    item: {isSorting: true, index},
-    type: 'sorting',
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging()
-    }),
-  });
-
-  const [{isHover}, dropRef] = useDrop({
-    accept: ['main', 'sauce', 'sorting'],
-    drop(ingredient) {
-      if (!ingredient.isSorting) {
-        dispatch(addIngredient(ingredient));
-        return;
-      }
-
-      moveItem(ingredient.index, index);
-    },
-    hover(payload) {
-      if (!payload.isSorting) return;
-
-      if (!isDragging) {
-        moveItem(payload.index, index);
-
-        payload.index = index;
-      }
-    },
-    collect: monitor => ({
-      isHover: monitor.isOver(),
-    })
-  });
-
-  let className = `${styles.fillerHover}`;
-  if (isHover) className += ` ${styles.hover}`;
-
-  return (
-    <div className={styles.filler} ref={(node) => dragRef(dropRef(node))}>
-      <DragIcon type="primary"/>
-      <div className={className}>
-        <ConstructorElement
-          text={filler.name}
-          price={filler.price}
-          thumbnail={filler.image}
-          handleClose={() => dispatch(removeIngredient(filler._id, filler.key))}
-        />
-      </div>
-    </div>
-  );
-}
-
 FillersList.propTypes = {
   fillers: PropTypes.arrayOf(ingredientShape).isRequired,
-};
-
-Filler.propTypes = {
-  filler: ingredientShape.isRequired,
 };
 
 export default FillersList;
