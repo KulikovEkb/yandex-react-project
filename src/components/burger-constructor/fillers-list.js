@@ -18,6 +18,8 @@ const FillersList = ({fillers}) => {
   }
 
   function moveItem(dragIndex, hoverIndex) {
+    if (dragIndex === hoverIndex) return;
+
     const itemsCopy = [...fillers];
     const [draggedItem] = itemsCopy.splice(dragIndex, 1);
     itemsCopy.splice(hoverIndex, 0, draggedItem);
@@ -63,41 +65,30 @@ const Filler = ({filler, index, moveItem}) => {
   const dispatch = useDispatch();
 
   const [{isDragging}, dragRef] = useDrag({
-    item: {...filler, index},
-    type: filler.type,
-    //item: {ingredient, index},
+    item: {isSorting: true, index},
+    type: 'sorting',
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
   });
 
   const [{isHover}, dropRef] = useDrop({
-    accept: ['main', 'sauce'],
+    accept: ['main', 'sauce', 'sorting'],
     drop(ingredient) {
-      if (!ingredient.key) {
+      if (!ingredient.isSorting) {
         dispatch(addIngredient(ingredient));
-      } else {
-        const dragIndex = ingredient.index;
-        const hoverIndex = index;
-        if (dragIndex === hoverIndex) {
-          return;
-        }
-
-        moveItem(dragIndex, hoverIndex);
+        return;
       }
+
+      moveItem(ingredient.index, index);
     },
-    hover(item, monitor) {
+    hover(payload, monitor) {
+      if (!payload.isSorting) return;
+
       if (!isDragging) {
+        moveItem(payload.index, index);
 
-        const dragIndex = item.index;
-        const hoverIndex = index;
-        if (dragIndex === hoverIndex) {
-          return;
-        }
-
-        moveItem(dragIndex, hoverIndex);
-
-        item.index = hoverIndex;
+        payload.index = index;
       }
     },
     collect: monitor => ({
