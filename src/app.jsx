@@ -8,6 +8,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -20,9 +21,8 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
           <Route path="/reset-password" element={<ResetPassword/>}/>
-          {/*todo(kulikov): implement
           <Route path="/profile" element={<Profile/>}/>
-          todo(kulikov): implement
+          {/*todo(kulikov): implement
           <Route path="/ingredients/:id" element={<Ingredient/>}/>
           */}
           <Route path="*" element={<NotFound/>}/>
