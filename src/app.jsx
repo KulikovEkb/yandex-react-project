@@ -9,6 +9,7 @@ import Register from "./pages/register";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import Profile from "./pages/profile";
+import Ingredient from "./pages/ingredient";
 
 function App() {
   return (
@@ -22,9 +23,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
           <Route path="/reset-password" element={<ResetPassword/>}/>
           <Route path="/profile" element={<Profile/>}/>
-          {/*todo(kulikov): implement
           <Route path="/ingredients/:id" element={<Ingredient/>}/>
-          */}
+
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
