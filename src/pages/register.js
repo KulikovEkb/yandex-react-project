@@ -19,7 +19,7 @@ function Register() {
   return (
     <div style={{
       position: 'fixed',
-      top: '15%',
+      top: '150px',
       left: '50%',
       transform: 'translate(-50%, 0)',
       display: 'flex',
