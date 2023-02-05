@@ -14,8 +14,9 @@ import Ingredient from "./pages/ingredient";
 function App() {
   return (
     <ErrorBoundary>
-      <AppHeader/>
       <BrowserRouter>
+        <AppHeader/>
+
         <Routes>
           <Route path="/" element={<Constructor/>}/>
           <Route path="/login" element={<Login/>}/>

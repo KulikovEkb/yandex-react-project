@@ -1,34 +1,35 @@
 .appHeader {
-    display: grid;
-    grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr;
-    justify-content: center;
-    background-color: var(--background);
-    box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  display: grid;
+  grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr;
+  justify-content: center;
+  background-color: var(--background);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
 .menu {
-    grid-column: 2;
-    display: flex;
-    justify-content: flex-start;
-    gap: 8px;
+  grid-column: 2;
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
 }
 
 .headerLink {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
 .logo {
-    grid-column: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  grid-column: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile {
-    grid-column: 4;
-    display: flex;
-    justify-content: flex-end;
+  grid-column: 4;
+  display: flex;
+  justify-content: flex-end;
 }
