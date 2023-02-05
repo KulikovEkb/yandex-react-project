@@ -17,9 +17,9 @@ function Login() {
   return (
     <div style={{
       position: 'fixed',
-      top: '50%',
+      top: '15%',
       left: '50%',
-      transform: 'translate(-50%, -50%)',
+      transform: 'translate(-50%, 0)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
