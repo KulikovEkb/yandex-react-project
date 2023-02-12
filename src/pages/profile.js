@@ -1,5 +1,6 @@
 import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
+import {Link} from "react-router-dom";
 
 function Profile() {
   const [name, setName] = React.useState('');
@@ -30,10 +31,11 @@ function Profile() {
       columnGap: '60px'
     }}>
       <div>
-        <p style={{minHeight: '64px', display: 'flex', alignItems: 'center'}}
-           className='text text_type_main-medium text_color_primary'>Профиль</p>
-        <p style={{minHeight: '64px', display: 'flex', alignItems: 'center'}}
-           className='text text_type_main-medium text_color_inactive'>История заказов</p>
+        {/*todo(kulikov): use NavLink with isActive*/}
+        <Link to={'/profile'} style={{minHeight: '64px', display: 'flex', alignItems: 'center', textDecoration: 'none'}}
+           className='text text_type_main-medium text_color_primary'>Профиль</Link>
+        <Link to={'/orders'} style={{minHeight: '64px', display: 'flex', alignItems: 'center', textDecoration: 'none'}}
+           className='text text_type_main-medium text_color_inactive'>История заказов</Link>
         <p style={{minHeight: '64px', display: 'flex', alignItems: 'center'}}
            className='text text_type_main-medium text_color_inactive'>Выход</p>
         <p style={{maxWidth: '320px'}} className='mt-20 text text_type_main-default text_color_inactive'>В этом

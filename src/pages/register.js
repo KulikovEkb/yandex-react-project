@@ -1,6 +1,7 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import React from "react";
+import {Link, Navigate} from "react-router-dom";
+import React, {useState} from "react";
+import normaClient from "../clients/norma-client";
 
 function Register() {
   const [name, setName] = React.useState('');
@@ -16,6 +17,25 @@ function Register() {
   const [password, setPassword] = React.useState('');
   const onPasswordChange = e => {
     setPassword(e.target.value);
+  }
+
+  const [registered, setRegistered] = useState(false);
+
+  // todo(kulikov): rewrite
+  async function onClick() {
+    try {
+      // todo(kulikov): save cookie
+      const result = await normaClient.register({name, email, password});
+
+      setRegistered(true);
+      console.log(result);
+    } catch (exc) {
+      console.log(exc);
+    }
+  }
+
+  if (registered) {
+    return <Navigate to={'/login'}/>
   }
 
   // todo(kulikov): refactor
@@ -38,7 +58,7 @@ function Register() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button htmlType="button" type="primary" size="large">
+        <Button onClick={onClick} htmlType="button" type="primary" size="large">
           Зарегистрироваться
         </Button>
       </div>

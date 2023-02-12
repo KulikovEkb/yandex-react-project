@@ -14,20 +14,20 @@ function ResetPassword() {
     setPassword(e.target.value);
   }
 
-  const [emailSent, setEmailSent] = useState(false);
+  const [passwordReset, setPasswordReset] = useState(false);
 
   // todo(kulikov): rewrite
   async function onClick() {
     try {
       await normaClient.resetPassword(password, emailCode);
 
-      setEmailSent(true);
+      setPasswordReset(true);
     } catch (exc) {
       console.log(exc);
     }
   }
 
-  if (emailSent) {
+  if (passwordReset) {
     return <Navigate to={'/login'}/>
   }
 

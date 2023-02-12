@@ -35,6 +35,42 @@ class NormaClient {
         return Promise.reject(`Ошибка ${result}`);
       });
   }
+
+  static register(payload) {
+    return sendPostRequest(`${this.baseUri}/auth/register`, payload)
+      .then(result => {
+        if (result.success) return result;
+
+        return Promise.reject(`Ошибка ${result}`);
+      });
+  }
+
+  static login(email, password) {
+    return sendPostRequest(`${this.baseUri}/auth/login`, {email, password})
+      .then(result => {
+        if (result.success) return result;
+
+        return Promise.reject(`Ошибка ${result}`);
+      });
+  }
+
+  static refreshToken(token) {
+    return sendPostRequest(`${this.baseUri}/auth/token`, {token})
+      .then(result => {
+        if (result.success) return result;
+
+        return Promise.reject(`Ошибка ${result}`);
+      });
+  }
+
+  static logout(token) {
+    return sendPostRequest(`${this.baseUri}/auth/logout`, {token})
+      .then(result => {
+        if (result.success) return result;
+
+        return Promise.reject(`Ошибка ${result}`);
+      });
+  }
 }
 
 export default NormaClient;

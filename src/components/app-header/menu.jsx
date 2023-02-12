@@ -12,7 +12,7 @@ const Menu = ({active, setActive}) => {
         <p className={getLinkTextType({isActive: active === 'Constructor'})}>Конструктор</p>
       </HeaderLink>
 
-      <HeaderLink link='orders-flow' onClick={() => setActive('Orders flow')}>
+      <HeaderLink link='/orders-flow' onClick={() => setActive('Orders flow')}>
         <ListIcon type={getIconType({isActive: active === 'Orders flow'})}/>
         <p className={getLinkTextType({isActive: active === 'Orders flow'})}>Лента&nbsp;заказов</p>
       </HeaderLink>

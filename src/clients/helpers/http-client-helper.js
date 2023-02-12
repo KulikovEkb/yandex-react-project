@@ -19,6 +19,3 @@ function checkResponse(response) {
 
   return Promise.reject(`Ошибка ${response.status}`);
 }
-
-export class request {
-}

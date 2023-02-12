@@ -1,6 +1,7 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Link, Navigate} from "react-router-dom";
+import normaClient from "../clients/norma-client";
 
 function Login() {
   const [email, setEmail] = React.useState('')
@@ -11,6 +12,25 @@ function Login() {
   const [password, setPassword] = React.useState('')
   const onPasswordChange = e => {
     setPassword(e.target.value)
+  }
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // todo(kulikov): rewrite
+  async function onClick() {
+    try {
+      // todo(kulikov): save cookie
+      const result = await normaClient.login(email, password);
+
+      setLoggedIn(true);
+      console.log(result);
+    } catch (exc) {
+      console.log(exc);
+    }
+  }
+
+  if (loggedIn) {
+    return <Navigate to={'/'}/>
   }
 
   // todo(kulikov): refactor
@@ -32,7 +52,7 @@ function Login() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button htmlType="button" type="primary" size="large">
+        <Button onClick={onClick} htmlType="button" type="primary" size="large">
           Войти
         </Button>
       </div>
