@@ -1,13 +1,34 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import React from "react";
+import {Link, Navigate} from "react-router-dom";
+import React, {useState} from "react";
+import normaClient from "../clients/norma-client";
 
 function ResetPassword() {
-  const [emailCodeValue, setEmailCodeValue] = React.useState('');
+  const [emailCode, setEmailCode] = React.useState('');
+  const onEmailCodeChange = e => {
+    setEmailCode(e.target.value);
+  }
 
-  const [passwordValue, setPasswordValue] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const onPasswordChange = e => {
-    setPasswordValue(e.target.value);
+    setPassword(e.target.value);
+  }
+
+  const [emailSent, setEmailSent] = useState(false);
+
+  // todo(kulikov): rewrite
+  async function onClick() {
+    try {
+      await normaClient.resetPassword(password, emailCode);
+
+      setEmailSent(true);
+    } catch (exc) {
+      console.log(exc);
+    }
+  }
+
+  if (emailSent) {
+    return <Navigate to={'/login'}/>
   }
 
   // todo(kulikov): refactor
@@ -24,12 +45,12 @@ function ResetPassword() {
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
       <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <PasswordInput value={passwordValue} onChange={onPasswordChange} placeholder='Введите новый пароль'/>
-        <Input value={emailCodeValue} onChange={setEmailCodeValue} placeholder='Введите код из письма'/>
+        <PasswordInput value={password} onChange={onPasswordChange} placeholder='Введите новый пароль'/>
+        <Input value={emailCode} onChange={onEmailCodeChange} placeholder='Введите код из письма'/>
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
           Сохранить
         </Button>
       </div>

@@ -1,11 +1,29 @@
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import React from "react";
+import {Link, Navigate} from "react-router-dom";
+import React, {useState} from "react";
+import normaClient from "../clients/norma-client";
 
 function ForgotPassword() {
   const [email, setEmail] = React.useState('');
   const onEmailChange = e => {
     setEmail(e.target.value);
+  }
+
+  const [emailSent, setEmailSent] = useState(false);
+
+  // todo(kulikov): rewrite
+  async function onClick() {
+    try {
+      await normaClient.sendResetPasswordEmail(email);
+
+      setEmailSent(true);
+    } catch (exc) {
+      console.log(exc);
+    }
+  }
+
+  if (emailSent) {
+    return <Navigate to={'/reset-password'}/>
   }
 
   // todo(kulikov): refactor
@@ -26,7 +44,7 @@ function ForgotPassword() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
           Восстановить
         </Button>
       </div>

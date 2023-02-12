@@ -3,16 +3,19 @@ import {Link} from "react-router-dom";
 import React from "react";
 
 function Register() {
-  const [nameValue, setNameValue] = React.useState('');
+  const [name, setName] = React.useState('');
+  const onNameChange = e => {
+    setName(e.target.value);
+  }
 
   const [email, setEmail] = React.useState('');
   const onEmailChange = e => {
     setEmail(e.target.value);
   }
 
-  const [passwordValue, setPasswordValue] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const onPasswordChange = e => {
-    setPasswordValue(e.target.value);
+    setPassword(e.target.value);
   }
 
   // todo(kulikov): refactor
@@ -29,9 +32,9 @@ function Register() {
       <p className='text text_type_main-medium'>Регистрация</p>
 
       <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <Input value={nameValue} onChange={setNameValue} placeholder='Имя'/>
+        <Input value={name} onChange={onNameChange} placeholder='Имя'/>
         <EmailInput value={email} onChange={onEmailChange}/>
-        <PasswordInput value={passwordValue} onChange={onPasswordChange}/>
+        <PasswordInput value={password} onChange={onPasswordChange}/>
       </div>
 
       <div className='mt-6 mb-20'>

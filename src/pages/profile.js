@@ -1,10 +1,21 @@
-import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 
 function Profile() {
-  const [nameValue, setNameValue] = React.useState('');
-  const [loginValue, setLoginValue] = React.useState('');
-  const [passwordValue, setPasswordValue] = React.useState('');
+  const [name, setName] = React.useState('');
+  const onNameChange = e => {
+    setName(e.target.value);
+  }
+
+  const [login, setLogin] = React.useState('');
+  const onLoginChange = e => {
+    setLogin(e.target.value);
+  }
+
+  const [password, setPassword] = React.useState('');
+  const onPasswordChange = e => {
+    setPassword(e.target.value);
+  }
 
   // todo(kulikov): refactor
   // todo(kulikov): replace with correct values
@@ -30,9 +41,9 @@ function Profile() {
       </div>
 
       <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <Input value={nameValue} onChange={setNameValue} placeholder='Имя' icon='EditIcon'/>
-        <Input value={loginValue} onChange={setLoginValue} placeholder='Логин' icon='EditIcon'/>
-        <Input value={passwordValue} onChange={setPasswordValue} placeholder='Пароль' icon='EditIcon'/>
+        <Input value={name} onChange={onNameChange} placeholder='Имя' icon='EditIcon'/>
+        <Input value={login} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
+        <PasswordInput value={password} onChange={onPasswordChange} placeholder='Пароль' icon='EditIcon'/>
       </div>
     </div>
   );
