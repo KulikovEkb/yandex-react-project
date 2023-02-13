@@ -1,4 +1,4 @@
-import {sendGetRequest, sendPostRequest} from "./helpers/http-client-helper";
+import {sendGetRequest, sendGetRequestWithAuth, sendPostRequest} from "./helpers/http-client-helper";
 
 // todo(kulikov): use Result instead of try-catch blocks
 class NormaClient {
@@ -19,7 +19,7 @@ class NormaClient {
   }
 
   static sendResetPasswordEmail(email) {
-    return sendPostRequest(`${this.baseUri}/password-reset`, {email: email})
+    return sendPostRequest(`${this.baseUri}/password-reset`, {email})
       .then(result => {
         if (result.success) return;
 
@@ -65,6 +65,15 @@ class NormaClient {
 
   static logout(token) {
     return sendPostRequest(`${this.baseUri}/auth/logout`, {token})
+      .then(result => {
+        if (result.success) return result;
+
+        return Promise.reject(`Ошибка ${result}`);
+      });
+  }
+
+  static getUser() {
+    return sendGetRequestWithAuth(`${this.baseUri}/auth/user`)
       .then(result => {
         if (result.success) return result;
 

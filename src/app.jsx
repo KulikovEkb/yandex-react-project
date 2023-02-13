@@ -10,25 +10,30 @@ import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import Profile from "./pages/profile";
 import Ingredient from "./pages/ingredient";
+import {ProvideAuth} from "./services/auth";
+import {ProtectedRouteElement} from "./components/protected-route";
+import {UnsignedUserRouteElement} from "./components/unsigned-user-route";
 
 function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <AppHeader/>
+      <ProvideAuth>
+        <BrowserRouter>
+          <AppHeader/>
 
-        <Routes>
-          <Route path="/" element={<Constructor/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/register" element={<Register/>}/>
-          <Route path="/forgot-password" element={<ForgotPassword/>}/>
-          <Route path="/reset-password" element={<ResetPassword/>}/>
-          <Route path="/profile" element={<Profile/>}/>
-          <Route path="/ingredients/:id" element={<Ingredient/>}/>
+          <Routes>
+            <Route path="/" element={<Constructor/>}/>
+            <Route path="/login" element={<UnsignedUserRouteElement element={<Login/>}/>}/>
+            <Route path="/register" element={<UnsignedUserRouteElement element={<Register/>}/>}/>
+            <Route path="/forgot-password" element={<UnsignedUserRouteElement element={<ForgotPassword/>}/>}/>
+            <Route path="/reset-password" element={<UnsignedUserRouteElement element={<ResetPassword/>}/>}/>
+            <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>}/>
+            <Route path="/ingredients/:id" element={<Ingredient/>}/>
 
-          <Route path="*" element={<NotFound/>}/>
-        </Routes>
-      </BrowserRouter>
+            <Route path="*" element={<NotFound/>}/>
+          </Routes>
+        </BrowserRouter>
+      </ProvideAuth>
     </ErrorBoundary>
   );
 }

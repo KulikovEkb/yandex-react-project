@@ -4,11 +4,19 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
+import {useAuth} from "../../services/auth";
+import {useNavigate} from "react-router-dom";
 
 const Summary = ({totalSum, canOrder}) => {
+  const auth = useAuth();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   async function openModal() {
+    if (!auth.user) {
+      navigate('/login', {replace: true});
+    }
+
     setIsOpen(true);
   }
 

@@ -1,3 +1,5 @@
+import {getCookie} from "../../helpers/cookie-helper";
+
 export function sendPostRequest(url, body) {
   return fetch(url, {
     method: 'POST',
@@ -9,6 +11,13 @@ export function sendPostRequest(url, body) {
 export function sendGetRequest(url) {
   return fetch(url, {
     method: 'GET',
+  }).then(checkResponse);
+}
+
+export function sendGetRequestWithAuth(url) {
+  return fetch(url, {
+    method: 'GET',
+    headers: {Authorization: getCookie('token')},
   }).then(checkResponse);
 }
 
