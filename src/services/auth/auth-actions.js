@@ -5,71 +5,66 @@ export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const SET_USER = 'SET_USER';
 
 export function checkUserAuth() {
-  return async function (dispatch) {
-    if (getCookie("accessToken")) {
-      dispatch(getUser())
-        .finally(() => {
-          dispatch({type: AUTH_CHECKED});
-        });
-    } else {
-      dispatch({type: AUTH_CHECKED});
-    }
+  return function (dispatch) {
+    if (getCookie('token'))
+      dispatch(getUser());
+
+    dispatch({type: AUTH_CHECKED});
   };
 }
 
-export async function getUser() {
-  return async function (dispatch) {
-    const data = await normaClient.getUser();
-
-    if (data.success) {
-      dispatch({type: SET_USER, user: data.user});
-    }
+export function getUser() {
+  return function (dispatch) {
+    normaClient.getUser()
+      .then(result => {
+        dispatch({type: SET_USER, user: result.user});
+      });
   }
 }
 
-export async function register(payload) {
-  return async function (dispatch) {
+export function register(payload) {
+  return function (dispatch) {
     // todo(kulikov): rewrite
     try {
-      const result = await normaClient.register(payload);
+      normaClient.register(payload)
+        .then(result => {
 
-      console.log(result);
+          console.log(result);
 
-      if (result.success) {
-        setCookie('token', result.accessToken);
-        localStorage.setItem('refreshToken', result.refreshToken);
-        dispatch({type: SET_USER, user: result.user});
-      }
+          setCookie('token', result.accessToken);
+          localStorage.setItem('refreshToken', result.refreshToken);
+          dispatch({type: SET_USER, user: result.user});
+        });
     } catch (exc) {
       console.log(exc);
     }
   }
 }
 
-export async function logIn(email, password) {
-  return async function (dispatch) {
-    const result = await normaClient.login(email, password);
+export function logIn(email, password) {
+  return function (dispatch) {
+    normaClient.login(email, password)
+      .then(result => {
+        setCookie('token', result.accessToken);
+        localStorage.setItem('refreshToken', result.refreshToken);
 
-    setCookie('token', result.accessToken);
-    localStorage.setItem('refreshToken', result.refreshToken);
+        const fifteenMinutes = 15 * 60 * 1000;
+        const date = new Date();
+        localStorage.setItem('expiresAt', date.setTime(date.getTime() + fifteenMinutes).toString());
 
-    const fifteenMinutes = 15 * 60 * 1000;
-    const date = new Date();
-    localStorage.setItem('expiresAt', date.setTime(date.getTime() + fifteenMinutes).toString());
-
-    if (result.success) {
-      dispatch({type: SET_USER, user: result.user});
-    }
+        dispatch({type: SET_USER, user: result.user});
+      });
   }
 }
 
-export async function logOut(){
-  return async function (dispatch) {
-    await normaClient.logout(localStorage.getItem('refreshToken'));
+export function logOut() {
+  return function (dispatch) {
+    normaClient.logout(localStorage.getItem('refreshToken'))
+      .finally(() => {
+        dispatch({type: SET_USER, user: null});
 
-    dispatch({type: SET_USER, user: null});
-
-    expireCookie('token');
-    localStorage.clear();
+        expireCookie('token');
+        localStorage.clear();
+      });
   }
 }
