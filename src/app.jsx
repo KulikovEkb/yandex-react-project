@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppHeader from './components/app-header';
 import ErrorBoundary from "./helpers/error-boundary";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -10,10 +10,20 @@ import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import Profile from "./pages/profile";
 import Ingredient from "./pages/ingredient";
-import {ProvideAuth} from "./services/auth";
+import {ProvideAuth} from "./services/auth/auth";
 import {ProtectedRoute} from "./components/protected-route";
+import {useDispatch} from "react-redux";
+import {getIngredients} from "./components/burger-ingredients/actions/ingredients-actions";
+import {checkUserAuth} from "./services/auth/auth-actions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+    dispatch(checkUserAuth());
+  }, [dispatch]);
+
   return (
     <ErrorBoundary>
       <ProvideAuth>

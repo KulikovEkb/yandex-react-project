@@ -1,8 +1,8 @@
 import {useContext, useState, createContext} from 'react';
 
 import React from 'react';
-import normaClient from "../clients/norma-client";
-import {expireCookie, setCookie} from "../helpers/cookie-helper";
+import normaClient from "../../clients/norma-client";
+import {expireCookie, setCookie} from "../../helpers/cookie-helper";
 
 // todo(kulikov): replace with Redux
 const AuthContext = createContext(undefined);

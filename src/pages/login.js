@@ -1,9 +1,10 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
-import {Link, Navigate} from "react-router-dom";
-import {useAuth} from "../services/auth";
+import {Link, Navigate, useLocation} from "react-router-dom";
+import {useAuth} from "../services/auth/auth";
 
 function Login() {
+  const location = useLocation();
   const auth = useAuth();
   const [email, setEmail] = React.useState('')
   const onEmailChange = e => {
@@ -23,7 +24,7 @@ function Login() {
     [auth, email, password]
   );
 
-  if (auth.user) return <Navigate to={'/'}/>
+  if (auth.user) return <Navigate to={'/'} state={{from: location}}/>
 
   // todo(kulikov): refactor
   return (

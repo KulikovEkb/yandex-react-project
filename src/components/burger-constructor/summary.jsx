@@ -4,7 +4,7 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
-import {useAuth} from "../../services/auth";
+import {useAuth} from "../../services/auth/auth";
 import {useNavigate} from "react-router-dom";
 
 const Summary = ({totalSum, canOrder}) => {

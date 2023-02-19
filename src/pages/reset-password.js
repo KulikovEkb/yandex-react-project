@@ -1,9 +1,10 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import normaClient from "../clients/norma-client";
 
 function ResetPassword() {
+  const location = useLocation();
   const [emailCode, setEmailCode] = React.useState('');
   const onEmailCodeChange = e => {
     setEmailCode(e.target.value);
@@ -28,7 +29,7 @@ function ResetPassword() {
   }
 
   if (passwordReset) {
-    return <Navigate to={'/login'}/>
+    return <Navigate to={'/login'} state={{from: location}}/>
   }
 
   // todo(kulikov): refactor
