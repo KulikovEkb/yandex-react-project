@@ -1,85 +1,108 @@
 import {sendGetRequest, sendGetRequestWithAuth, sendPostRequest} from "./helpers/http-client-helper";
+import {setCookie} from "../helpers/cookie-helper";
+import setTokenExpirationDate from "../helpers/local-storage-helper";
 
-// todo(kulikov): use Result instead of try-catch blocks
-class NormaClient {
-  static baseUri = 'https://norma.nomoreparties.space/api';
+const baseUri = 'https://norma.nomoreparties.space/api';
 
-  static getIngredients() {
-    return sendGetRequest(`${this.baseUri}/ingredients`)
-      .then(result => result.data);
-  }
+export function getIngredients() {
+  return sendGetRequest(`${baseUri}/ingredients`)
+    .then(result => result.data);
+}
 
-  static createOrder(elementsIds) {
-    return sendPostRequest(`${this.baseUri}/orders`, {ingredients: elementsIds})
-      .then(result => {
-        if (result.success) return result.order.number;
+export function createOrder(elementsIds) {
+  return sendPostRequest(`${baseUri}/orders`, {ingredients: elementsIds})
+    .then(result => {
+      if (result.success) return result.order.number;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(`Ошибка ${result}`);
+    });
+}
 
-  static sendResetPasswordEmail(email) {
-    return sendPostRequest(`${this.baseUri}/password-reset`, {email})
-      .then(result => {
-        if (result.success) return;
+export function sendResetPasswordEmail(email) {
+  return sendPostRequest(`${baseUri}/password-reset`, {email})
+    .then(result => {
+      if (result.success) return;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(`Ошибка ${result}`);
+    });
+}
 
-  static resetPassword(newPassword, emailCode) {
-    return sendPostRequest(`${this.baseUri}/password-reset/reset`, {password: newPassword, token: emailCode})
-      .then(result => {
-        if (result.success) return;
+export function resetPassword(newPassword, emailCode) {
+  return sendPostRequest(`${baseUri}/password-reset/reset`, {password: newPassword, token: emailCode})
+    .then(result => {
+      if (result.success) return;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(`Ошибка ${result}`);
+    });
+}
 
-  static register(payload) {
-    return sendPostRequest(`${this.baseUri}/auth/register`, payload)
-      .then(result => {
-        if (result.success) return result;
+export function register(payload) {
+  return sendPostRequest(`${baseUri}/auth/register`, payload)
+    .then(result => {
+      if (result.success) return result;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(`Ошибка ${result}`);
+    });
+}
 
-  static login(email, password) {
-    return sendPostRequest(`${this.baseUri}/auth/login`, {email, password})
-      .then(result => {
-        if (result.success) return result;
+export function login(email, password) {
+  return sendPostRequest(`${baseUri}/auth/login`, {email, password})
+    .then(result => {
+      if (result.success) return result;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(`Ошибка ${result}`);
+    });
+}
 
-  static refreshToken(token) {
-    return sendPostRequest(`${this.baseUri}/auth/token`, {token})
-      .then(result => {
-        if (result.success) return result;
+export function logout(token) {
+  return sendPostRequest(`${baseUri}/auth/logout`, {token})
+    .then(result => {
+      if (result.success) return result;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(`Ошибка ${result}`);
+    });
+}
 
-  static logout(token) {
-    return sendPostRequest(`${this.baseUri}/auth/logout`, {token})
-      .then(result => {
-        if (result.success) return result;
+export function getUser() {
+  return executeWithAuth(async () => await sendGetRequestWithAuth(`${baseUri}/auth/user`))
+    .then(result => {
+      if (result.success)
+        return result;
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
-  }
+      return Promise.reject(result);
+    });
+}
 
-  static getUser() {
-    return sendGetRequestWithAuth(`${this.baseUri}/auth/user`)
-      .then(result => {
-        if (result.success) return result;
+async function executeWithAuth(request) {
+  const currentTicks = new Date().getTime();
+  if (currentTicks >= localStorage.getItem('expiresAt'))
+    await refreshToken();
 
-        return Promise.reject(`Ошибка ${result}`);
-      });
+  try {
+    return await request();
+  } catch (exc) {
+    if (!exc.message.includes('jwt expired'))
+      return Promise.reject(exc);
+
+    await refreshToken();
+
+    return await request();
   }
 }
 
-export default NormaClient;
+function refreshToken() {
+  const refreshTokenValue = localStorage.getItem('refreshToken');
+  if (!refreshTokenValue)
+    return Promise.reject('Refresh token is missing in local storage');
+
+  return sendPostRequest(`${baseUri}/auth/token`, {token: refreshTokenValue})
+    .then(result => {
+      if (!result.success)
+        return Promise.reject(`Ошибка ${result}`);
+
+      setCookie('token', result.accessToken);
+      localStorage.setItem('refreshToken', result.refreshToken);
+
+      setTokenExpirationDate(15);
+    });
+}

@@ -1,7 +1,7 @@
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate} from "react-router-dom";
 import React, {useState} from "react";
-import normaClient from "../clients/norma-client";
+import * as normaClient from "../clients/norma-client";
 
 function ForgotPassword() {
   const [email, setEmail] = React.useState('');

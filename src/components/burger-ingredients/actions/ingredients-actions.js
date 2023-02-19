@@ -1,4 +1,4 @@
-import normaClient from "../../../clients/norma-client";
+import * as normaClient from "../../../clients/norma-client";
 import {ADD_BUN, ADD_INGREDIENT} from "../../burger-constructor/actions/constructor-actions";
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';

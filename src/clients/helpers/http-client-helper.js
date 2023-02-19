@@ -22,9 +22,8 @@ export function sendGetRequestWithAuth(url) {
 }
 
 function checkResponse(response) {
-  if (response.ok) {
+  if (response.ok)
     return response.json();
-  }
 
-  return Promise.reject(`Ошибка ${response.status}`);
+  return response.json().then((error) => Promise.reject(error));
 }

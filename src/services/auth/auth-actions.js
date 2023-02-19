@@ -1,5 +1,6 @@
 import {expireCookie, getCookie, setCookie} from "../../helpers/cookie-helper";
-import normaClient from "../../clients/norma-client";
+import * as normaClient from "../../clients/norma-client";
+import setTokenExpirationDate from "../../helpers/local-storage-helper";
 
 export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const SET_USER = 'SET_USER';
@@ -24,20 +25,15 @@ export function getUser() {
 
 export function register(payload) {
   return function (dispatch) {
-    // todo(kulikov): rewrite
-    try {
-      normaClient.register(payload)
-        .then(result => {
+    normaClient.register(payload)
+      .then(result => {
+        setCookie('token', result.accessToken);
+        localStorage.setItem('refreshToken', result.refreshToken);
 
-          console.log(result);
+        setTokenExpirationDate(15);
 
-          setCookie('token', result.accessToken);
-          localStorage.setItem('refreshToken', result.refreshToken);
-          dispatch({type: SET_USER, user: result.user});
-        });
-    } catch (exc) {
-      console.log(exc);
-    }
+        dispatch({type: SET_USER, user: result.user});
+      });
   }
 }
 
@@ -48,9 +44,7 @@ export function logIn(email, password) {
         setCookie('token', result.accessToken);
         localStorage.setItem('refreshToken', result.refreshToken);
 
-        const fifteenMinutes = 15 * 60 * 1000;
-        const date = new Date();
-        localStorage.setItem('expiresAt', date.setTime(date.getTime() + fifteenMinutes).toString());
+        setTokenExpirationDate(15);
 
         dispatch({type: SET_USER, user: result.user});
       });

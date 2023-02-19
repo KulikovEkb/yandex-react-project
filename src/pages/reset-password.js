@@ -1,7 +1,7 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate, useLocation} from "react-router-dom";
 import React, {useState} from "react";
-import normaClient from "../clients/norma-client";
+import * as normaClient from "../clients/norma-client";
 
 function ResetPassword() {
   const location = useLocation();
