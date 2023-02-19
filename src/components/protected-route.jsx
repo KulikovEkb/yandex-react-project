@@ -1,8 +1,25 @@
-import { useAuth } from '../services/auth';
-import { Navigate } from 'react-router-dom';
+import {useAuth} from '../services/auth';
+import {Navigate, useLocation} from 'react-router-dom';
+import {useSelector} from "react-redux";
 
-export const ProtectedRouteElement = ({ element }) => {
-  let auth = useAuth();
+export const ProtectedRoute = ({onlyUnAuth = false, element}) => {
+  // todo(kulikov): use store for auth instead of context
+  const authChecked = useSelector(store => store.auth.authChecked);
+  const user = useSelector(store => store.auth.user);
+  const location = useLocation();
 
-  return auth.user ? element : <Navigate to="/login" replace/>;
+  if (!authChecked) {
+    return null;
+  }
+
+  if (onlyUnAuth && user) {
+    return <Navigate to={location.state?.from ?? '/'}/>
+  }
+
+
+  if (!onlyUnAuth && !user) {
+    return <Navigate to="/login" state={{from: location}}/>;
+  }
+
+  return element;
 }
