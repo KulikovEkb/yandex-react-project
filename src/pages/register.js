@@ -1,42 +1,43 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import React, {useState} from "react";
-import normaClient from "../clients/norma-client";
+import {useDispatch, useSelector} from "react-redux";
+import {register} from "../services/auth/auth-actions";
 
 function Register() {
-  const [name, setName] = React.useState('');
+  const location = useLocation();
+  const {user} = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+  const [state, setState] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
   const onNameChange = e => {
-    setName(e.target.value);
+    e.preventDefault();
+    setState({...state, name: e.target.value});
   }
 
-  const [email, setEmail] = React.useState('');
   const onEmailChange = e => {
-    setEmail(e.target.value);
+    e.preventDefault();
+    setState({...state, email: e.target.value});
   }
 
-  const [password, setPassword] = React.useState('');
   const onPasswordChange = e => {
-    setPassword(e.target.value);
+    e.preventDefault();
+    setState({...state, password: e.target.value});
   }
 
-  const [registered, setRegistered] = useState(false);
+  const onClick = React.useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(register(state));
+    },
+    [dispatch, state]
+  );
 
-  // todo(kulikov): rewrite
-  async function onClick() {
-    try {
-      // todo(kulikov): save cookie
-      const result = await normaClient.register({name, email, password});
-
-      setRegistered(true);
-      console.log(result);
-    } catch (exc) {
-      console.log(exc);
-    }
-  }
-
-  if (registered) {
-    return <Navigate to={'/login'}/>
-  }
+  if (user)
+    return <Navigate to={'/login'} state={{from: location}}/>
 
   // todo(kulikov): refactor
   return (
@@ -52,9 +53,9 @@ function Register() {
       <p className='text text_type_main-medium'>Регистрация</p>
 
       <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <Input value={name} onChange={onNameChange} placeholder='Имя'/>
-        <EmailInput value={email} onChange={onEmailChange}/>
-        <PasswordInput value={password} onChange={onPasswordChange}/>
+        <Input value={state.name} onChange={onNameChange} placeholder='Имя'/>
+        <EmailInput value={state.email} onChange={onEmailChange}/>
+        <PasswordInput value={state.password} onChange={onPasswordChange}/>
       </div>
 
       <div className='mt-6 mb-20'>

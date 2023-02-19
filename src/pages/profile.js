@@ -1,25 +1,40 @@
 import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logOut} from "../services/auth/auth-actions";
 
 function Profile() {
   const {user} = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+  const [state, setState] = useState({
+    name: user.name,
+    login: user.email,
+    password: '',
+  });
 
-  const [name, setName] = React.useState(user.name);
   const onNameChange = e => {
-    setName(e.target.value);
+    e.preventDefault();
+    setState({...state, name: e.target.value});
   }
 
-  const [login, setLogin] = React.useState(user.email);
   const onLoginChange = e => {
-    setLogin(e.target.value);
+    e.preventDefault();
+    setState({...state, login: e.target.value});
   }
 
-  const [password, setPassword] = React.useState('');
   const onPasswordChange = e => {
-    setPassword(e.target.value);
+    e.preventDefault();
+    setState({...state, password: e.target.value});
   }
+
+  let onLogOutClick = React.useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(logOut());
+    },
+    [dispatch]
+  );
 
   // todo(kulikov): refactor
   // todo(kulikov): replace with correct values
@@ -36,19 +51,19 @@ function Profile() {
       <div>
         {/*todo(kulikov): use NavLink with isActive*/}
         <Link to={'/profile'} style={{minHeight: '64px', display: 'flex', alignItems: 'center', textDecoration: 'none'}}
-           className='text text_type_main-medium text_color_primary'>Профиль</Link>
+              className='text text_type_main-medium text_color_primary'>Профиль</Link>
         <Link to={'/orders'} style={{minHeight: '64px', display: 'flex', alignItems: 'center', textDecoration: 'none'}}
-           className='text text_type_main-medium text_color_inactive'>История заказов</Link>
+              className='text text_type_main-medium text_color_inactive'>История заказов</Link>
         <p style={{minHeight: '64px', display: 'flex', alignItems: 'center'}}
-           className='text text_type_main-medium text_color_inactive'>Выход</p>
+           className='text text_type_main-medium text_color_inactive' onClick={onLogOutClick}>Выход</p>
         <p style={{maxWidth: '320px'}} className='mt-20 text text_type_main-default text_color_inactive'>В этом
           разделе вы можете изменить свои персональные данные</p>
       </div>
 
       <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <Input value={name} onChange={onNameChange} placeholder='Имя' icon='EditIcon'/>
-        <Input value={login} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
-        <PasswordInput value={password} onChange={onPasswordChange} placeholder='Пароль' icon='EditIcon'/>
+        <Input value={state.name} onChange={onNameChange} placeholder='Имя' icon='EditIcon'/>
+        <Input value={state.login} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
+        <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Пароль' icon='EditIcon'/>
       </div>
     </div>
   );

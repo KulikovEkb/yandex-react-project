@@ -10,25 +10,31 @@ function Login() {
 
   const {user} = useSelector(store => store.auth);
 
-  const [email, setEmail] = React.useState('')
+  const [state, setState] = React.useState({
+    email: '',
+    password: '',
+  });
+
   const onEmailChange = e => {
-    setEmail(e.target.value)
+    e.preventDefault();
+    setState({...state, email: e.target.value});
   }
 
-  const [password, setPassword] = React.useState('')
   const onPasswordChange = e => {
-    setPassword(e.target.value)
+    e.preventDefault();
+    setState({...state, password: e.target.value});
   }
 
-  let login = React.useCallback(
+  const onClick = React.useCallback(
     e => {
       e.preventDefault();
-      dispatch(logIn(email, password));
+      dispatch(logIn(state.email, state.password));
     },
-    [dispatch, email, password]
+    [dispatch, state]
   );
 
-  if (user) return <Navigate to={'/'} state={{from: location}}/>
+  if (user)
+    return <Navigate to={'/'} state={{from: location}}/>
 
   // todo(kulikov): refactor
   return (
@@ -44,12 +50,12 @@ function Login() {
       <p className='text text_type_main-medium'>Вход</p>
 
       <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <EmailInput value={email} onChange={onEmailChange}/>
-        <PasswordInput value={password} onChange={onPasswordChange}/>
+        <EmailInput value={state.email} onChange={onEmailChange}/>
+        <PasswordInput value={state.password} onChange={onPasswordChange}/>
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button onClick={login} htmlType="button" type="primary" size="large">
+        <Button onClick={onClick} htmlType="button" type="primary" size="large">
           Войти
         </Button>
       </div>
