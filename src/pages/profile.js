@@ -1,11 +1,11 @@
 import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import {Link} from "react-router-dom";
-import {useAuth} from "../services/auth/auth";
+import {useSelector} from "react-redux";
 
 function Profile() {
-  const auth = useAuth();
-  const user = auth.getUser();
+  const {user} = useSelector(store => store.auth);
+
   const [name, setName] = React.useState(user.name);
   const onNameChange = e => {
     setName(e.target.value);

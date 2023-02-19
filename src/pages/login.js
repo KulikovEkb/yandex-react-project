@@ -1,11 +1,15 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import {Link, Navigate, useLocation} from "react-router-dom";
-import {useAuth} from "../services/auth/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {logIn} from "../services/auth/auth-actions";
 
 function Login() {
   const location = useLocation();
-  const auth = useAuth();
+  const dispatch = useDispatch();
+
+  const {user} = useSelector(store => store.auth);
+
   const [email, setEmail] = React.useState('')
   const onEmailChange = e => {
     setEmail(e.target.value)
@@ -19,12 +23,12 @@ function Login() {
   let login = React.useCallback(
     e => {
       e.preventDefault();
-      auth.logIn(email, password);
+      dispatch(logIn(email, password));
     },
-    [auth, email, password]
+    [dispatch, email, password]
   );
 
-  if (auth.user) return <Navigate to={'/'} state={{from: location}}/>
+  if (user) return <Navigate to={'/'} state={{from: location}}/>
 
   // todo(kulikov): refactor
   return (

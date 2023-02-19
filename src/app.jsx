@@ -10,7 +10,6 @@ import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import Profile from "./pages/profile";
 import Ingredient from "./pages/ingredient";
-import {ProvideAuth} from "./services/auth/auth";
 import {ProtectedRoute} from "./components/protected-route";
 import {useDispatch} from "react-redux";
 import {getIngredients} from "./components/burger-ingredients/actions/ingredients-actions";
@@ -26,23 +25,21 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <ProvideAuth>
-        <BrowserRouter>
-          <AppHeader/>
+      <BrowserRouter>
+        <AppHeader/>
 
-          <Routes>
-            <Route path="/" element={<Constructor/>}/>
-            <Route path="/login" element={<ProtectedRoute onlyUnAuth={true} element={<Login/>}/>}/>
-            <Route path="/register" element={<ProtectedRoute onlyUnAuth={true} element={<Register/>}/>}/>
-            <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth={true} element={<ForgotPassword/>}/>}/>
-            <Route path="/reset-password" element={<ProtectedRoute onlyUnAuth={true} element={<ResetPassword/>}/>}/>
-            <Route path="/profile/*" element={<ProtectedRoute element={<Profile />}/>}/>
-            <Route path="/ingredients/:id" element={<Ingredient/>}/>
+        <Routes>
+          <Route path="/" element={<Constructor/>}/>
+          <Route path="/login" element={<ProtectedRoute onlyUnAuth={true} element={<Login/>}/>}/>
+          <Route path="/register" element={<ProtectedRoute onlyUnAuth={true} element={<Register/>}/>}/>
+          <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth={true} element={<ForgotPassword/>}/>}/>
+          <Route path="/reset-password" element={<ProtectedRoute onlyUnAuth={true} element={<ResetPassword/>}/>}/>
+          <Route path="/profile/*" element={<ProtectedRoute element={<Profile/>}/>}/>
+          <Route path="/ingredients/:id" element={<Ingredient/>}/>
 
-            <Route path="*" element={<NotFound/>}/>
-          </Routes>
-        </BrowserRouter>
-      </ProvideAuth>
+          <Route path="*" element={<NotFound/>}/>
+        </Routes>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }
