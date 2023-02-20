@@ -1,18 +1,20 @@
-import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {logOut} from '../services/auth/auth-actions';
+import {editUser, logOut} from '../services/auth/auth-actions';
 import styles from './profile.module.css';
 
 function Profile() {
   const {user} = useSelector(store => store.auth);
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+
+  const initState = {
     name: user.name,
-    login: user.email,
+    email: user.email,
     password: '',
-  });
+  };
+  const [state, setState] = useState(initState);
 
   const onNameChange = e => {
     e.preventDefault();
@@ -21,12 +23,27 @@ function Profile() {
 
   const onLoginChange = e => {
     e.preventDefault();
-    setState({...state, login: e.target.value});
+    setState({...state, email: e.target.value});
   }
 
   const onPasswordChange = e => {
     e.preventDefault();
     setState({...state, password: e.target.value});
+  }
+
+  const wasEdited = React.useMemo(
+    () => state.name !== user.name || state.email !== user.email || !!state.password,
+    [user, state]
+  );
+
+  const onCancelButtonClick = () => {
+    setState(initState);
+  }
+
+  const onSaveButtonClick = (e) => {
+    e.preventDefault();
+
+    dispatch(editUser(state));
   }
 
   let onLogOutClick = React.useCallback(
@@ -37,11 +54,9 @@ function Profile() {
     [dispatch]
   );
 
-  // todo(kulikov): replace with correct values
   return (
     <div className={styles.mainContainer}>
       <div>
-        {/*todo(kulikov): use NavLink with isActive*/}
         <Link to={'/profile'} className={`${styles.tab} text text_type_main-medium text_color_primary`}>Профиль</Link>
         <Link to={'/orders'} className={`${styles.tab} text text_type_main-medium text_color_inactive`}>
           История заказов
@@ -53,8 +68,25 @@ function Profile() {
 
       <div className={styles.inputs}>
         <Input value={state.name} onChange={onNameChange} placeholder='Имя' icon='EditIcon'/>
-        <Input value={state.login} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
+        <Input value={state.email} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
         <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Пароль' icon='EditIcon'/>
+
+        {wasEdited && (
+          <div className={styles.buttons}>
+            <Button
+              htmlType='button'
+              type='secondary'
+              size='medium'
+              onClick={onCancelButtonClick}
+            >
+              Отмена
+            </Button>
+
+            <Button htmlType='submit' type='primary' size='medium' onClick={onSaveButtonClick}>
+              Сохранить
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

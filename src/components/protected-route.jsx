@@ -6,17 +6,14 @@ export const ProtectedRoute = ({onlyUnAuth = false, element}) => {
   const user = useSelector(store => store.auth.user);
   const location = useLocation();
 
-  if (!authChecked) {
+  if (!authChecked)
     return null;
-  }
 
-  if (onlyUnAuth && user) {
+  if (onlyUnAuth && user)
     return <Navigate to={location.state?.from ?? '/'}/>
-  }
 
-  if (!onlyUnAuth && !user) {
+  if (!onlyUnAuth && !user)
     return <Navigate to="/login" state={{from: location}}/>;
-  }
 
   return element;
 }

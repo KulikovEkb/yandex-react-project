@@ -1,4 +1,9 @@
-import {sendGetRequest, sendGetRequestWithAuth, sendPostRequest} from "./helpers/http-client-helper";
+import {
+  sendGetRequest,
+  sendGetRequestWithAuth,
+  sendPatchRequestWithAuth,
+  sendPostRequest
+} from "./helpers/http-client-helper";
 import {setCookie} from "../helpers/cookie-helper";
 import setTokenExpirationDate from "../helpers/local-storage-helper";
 
@@ -65,6 +70,16 @@ export function logout(token) {
 
 export function getUser() {
   return executeWithAuth(async () => await sendGetRequestWithAuth(`${baseUri}/auth/user`))
+    .then(result => {
+      if (result.success)
+        return result;
+
+      return Promise.reject(result);
+    });
+}
+
+export function editUser(user) {
+  return executeWithAuth(async () => await sendPatchRequestWithAuth(`${baseUri}/auth/user`, user))
     .then(result => {
       if (result.success)
         return result;

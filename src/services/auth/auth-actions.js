@@ -25,6 +25,15 @@ export function getUser() {
   }
 }
 
+export function editUser(user) {
+  return function (dispatch) {
+    normaClient.editUser(user)
+      .then(result => {
+        dispatch({type: SET_USER, user: result.user});
+      });
+  }
+}
+
 export function register(payload) {
   return function (dispatch) {
     normaClient.register(payload)
