@@ -1,35 +1,40 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate, useLocation} from "react-router-dom";
 import React, {useState} from "react";
-import * as normaClient from "../clients/norma-client";
+import {useDispatch, useSelector} from "react-redux";
+import {resetPassword} from "../services/auth/auth-actions";
 
 function ResetPassword() {
   const location = useLocation();
-  const [emailCode, setEmailCode] = React.useState('');
+  const {resetPasswordStarted, resetPasswordFinished} = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+
+  const [state, setState] = useState({
+    emailCode: '',
+    password: '',
+  })
   const onEmailCodeChange = e => {
-    setEmailCode(e.target.value);
+    e.preventDefault();
+    setState({...state, emailCode: e.target.value});
   }
-
-  const [password, setPassword] = React.useState('');
   const onPasswordChange = e => {
-    setPassword(e.target.value);
+    e.preventDefault();
+    setState({...state, password: e.target.value});
   }
 
-  const [passwordReset, setPasswordReset] = useState(false);
+  const onClick = React.useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(resetPassword(state.password, state.emailCode));
+    },
+    [dispatch, state]);
 
-  // todo(kulikov): rewrite
-  async function onClick() {
-    try {
-      await normaClient.resetPassword(password, emailCode);
-
-      setPasswordReset(true);
-    } catch (exc) {
-      console.log(exc);
-    }
-  }
-
-  if (passwordReset) {
+  if (resetPasswordFinished) {
     return <Navigate to={'/login'} state={{from: location}}/>
+  }
+
+  if (!resetPasswordStarted) {
+    return <Navigate to={'/forgot-password'} state={{from: location}}/>
   }
 
   // todo(kulikov): refactor
@@ -46,8 +51,8 @@ function ResetPassword() {
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
       <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-        <PasswordInput value={password} onChange={onPasswordChange} placeholder='Введите новый пароль'/>
-        <Input value={emailCode} onChange={onEmailCodeChange} placeholder='Введите код из письма'/>
+        <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Введите новый пароль'/>
+        <Input value={state.emailCode} onChange={onEmailCodeChange} placeholder='Введите код из письма'/>
       </div>
 
       <div className='mt-6 mb-20'>

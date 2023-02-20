@@ -1,13 +1,11 @@
 export function getCookie(name) {
   const matches = document.cookie.match(
-    // todo(kulikov): rewrite that shit-code
     new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)')
   );
 
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-// todo(kulikov): rewrite that shit-code
 export function setCookie(name, value, props) {
   props = props || {};
   let exp = props.expires;
@@ -35,10 +33,6 @@ export function setCookie(name, value, props) {
   }
 
   document.cookie = updatedCookie;
-}
-
-// todo(kulikov): implement
-export function refreshCookie() {
 }
 
 export function expireCookie(name) {

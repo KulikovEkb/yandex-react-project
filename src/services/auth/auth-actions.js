@@ -4,6 +4,8 @@ import setTokenExpirationDate from "../../helpers/local-storage-helper";
 
 export const AUTH_CHECKED = 'AUTH_CHECKED';
 export const SET_USER = 'SET_USER';
+export const RESET_PASSWORD_STARTED = 'RESET_PASSWORD_EMAIL_SENT';
+export const RESET_PASSWORD_FINISHED = 'RESET_PASSWORD_FINISHED';
 
 export function checkUserAuth() {
   return function (dispatch) {
@@ -60,5 +62,19 @@ export function logOut() {
         expireCookie('token');
         localStorage.clear();
       });
+  }
+}
+
+export function resetPassword(password, emailCode) {
+  return function (dispatch) {
+    normaClient.resetPassword(password, emailCode)
+      .then(() => dispatch({type: RESET_PASSWORD_FINISHED}));
+  }
+}
+
+export function sendResetPasswordEmail(email) {
+  return function (dispatch) {
+    normaClient.sendResetPasswordEmail(email)
+      .then(() => dispatch({type: RESET_PASSWORD_STARTED}));
   }
 }

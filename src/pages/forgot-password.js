@@ -1,29 +1,29 @@
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate} from "react-router-dom";
-import React, {useState} from "react";
-import * as normaClient from "../clients/norma-client";
+import {Link, Navigate, useLocation} from "react-router-dom";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {sendResetPasswordEmail} from "../services/auth/auth-actions";
 
 function ForgotPassword() {
+  const location = useLocation();
+  const {resetPasswordStarted} = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+
   const [email, setEmail] = React.useState('');
   const onEmailChange = e => {
+    e.preventDefault();
     setEmail(e.target.value);
   }
 
-  const [emailSent, setEmailSent] = useState(false);
+  const onClick = React.useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(sendResetPasswordEmail(email));
+    },
+    [dispatch, email]);
 
-  // todo(kulikov): rewrite
-  async function onClick() {
-    try {
-      await normaClient.sendResetPasswordEmail(email);
-
-      setEmailSent(true);
-    } catch (exc) {
-      console.log(exc);
-    }
-  }
-
-  if (emailSent) {
-    return <Navigate to={'/reset-password'}/>
+  if (resetPasswordStarted) {
+    return <Navigate to={'/reset-password'} state={{from: location}}/>
   }
 
   // todo(kulikov): refactor
