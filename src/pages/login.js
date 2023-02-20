@@ -1,8 +1,9 @@
-import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import {Link, Navigate, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logIn} from "../services/auth/auth-actions";
+import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import React from 'react';
+import {Link, Navigate, useLocation} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {logIn} from '../services/auth/auth-actions';
+import styles from './auth.module.css'
 
 function Login() {
   const location = useLocation();
@@ -36,20 +37,11 @@ function Login() {
   if (user)
     return <Navigate to={'/'} state={{from: location}}/>
 
-  // todo(kulikov): refactor
   return (
-    <div style={{
-      position: 'fixed',
-      top: '150px',
-      left: '50%',
-      transform: 'translate(-50%, 0)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
+    <div className={styles.mainContainer}>
       <p className='text text_type_main-medium'>Вход</p>
 
-      <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+      <div className={`${styles.inputs} mt-6`}>
         <EmailInput value={state.email} onChange={onEmailChange}/>
         <PasswordInput value={state.password} onChange={onPasswordChange}/>
       </div>
@@ -60,7 +52,7 @@ function Login() {
         </Button>
       </div>
 
-      <div style={{display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center'}}>
+      <div className={styles.links}>
         <p className='text text_type_main-default text_color_inactive'>
           Вы — новый пользователь? <Link to='/register' className='text_color_accent'>Зарегистрироваться</Link>
         </p>

@@ -1,8 +1,9 @@
-import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logOut} from "../services/auth/auth-actions";
+import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {logOut} from '../services/auth/auth-actions';
+import styles from './profile.module.css';
 
 function Profile() {
   const {user} = useSelector(store => store.auth);
@@ -36,31 +37,21 @@ function Profile() {
     [dispatch]
   );
 
-  // todo(kulikov): refactor
   // todo(kulikov): replace with correct values
   return (
-    <div style={{
-      position: 'fixed',
-      top: '150px',
-      left: '50%',
-      transform: 'translate(-50%, 0)',
-      display: 'grid',
-      gridTemplateColumns: '320px max-content 320px',
-      columnGap: '60px'
-    }}>
+    <div className={styles.mainContainer}>
       <div>
         {/*todo(kulikov): use NavLink with isActive*/}
-        <Link to={'/profile'} style={{minHeight: '64px', display: 'flex', alignItems: 'center', textDecoration: 'none'}}
-              className='text text_type_main-medium text_color_primary'>Профиль</Link>
-        <Link to={'/orders'} style={{minHeight: '64px', display: 'flex', alignItems: 'center', textDecoration: 'none'}}
-              className='text text_type_main-medium text_color_inactive'>История заказов</Link>
-        <p style={{minHeight: '64px', display: 'flex', alignItems: 'center'}}
-           className='text text_type_main-medium text_color_inactive' onClick={onLogOutClick}>Выход</p>
-        <p style={{maxWidth: '320px'}} className='mt-20 text text_type_main-default text_color_inactive'>В этом
+        <Link to={'/profile'} className={`${styles.tab} text text_type_main-medium text_color_primary`}>Профиль</Link>
+        <Link to={'/orders'} className={`${styles.tab} text text_type_main-medium text_color_inactive`}>
+          История заказов
+        </Link>
+        <p className={`${styles.tab} text text_type_main-medium text_color_inactive`} onClick={onLogOutClick}>Выход</p>
+        <p className={`${styles.disclaimer} mt-20 text text_type_main-default text_color_inactive`}>В этом
           разделе вы можете изменить свои персональные данные</p>
       </div>
 
-      <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+      <div className={styles.inputs}>
         <Input value={state.name} onChange={onNameChange} placeholder='Имя' icon='EditIcon'/>
         <Input value={state.login} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
         <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Пароль' icon='EditIcon'/>

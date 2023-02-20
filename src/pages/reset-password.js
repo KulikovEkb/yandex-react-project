@@ -1,8 +1,9 @@
-import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate, useLocation} from "react-router-dom";
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {resetPassword} from "../services/auth/auth-actions";
+import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link, Navigate, useLocation} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {resetPassword} from '../services/auth/auth-actions';
+import styles from './auth.module.css';
 
 function ResetPassword() {
   const location = useLocation();
@@ -37,20 +38,11 @@ function ResetPassword() {
     return <Navigate to={'/forgot-password'} state={{from: location}}/>
   }
 
-  // todo(kulikov): refactor
   return (
-    <div style={{
-      position: 'fixed',
-      top: '150px',
-      left: '50%',
-      transform: 'translate(-50%, 0)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
+    <div className={styles.mainContainer}>
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
-      <div className='mt-6' style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+      <div className={`${styles.inputs} mt-6`}>
         <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Введите новый пароль'/>
         <Input value={state.emailCode} onChange={onEmailCodeChange} placeholder='Введите код из письма'/>
       </div>
@@ -61,7 +53,7 @@ function ResetPassword() {
         </Button>
       </div>
 
-      <div style={{display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center'}}>
+      <div className={styles.links}>
         <p className='text text_type_main-default text_color_inactive'>
           Вспомнили пароль? <Link to='/login' className='text_color_accent'>Войти</Link>
         </p>
