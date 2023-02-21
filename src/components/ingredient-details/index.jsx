@@ -24,7 +24,7 @@ const IngredientDetails = () => {
   }, [dispatch, ingredient]);
 
   const closeModal = React.useCallback(() => {
-    location?.state?.background && navigate(location.state.background)
+    location?.state?.background && navigate(location.state.background);
     dispatch({type: RESET_DETAILS});
   }, [location.state, navigate]);
 
