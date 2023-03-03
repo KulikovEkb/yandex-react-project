@@ -10,7 +10,7 @@ const AppHeader = () => {
   return (
     <header className={`${styles.appHeader} pt-4 pb-4`}>
       <Menu active={active} setActive={setActive}/>
-      <LogoWrapper/>
+      <LogoWrapper setActive={setActive}/>
       <Profile active={active} setActive={setActive}/>
     </header>
   );

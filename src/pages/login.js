@@ -1,15 +1,12 @@
 import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import {Link, Navigate, useLocation} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import {logIn} from '../services/auth/auth-actions';
 import styles from './auth.module.css'
 
 function Login() {
-  const location = useLocation();
   const dispatch = useDispatch();
-
-  const {user} = useSelector(store => store.auth);
 
   const [state, setState] = React.useState({
     email: '',
@@ -33,9 +30,6 @@ function Login() {
     },
     [dispatch, state]
   );
-
-  if (user)
-    return <Navigate to={'/'} state={{from: location}}/>
 
   return (
     <div className={styles.mainContainer}>

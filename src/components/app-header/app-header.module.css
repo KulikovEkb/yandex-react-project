@@ -18,7 +18,7 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  text-decoration: none;
+  text-decoration: inherit;
 }
 
 .logo {
