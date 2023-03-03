@@ -6,9 +6,10 @@ import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {getAuthStateUser} from "../../services/auth/auth-selectors";
 
 const Summary = ({totalSum, canOrder}) => {
-  const user = useSelector(store => store.auth.user);
+  const user = useSelector(getAuthStateUser);
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);

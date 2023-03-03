@@ -2,12 +2,14 @@ import styles from './order-details.module.css'
 import doneImage from "../../images/done.png";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
-import {createOrder} from "./actions/order-details-actions";
+import {createOrder} from "./store/order-details-actions";
 import {Loader} from "../loader/loader";
+import {getConstructorState} from "../burger-constructor/store/constructor-selectors";
+import {getOrderDetailsState} from "./store/order-details-selectors";
 
 const OrderDetails = () => {
-  const {orderNumber, createOrderRequest, createOrderFail} = useSelector(store => store.orderDetails);
-  const {bun, fillers} = useSelector(store => store.burgerConstructor);
+  const {orderNumber, createOrderRequest, createOrderFail} = useSelector(getOrderDetailsState);
+  const {bun, fillers} = useSelector(getConstructorState);
   const dispatch = useDispatch();
 
   useEffect(() => {

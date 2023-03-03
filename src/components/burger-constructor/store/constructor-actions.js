@@ -1,4 +1,4 @@
-import {DECREMENT_INGREDIENT_COUNTER} from "../../burger-ingredients/actions/ingredients-actions";
+import {DECREMENT_INGREDIENT_COUNTER} from "../../burger-ingredients/store/ingredients-actions";
 
 export const ADD_BUN = 'ADD_BUN';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';

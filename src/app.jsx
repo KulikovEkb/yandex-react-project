@@ -12,7 +12,7 @@ import Profile from "./pages/profile";
 import Ingredient from "./pages/ingredient";
 import {ProtectedRoute} from "./components/protected-route";
 import {useDispatch} from "react-redux";
-import {getIngredients} from "./components/burger-ingredients/actions/ingredients-actions";
+import {getIngredients} from "./components/burger-ingredients/store/ingredients-actions";
 import {checkUserAuth} from "./services/auth/auth-actions";
 import IngredientDetails from "./components/ingredient-details";
 

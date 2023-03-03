@@ -1,6 +1,6 @@
 import {v4 as newGuid} from 'uuid';
 
-import * as actions from '../actions/constructor-actions';
+import * as actions from './constructor-actions';
 
 const initialState = {
   bun: null,

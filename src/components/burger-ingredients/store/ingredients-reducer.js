@@ -1,4 +1,4 @@
-import * as actions from '../actions/ingredients-actions';
+import * as actions from './ingredients-actions';
 import categorizeIngredients from "../../../helpers/ingredients-categorizer";
 
 const initialState = {

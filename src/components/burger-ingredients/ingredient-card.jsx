@@ -5,10 +5,11 @@ import {ingredientShape} from "../../shapes/shapes";
 import {useDrag} from "react-dnd";
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
+import {getIngredientsState} from "./store/ingredients-selectors";
 
 const IngredientCard = ({ingredient}) => {
   const location = useLocation();
-  const {bunId, countersMap} = useSelector(store => store.ingredients);
+  const {bunId, countersMap} = useSelector(getIngredientsState);
 
   const [{isDragging}, drag] = useDrag({
     type: ingredient.type,

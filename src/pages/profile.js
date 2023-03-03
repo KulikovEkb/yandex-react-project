@@ -4,9 +4,10 @@ import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {editUser, logOut} from '../services/auth/auth-actions';
 import styles from './profile.module.css';
+import {getAuthStateUser} from "../services/auth/auth-selectors";
 
 function Profile() {
-  const {user} = useSelector(store => store.auth);
+  const user = useSelector(getAuthStateUser);
   const dispatch = useDispatch();
 
   const initState = {

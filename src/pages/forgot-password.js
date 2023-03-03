@@ -4,10 +4,11 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendResetPasswordEmail} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
+import {getAuthState} from "../services/auth/auth-selectors";
 
 function ForgotPassword() {
   const location = useLocation();
-  const {resetPasswordStarted} = useSelector(store => store.auth);
+  const {resetPasswordStarted} = useSelector(getAuthState);
   const dispatch = useDispatch();
 
   const [email, setEmail] = React.useState('');

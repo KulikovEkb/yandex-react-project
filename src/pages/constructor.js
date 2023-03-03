@@ -5,9 +5,10 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {Loader} from "../components/loader/loader";
 import BurgerIngredients from "../components/burger-ingredients";
 import BurgerConstructor from "../components/burger-constructor";
+import {getIngredientsState} from "../components/burger-ingredients/store/ingredients-selectors";
 
 function Constructor() {
-  const {getIngredientsRequest, getIngredientsFail} = useSelector(store => store.ingredients);
+  const {getIngredientsRequest, getIngredientsFail} = useSelector(getIngredientsState);
 
   return (
     <>

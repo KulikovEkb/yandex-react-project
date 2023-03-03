@@ -4,9 +4,10 @@ import Summary from "./summary";
 import {useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
 import Ingredients from "./ingredients";
+import {getConstructorState} from "./store/constructor-selectors";
 
 const BurgerConstructor = () => {
-  const {bun, fillers} = useSelector(store => store.burgerConstructor);
+  const {bun, fillers} = useSelector(getConstructorState);
 
   const totalSum = useMemo(() => {
     return fillers.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);

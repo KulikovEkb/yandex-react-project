@@ -1,7 +1,7 @@
 import styles from "./burger-constructor.module.css";
 import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
+import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 import React from "react";
 
 const EmptyFiller = () => {

@@ -2,22 +2,26 @@ import styles from './ingredient-details.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import Detail from "./detail";
 import Modal from "../modal";
-import React from "react";
-import {RESET_DETAILS, SET_DETAILS} from "./actions/ingredient-details-actions";
+import React, {useMemo} from "react";
+import {RESET_DETAILS, SET_DETAILS} from "./store/ingredient-details-actions";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Loader} from "../loader/loader";
+import {getIngredientsState} from "../burger-ingredients/store/ingredients-selectors";
+import {getIngredientDetailsState} from "./store/ingredient-details-selectors";
 
 const IngredientDetails = () => {
-  const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(store => store.ingredients);
-  const {name, image, calories, proteins, fat, carbohydrates} = useSelector(store => store.ingredientDetails);
+  const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(getIngredientsState);
+  const {name, image, calories, proteins, fat, carbohydrates} = useSelector(getIngredientDetailsState);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const {id} = useParams();
 
-  const ingredient = ingredients?.buns.find(x => x._id === id)
-    || ingredients?.fillers.find(x => x._id === id)
-    || ingredients?.sauces.find(x => x._id === id);
+  const ingredient = useMemo(() => {
+    return ingredients?.buns.find(x => x._id === id)
+      || ingredients?.fillers.find(x => x._id === id)
+      || ingredients?.sauces.find(x => x._id === id);
+  }, [ingredients]);
 
   React.useEffect(() => {
     ingredient && dispatch({type: SET_DETAILS, ingredient});

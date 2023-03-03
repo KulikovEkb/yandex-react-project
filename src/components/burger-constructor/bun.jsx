@@ -5,7 +5,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
+import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 
 const Bun = ({bun, type}) => {
   const dispatch = useDispatch();
