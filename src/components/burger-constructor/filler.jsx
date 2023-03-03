@@ -1,9 +1,9 @@
 import styles from "./burger-constructor.module.css";
 import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
-import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
+import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {removeIngredient} from "./actions/constructor-actions";
+import {removeIngredient} from "./store/constructor-actions";
 import React from "react";
 import {ingredientShape} from "../../shapes/shapes";
 

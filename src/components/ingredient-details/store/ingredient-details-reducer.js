@@ -1,4 +1,4 @@
-import * as actions from '../actions/ingredient-details-actions';
+import * as actions from './ingredient-details-actions';
 
 const initialState = {
   name: null,

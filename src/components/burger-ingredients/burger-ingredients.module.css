@@ -47,6 +47,11 @@
   cursor: pointer;
 }
 
+.link{
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .price {
   display: flex;
   flex-direction: row;

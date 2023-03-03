@@ -1,0 +1,25 @@
+.mainContainer {
+  composes: mainContainer from './auth.module.css';
+  display: grid;
+  grid-template-columns: 320px max-content 320px;
+  column-gap: 60px;
+  align-items: start;
+}
+
+.tab {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.disclaimer {
+  max-width: 320px;
+}

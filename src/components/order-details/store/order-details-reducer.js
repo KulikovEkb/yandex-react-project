@@ -1,4 +1,4 @@
-import * as actions from '../actions/order-details-actions';
+import * as actions from './order-details-actions';
 
 const initialState = {
   orderNumber: {},

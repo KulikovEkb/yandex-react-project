@@ -3,9 +3,9 @@ import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compon
 import {ingredientShape} from "../../shapes/shapes";
 import React from "react";
 import PropTypes from "prop-types";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient} from "../burger-ingredients/actions/ingredients-actions";
+import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 
 const Bun = ({bun, type}) => {
   const dispatch = useDispatch();

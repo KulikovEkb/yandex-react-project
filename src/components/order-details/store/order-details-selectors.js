@@ -1,0 +1,1 @@
+export const getOrderDetailsState = (store) => store.orderDetails;

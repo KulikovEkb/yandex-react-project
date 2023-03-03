@@ -2,7 +2,7 @@ import {arrayIsEmpty} from "../../helpers/collection-helper";
 import styles from "./burger-constructor.module.css";
 import scrollBarStyles from "../../helpers/scroll-bar.module.css";
 import {useDispatch} from "react-redux";
-import {SET_INGREDIENTS} from "./actions/constructor-actions";
+import {SET_INGREDIENTS} from "./store/constructor-actions";
 import React from "react";
 import PropTypes from "prop-types";
 import {ingredientShape} from "../../shapes/shapes";

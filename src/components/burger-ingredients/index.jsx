@@ -4,9 +4,10 @@ import {useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
 import IngredientsSection from "./ingredients-section";
 import Header from "./header";
+import {getIngredientsState} from "./store/ingredients-selectors";
 
 const BurgerIngredients = () => {
-  const {ingredients} = useSelector(store => store.ingredients);
+  const {ingredients} = useSelector(getIngredientsState);
 
   if (objectIsEmpty(ingredients)) return null;
 
