@@ -5,7 +5,7 @@ import Profile from "./profile";
 import {useState} from "react";
 
 const AppHeader = () => {
-  const [active, setActive] = useState('Constructor');
+  const [active, setActive] = useState<string>('Constructor');
 
   return (
     <header className={`${styles.appHeader} pt-4 pb-4`}>

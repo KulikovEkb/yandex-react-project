@@ -2,9 +2,14 @@ import {BurgerIcon, ListIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from '../app-header/app-header.module.css';
 import HeaderLink from "./header-link";
 import {getIconType, getLinkTextType} from "./helpers/header-link-helper";
-import PropTypes from "prop-types";
+import {FC} from "react";
 
-const Menu = ({active, setActive}) => {
+type TMenuProps = {
+  active: string;
+  setActive: (active: string) => void;
+}
+
+const Menu: FC<TMenuProps> = ({active, setActive}) => {
   return (
     <nav className={styles.menu}>
       <HeaderLink link='/' onClick={() => setActive('Constructor')}>
@@ -18,11 +23,6 @@ const Menu = ({active, setActive}) => {
       </HeaderLink>
     </nav>
   );
-}
-
-Menu.propTypes = {
-  active: PropTypes.string.isRequired,
-  setActive: PropTypes.func.isRequired,
 }
 
 export default Menu;
