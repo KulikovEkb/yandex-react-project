@@ -4,25 +4,32 @@ import {useDrag, useDrop} from "react-dnd";
 import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {removeIngredient} from "./store/constructor-actions";
-import React from "react";
-import {ingredientShape} from "../../shapes/shapes";
+import React, {FC} from "react";
+import * as consts from "./consts/consts";
+import {TFillerIngredient} from "./types/TFillerType";
 
-const Filler = ({filler, index, moveItem}) => {
+type TFiller = {
+  filler: TFillerIngredient;
+  index: number;
+  moveItem: (dragIndex: number, hoverIndex: number) => void;
+}
+
+const Filler: FC<TFiller> = ({filler, index, moveItem}) => {
   const dispatch = useDispatch();
 
   const [{isDragging}, dragRef] = useDrag({
     item: {isSorting: true, index},
-    type: 'sorting',
+    type: consts.DndTypes.Sorting,
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
   });
 
   const [{isHover}, dropRef] = useDrop({
-    accept: ['main', 'sauce', 'sorting'],
-    drop(ingredient) {
+    accept: [consts.DndTypes.Main, consts.DndTypes.Sauce, consts.DndTypes.Sorting],
+    drop(ingredient: {isSorting: boolean; index: number}) {
       if (!ingredient.isSorting) {
-        dispatch(addIngredient(ingredient));
+        dispatch(addIngredient(ingredient) as any);
         return;
       }
 
@@ -53,15 +60,11 @@ const Filler = ({filler, index, moveItem}) => {
           text={filler.name}
           price={filler.price}
           thumbnail={filler.image}
-          handleClose={() => dispatch(removeIngredient(filler._id, filler.key))}
+          handleClose={() => dispatch(removeIngredient(filler._id, filler.key) as any)}
         />
       </div>
     </div>
   );
 }
-
-Filler.propTypes = {
-  filler: ingredientShape.isRequired,
-};
 
 export default Filler;

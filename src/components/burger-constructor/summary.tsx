@@ -1,18 +1,22 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import styles from "./burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal";
 import OrderDetails from "../order-details/order-details";
-import PropTypes from "prop-types";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {getAuthStateUser} from "../../services/auth/auth-selectors";
 
-const Summary = ({totalSum, canOrder}) => {
+type TSummary = {
+  totalSum: number;
+  canOrder: boolean;
+};
+
+const Summary: FC<TSummary> = ({totalSum, canOrder}) => {
   const user = useSelector(getAuthStateUser);
   const location = useLocation();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   async function openModal() {
     if (!user) {
@@ -46,9 +50,5 @@ const Summary = ({totalSum, canOrder}) => {
       )}
     </div>);
 }
-
-Summary.propTypes = {
-  totalSum: PropTypes.number.isRequired,
-};
 
 export default Summary;

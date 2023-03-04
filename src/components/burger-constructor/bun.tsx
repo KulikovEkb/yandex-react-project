@@ -1,26 +1,32 @@
 import styles from './burger-constructor.module.css'
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientShape} from "../../shapes/shapes";
-import React from "react";
-import PropTypes from "prop-types";
+import React, {FC} from "react";
 import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
+import {TIngredient} from "./types/TIngredient";
+import * as consts from "./consts/consts";
+import {TBunType} from "./types/TBunType";
 
-const Bun = ({bun, type}) => {
+type TBunProps = {
+  bun: TIngredient | null;
+  type: TBunType;
+}
+
+const Bun: FC<TBunProps> = ({bun, type}) => {
   const dispatch = useDispatch();
 
   const [{isHover}, dropRef] = useDrop({
-    accept: 'bun',
+    accept: consts.DndTypes.Bun,
     drop(ingredient){
-      dispatch(addIngredient(ingredient));
+      dispatch(addIngredient(ingredient) as any);
     },
     collect: monitor => ({
       isHover: monitor.isOver(),
     })
   });
 
-  const isTopBun = type === 'top';
+  const isTopBun = type === consts.BunTypes.Top;
 
   let className = `${isTopBun ? styles.topBun : styles.bottomBun}`;
   if (isHover) className += ` ${styles.hover}`;
@@ -47,10 +53,5 @@ const Bun = ({bun, type}) => {
     </div>
   );
 }
-
-Bun.propTypes = {
-  bun: ingredientShape,
-  type: PropTypes.string.isRequired,
-};
 
 export default Bun;

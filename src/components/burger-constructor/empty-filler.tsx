@@ -3,14 +3,15 @@ import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 import React from "react";
+import * as consts from "./consts/consts";
 
 const EmptyFiller = () => {
   const dispatch = useDispatch();
 
   const [{isHover}, dropRef] = useDrop({
-    accept: ['main', 'sauce'],
+    accept: [consts.DndTypes.Main, consts.DndTypes.Sauce],
     drop(ingredient) {
-      dispatch(addIngredient(ingredient));
+      dispatch(addIngredient(ingredient) as any);
     },
     collect: monitor => ({
       isHover: monitor.isOver(),

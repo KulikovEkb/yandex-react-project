@@ -3,6 +3,7 @@ import styles from '../app-header/app-header.module.css';
 import HeaderLink from "./header-link";
 import {getIconType, getLinkTextType} from "./helpers/header-link-helper";
 import {FC} from "react";
+import * as consts from "./consts/consts";
 
 type TProfileProps = {
   active: string;
@@ -10,11 +11,11 @@ type TProfileProps = {
 }
 
 const Profile: FC<TProfileProps> = ({active, setActive}) => {
-  const isActive = active === 'Profile';
+  const isActive = active === consts.Tabs.Profile;
 
   return (
     <div className={styles.profile}>
-      <HeaderLink link='/profile' onClick={() => setActive('Profile')}>
+      <HeaderLink link='/profile' onClick={() => setActive(consts.Tabs.Profile)}>
         <ProfileIcon type={getIconType({isActive: isActive})}/>
         <p className={getLinkTextType({isActive: isActive})}>Личный&nbsp;кабинет</p>
       </HeaderLink>

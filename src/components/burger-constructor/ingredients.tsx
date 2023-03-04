@@ -1,11 +1,16 @@
 import styles from './burger-constructor.module.css'
-import {elementsShape, ingredientShape} from "../../shapes/shapes";
-import React from "react";
-import PropTypes from "prop-types";
+import React, {FC} from "react";
 import FillersList from "./fillers-list";
 import Bun from "./bun";
+import {TIngredient} from "./types/TIngredient";
+import {TFillerIngredient} from "./types/TFillerType";
 
-const Ingredients = ({bun, fillers}) => {
+type TIngredients = {
+  bun: TIngredient,
+  fillers: Array<TFillerIngredient>
+};
+
+const Ingredients: FC<TIngredients> = ({bun, fillers}) => {
   return (
     <div className={styles.ingredients}>
       <Bun bun={bun} type='top'/>
@@ -13,10 +18,5 @@ const Ingredients = ({bun, fillers}) => {
       <Bun bun={bun} type='bottom'/>
     </div>);
 }
-
-Ingredients.propTypes = {
-  bun: elementsShape,
-  fillers: PropTypes.arrayOf(ingredientShape),
-};
 
 export default Ingredients;

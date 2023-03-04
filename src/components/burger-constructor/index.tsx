@@ -5,12 +5,13 @@ import {useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
 import Ingredients from "./ingredients";
 import {getConstructorState} from "./store/constructor-selectors";
+import {TFillerIngredient} from "./types/TFillerType";
 
 const BurgerConstructor = () => {
   const {bun, fillers} = useSelector(getConstructorState);
 
-  const totalSum = useMemo(() => {
-    return fillers.reduce((x, y) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
+  const totalSum = useMemo<number>(() => {
+    return fillers.reduce((x: number, y: TFillerIngredient) => x + y.price, 0) + ((bun?.price ?? 0) * 2);
   }, [bun, fillers]);
 
   return (
