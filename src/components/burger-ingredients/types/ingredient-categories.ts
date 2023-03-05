@@ -1,0 +1,1 @@
+export type TIngredientCategories = 'Булки' | 'Соусы' | 'Начинки';

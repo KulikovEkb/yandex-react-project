@@ -1,11 +1,20 @@
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {forwardRef} from "react";
+import React, {forwardRef, RefObject} from "react";
+import {TIngredientCategories} from "./types/ingredient-categories";
+import {TIngredientTabsRef} from "./consts/ingredient-tabs-refs";
 
-const IngredientsTabs = forwardRef(({current, setCurrent}, ref) => {
-  const onTabClick = (tab) => {
+type TIngredientsTabsProps = {
+  current: string;
+  setCurrent: (current: string) => void;
+};
+
+const IngredientsTabs = forwardRef<TIngredientTabsRef, TIngredientsTabsProps>(({current, setCurrent}, ref) => {
+  const onTabClick = (tab: string) => {
     setCurrent(tab);
 
+    // todo(kulikov): uncomment if possible
+    // @ts-ignore
     ref.current[tab].clickRef.current.scrollIntoView({behavior: 'smooth'});
   }
 

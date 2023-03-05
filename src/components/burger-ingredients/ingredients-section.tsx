@@ -1,28 +1,36 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../helpers/scroll-bar.module.css'
-import React, {useEffect, useRef} from "react";
+import React, {FC, RefObject, useEffect, useRef} from "react";
 import {useInView} from "react-intersection-observer";
-import {IngredientCategory} from "../../consts/ingredient-type";
+import {IngredientCategory} from "./consts/ingredient-type";
 import IngredientsTabs from "./ingredients-tabs";
 import IngredientsCards from "./ingredients-cards";
+import {TIngredientCategories} from "./types/ingredient-categories";
+import {TIngredients} from "../../types/ingredients";
 
-const IngredientsSection = ({ingredients}) => {
-  const [current, setCurrent] = React.useState(IngredientCategory.Buns);
+const IngredientsSection: FC<{ ingredients: TIngredients }> = ({ingredients}) => {
+  const [current, setCurrent] = React.useState<string>(IngredientCategory.Buns);
 
-  const [bunsRef, inView, entry] = useInView({
+  const [bunsRef, inView] = useInView({
     threshold: 0.5
   });
-  const [saucesRef, inView2, entry2] = useInView({
+  const [saucesRef, inView2] = useInView({
     threshold: 0.5
   });
-  const [fillersRef, inView3, entry3] = useInView({
+  const [fillersRef, inView3] = useInView({
     threshold: 0.5
   });
 
-  const tabsRef = useRef({});
-  tabsRef.current[IngredientCategory.Buns] = {scrollRef: bunsRef, clickRef: useRef(null)};
-  tabsRef.current[IngredientCategory.Sauces] = {scrollRef: saucesRef, clickRef: useRef(null)};
-  tabsRef.current[IngredientCategory.Fillers] = {scrollRef: fillersRef, clickRef: useRef(null)};
+  const tabsRef = useRef<{
+    [size in TIngredientCategories]: {
+      scrollRef: (node?: Element | null) => void;
+      clickRef: RefObject<HTMLDivElement>
+    }
+  }>({
+    'Булки': {scrollRef: bunsRef, clickRef: useRef<HTMLDivElement>(null)},
+    'Соусы': {scrollRef: saucesRef, clickRef: useRef<HTMLDivElement>(null)},
+    'Начинки': {scrollRef: fillersRef, clickRef: useRef<HTMLDivElement>(null)},
+  });
 
   useEffect(() => {
     if (inView) {
