@@ -1,5 +1,8 @@
-const categorizeIngredients = (data) => {
-  const ingredients = {
+import {TIngredient} from "../types/ingredient";
+import {TIngredients} from "../types/ingredients";
+
+const categorizeIngredients = (data: Array<TIngredient>): TIngredients => {
+  const ingredients: TIngredients = {
     buns: [],
     sauces: [],
     fillers: [],
