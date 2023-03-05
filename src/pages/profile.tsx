@@ -1,5 +1,5 @@
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {editUser, logOut} from '../services/auth/auth-actions';
@@ -17,17 +17,17 @@ function Profile() {
   };
   const [state, setState] = useState(initState);
 
-  const onNameChange = e => {
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, name: e.target.value});
   }
 
-  const onLoginChange = e => {
+  const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, email: e.target.value});
   }
 
-  const onPasswordChange = e => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, password: e.target.value});
   }
@@ -41,16 +41,16 @@ function Profile() {
     setState(initState);
   }
 
-  const onSaveButtonClick = (e) => {
+  const onSaveButtonClick = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(editUser(state));
+    dispatch(editUser(state) as any);
   }
 
   let onLogOutClick = React.useCallback(
-    e => {
+    (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(logOut());
+      dispatch(logOut() as any);
     },
     [dispatch]
   );

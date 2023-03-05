@@ -1,6 +1,6 @@
 import {Button, EmailInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate, useLocation} from 'react-router-dom';
-import React from 'react';
+import React, {ChangeEvent, SyntheticEvent} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendResetPasswordEmail} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
@@ -12,15 +12,15 @@ function ForgotPassword() {
   const dispatch = useDispatch();
 
   const [email, setEmail] = React.useState('');
-  const onEmailChange = e => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setEmail(e.target.value);
   }
 
   const onClick = React.useCallback(
-    e => {
+    (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(sendResetPasswordEmail(email));
+      dispatch(sendResetPasswordEmail(email) as any);
     },
     [dispatch, email]);
 

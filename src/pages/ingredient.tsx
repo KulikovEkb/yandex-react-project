@@ -8,6 +8,7 @@ import {Loader} from "../components/loader/loader";
 import {SET_DETAILS} from "../components/ingredient-details/store/ingredient-details-actions";
 import {getIngredientsState} from "../components/burger-ingredients/store/ingredients-selectors";
 import {getIngredientDetailsState} from "../components/ingredient-details/store/ingredient-details-selectors";
+import {TIngredients} from "../types/ingredients";
 
 function Ingredient() {
   const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(getIngredientsState);
@@ -16,9 +17,11 @@ function Ingredient() {
   const {id} = useParams();
 
   const ingredient = useMemo(() => {
-    return ingredients?.buns.find(x => x._id === id)
-      || ingredients?.fillers.find(x => x._id === id)
-      || ingredients?.sauces.find(x => x._id === id);
+    const castedIngredients = ingredients as TIngredients;
+
+    return castedIngredients?.buns.find(x => x._id === id)
+      || castedIngredients?.fillers.find(x => x._id === id)
+      || castedIngredients?.sauces.find(x => x._id === id);
   }, [ingredients]);
 
   React.useEffect(() => {

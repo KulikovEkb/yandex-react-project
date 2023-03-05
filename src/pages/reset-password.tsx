@@ -1,6 +1,6 @@
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate, useLocation} from 'react-router-dom';
-import React, {useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {resetPassword} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
@@ -15,19 +15,19 @@ function ResetPassword() {
     emailCode: '',
     password: '',
   })
-  const onEmailCodeChange = e => {
+  const onEmailCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, emailCode: e.target.value});
   }
-  const onPasswordChange = e => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, password: e.target.value});
   }
 
   const onClick = React.useCallback(
-    e => {
+    (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(resetPassword(state.password, state.emailCode));
+      dispatch(resetPassword(state.password, state.emailCode) as any);
     },
     [dispatch, state]);
 

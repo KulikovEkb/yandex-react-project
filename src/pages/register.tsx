@@ -1,6 +1,6 @@
 import {Button, EmailInput, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
-import React, {useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {register} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
@@ -12,25 +12,25 @@ function Register() {
     email: '',
     password: '',
   })
-  const onNameChange = e => {
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, name: e.target.value});
   }
 
-  const onEmailChange = e => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, email: e.target.value});
   }
 
-  const onPasswordChange = e => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, password: e.target.value});
   }
 
   const onClick = React.useCallback(
-    e => {
+    (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(register(state));
+      dispatch(register(state) as any);
     },
     [dispatch, state]
   );

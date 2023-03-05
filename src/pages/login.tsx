@@ -1,5 +1,5 @@
 import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, {ChangeEvent, SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {logIn} from '../services/auth/auth-actions';
@@ -13,20 +13,20 @@ function Login() {
     password: '',
   });
 
-  const onEmailChange = e => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, email: e.target.value});
   }
 
-  const onPasswordChange = e => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setState({...state, password: e.target.value});
   }
 
   const onClick = React.useCallback(
-    e => {
+    (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(logIn(state.email, state.password));
+      dispatch(logIn(state.email, state.password) as any);
     },
     [dispatch, state]
   );
