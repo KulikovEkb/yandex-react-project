@@ -1,7 +1,5 @@
 import styles from './burger-ingredients.module.css';
 import React, {forwardRef} from "react";
-import PropTypes from "prop-types";
-import {ingredientShape} from "../../shapes/shapes";
 import IngredientCard from "./ingredient-card";
 
 const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
@@ -14,10 +12,5 @@ const IngredientsCards = forwardRef(({ingredients, header}, ref) => {
     </div>
   );
 });
-
-IngredientsCards.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientShape).isRequired,
-  header: PropTypes.string.isRequired,
-};
 
 export default IngredientsCards;

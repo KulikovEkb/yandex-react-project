@@ -21,7 +21,7 @@ const OrderDetails = () => {
 
     elementsIds.push(bun._id);
 
-    dispatch(createOrder(elementsIds))
+    dispatch(createOrder(elementsIds) as any)
   }, [dispatch, bun, fillers]);
 
   return (

@@ -22,8 +22,8 @@ function App() {
   const background = location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getIngredients());
-    dispatch(checkUserAuth());
+    dispatch(getIngredients() as any);
+    dispatch(checkUserAuth() as any);
   }, [dispatch]);
 
   return (

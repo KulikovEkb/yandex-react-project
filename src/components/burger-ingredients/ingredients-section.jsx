@@ -1,8 +1,6 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../helpers/scroll-bar.module.css'
 import React, {useEffect, useRef} from "react";
-import PropTypes from "prop-types";
-import {ingredientShape} from "../../shapes/shapes";
 import {useInView} from "react-intersection-observer";
 import {IngredientCategory} from "../../consts/ingredient-type";
 import IngredientsTabs from "./ingredients-tabs";
@@ -48,15 +46,5 @@ const IngredientsSection = ({ingredients}) => {
     </>
   );
 }
-
-const ingredientsShape = PropTypes.shape({
-  buns: PropTypes.arrayOf(ingredientShape),
-  sauces: PropTypes.arrayOf(ingredientShape),
-  fillers: PropTypes.arrayOf(ingredientShape),
-})
-
-IngredientsSection.propTypes = {
-  ingredients: ingredientsShape.isRequired,
-};
 
 export default IngredientsSection;

@@ -1,7 +1,6 @@
 import {useSelector} from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientShape} from "../../shapes/shapes";
 import {useDrag} from "react-dnd";
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
@@ -47,9 +46,5 @@ const IngredientCard = ({ingredient}) => {
     </div>
   );
 }
-
-IngredientCard.propTypes = {
-  ingredient: ingredientShape.isRequired,
-};
 
 export default IngredientCard;
