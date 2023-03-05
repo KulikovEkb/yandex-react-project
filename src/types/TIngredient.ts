@@ -3,4 +3,5 @@ export type TIngredient = {
   image: string;
   name: string;
   price: number;
+  type: string;
 };

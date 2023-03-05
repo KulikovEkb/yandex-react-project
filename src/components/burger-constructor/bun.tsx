@@ -4,7 +4,7 @@ import React, {FC} from "react";
 import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
-import {TIngredient} from "./types/TIngredient";
+import {TIngredient} from "../../types/TIngredient";
 import * as consts from "./consts/consts";
 import {TBunType} from "./types/TBunType";
 
