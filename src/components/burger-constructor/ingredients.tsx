@@ -2,8 +2,8 @@ import styles from './burger-constructor.module.css'
 import React, {FC} from "react";
 import FillersList from "./fillers-list";
 import Bun from "./bun";
-import {TIngredient} from "../../types/TIngredient";
-import {TFillerIngredient} from "./types/TFillerType";
+import {TIngredient} from "../../types/ingredient";
+import {TFillerIngredient} from "./types/filler-type";
 
 type TIngredients = {
   bun: TIngredient,

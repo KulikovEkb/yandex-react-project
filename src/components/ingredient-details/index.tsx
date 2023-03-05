@@ -8,8 +8,8 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Loader} from "../loader/loader";
 import {getIngredientsState} from "../burger-ingredients/store/ingredients-selectors";
 import {getIngredientDetailsState} from "./store/ingredient-details-selectors";
-import {TIngredient} from "../../types/TIngredient";
-import {TIngredients} from "../../types/TIngredients";
+import {TIngredient} from "../../types/ingredient";
+import {TIngredients} from "../../types/ingredients";
 
 const IngredientDetails = () => {
   const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(getIngredientsState);
@@ -20,11 +20,11 @@ const IngredientDetails = () => {
   const {id} = useParams();
 
   const ingredient = useMemo<TIngredient | undefined>(() => {
-    const a = ingredients as TIngredients;
+    const castedIngredients = ingredients as TIngredients;
 
-    return a?.buns.find(x => x._id === id)
-      || a?.fillers.find(x => x._id === id)
-      || a?.sauces.find(x => x._id === id);
+    return castedIngredients?.buns.find(x => x._id === id)
+      || castedIngredients?.fillers.find(x => x._id === id)
+      || castedIngredients?.sauces.find(x => x._id === id);
   }, [ingredients]);
 
   React.useEffect(() => {

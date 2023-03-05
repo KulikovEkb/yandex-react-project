@@ -1,4 +1,4 @@
-import {TIngredient} from "./TIngredient";
+import {TIngredient} from "./ingredient";
 
 export type TIngredients = {
   buns: Array<TIngredient>;

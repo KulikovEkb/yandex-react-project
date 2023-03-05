@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {objectIsEmpty} from "../../helpers/collection-helper";
 import Ingredients from "./ingredients";
 import {getConstructorState} from "./store/constructor-selectors";
-import {TFillerIngredient} from "./types/TFillerType";
+import {TFillerIngredient} from "./types/filler-type";
 
 const BurgerConstructor = () => {
   const {bun, fillers} = useSelector(getConstructorState);

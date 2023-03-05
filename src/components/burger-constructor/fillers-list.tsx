@@ -6,7 +6,7 @@ import {SET_INGREDIENTS} from "./store/constructor-actions";
 import React, {FC} from "react";
 import EmptyFiller from "./empty-filler";
 import Filler from "./filler";
-import {TFillerIngredient} from "./types/TFillerType";
+import {TFillerIngredient} from "./types/filler-type";
 
 type TFillersList = {
   fillers: Array<TFillerIngredient>;

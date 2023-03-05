@@ -6,7 +6,7 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import {removeIngredient} from "./store/constructor-actions";
 import React, {FC} from "react";
 import * as consts from "./consts/consts";
-import {TFillerIngredient} from "./types/TFillerType";
+import {TFillerIngredient} from "./types/filler-type";
 
 type TFiller = {
   filler: TFillerIngredient;
