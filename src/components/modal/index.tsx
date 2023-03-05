@@ -1,12 +1,16 @@
 import styles from './modal.module.css';
-import React, {useEffect} from 'react';
+import React, {FC, PropsWithChildren, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import ModalOverlay from "./modal-overlay";
-import PropTypes from "prop-types";
 import Header from "./header";
 
-const Modal = ({headerText, children, closeModal}) => {
-  function handleKeyDown(event) {
+type TModalProps = {
+  headerText: string;
+  closeModal: () => void;
+}
+
+const Modal: FC<PropsWithChildren<TModalProps>> = ({headerText, closeModal, children}) => {
+  function handleKeyDown(event: KeyboardEvent) {
     if (event.code === 'Escape') {
       closeModal();
     }
@@ -28,12 +32,8 @@ const Modal = ({headerText, children, closeModal}) => {
 
         {children}
       </div>
-    </>, document.getElementById('modals'));
+    </>, document.getElementById('modals')!
+  );
 };
-
-Modal.propTypes = {
-  headerText: PropTypes.string.isRequired,
-  closeModal: PropTypes.func.isRequired,
-}
 
 export default Modal;

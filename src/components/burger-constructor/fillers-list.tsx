@@ -8,11 +8,11 @@ import EmptyFiller from "./empty-filler";
 import Filler from "./filler";
 import {TFillerIngredient} from "./types/filler-type";
 
-type TFillersList = {
+type TFillersListProps = {
   fillers: Array<TFillerIngredient>;
 };
 
-const FillersList: FC<TFillersList> = ({fillers}) => {
+const FillersList: FC<TFillersListProps> = ({fillers}) => {
   const dispatch = useDispatch();
 
   if (arrayIsEmpty(fillers))

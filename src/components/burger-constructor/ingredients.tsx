@@ -5,12 +5,12 @@ import Bun from "./bun";
 import {TIngredient} from "../../types/ingredient";
 import {TFillerIngredient} from "./types/filler-type";
 
-type TIngredients = {
+type TIngredientsProps = {
   bun: TIngredient,
   fillers: Array<TFillerIngredient>
 };
 
-const Ingredients: FC<TIngredients> = ({bun, fillers}) => {
+const Ingredients: FC<TIngredientsProps> = ({bun, fillers}) => {
   return (
     <div className={styles.ingredients}>
       <Bun bun={bun} type='top'/>

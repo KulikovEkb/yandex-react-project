@@ -1,8 +1,13 @@
 import styles from './modal.module.css';
-import React from 'react';
+import React, {FC} from 'react';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Header = ({text, closeModal}) => {
+type THeaderProps = {
+  text: string;
+  closeModal: () => void;
+}
+
+const Header: FC<THeaderProps> = ({text, closeModal}) => {
   return (
     <div className={styles.modalHeader}>
       <p className="text text_type_main-large">{text}</p>

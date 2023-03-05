@@ -7,12 +7,12 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {getAuthStateUser} from "../../services/auth/auth-selectors";
 
-type TSummary = {
+type TSummaryProps = {
   totalSum: number;
   canOrder: boolean;
 };
 
-const Summary: FC<TSummary> = ({totalSum, canOrder}) => {
+const Summary: FC<TSummaryProps> = ({totalSum, canOrder}) => {
   const user = useSelector(getAuthStateUser);
   const location = useLocation();
   const navigate = useNavigate();

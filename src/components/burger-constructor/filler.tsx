@@ -8,13 +8,13 @@ import React, {FC} from "react";
 import * as consts from "./consts/consts";
 import {TFillerIngredient} from "./types/filler-type";
 
-type TFiller = {
+type TFillerProps = {
   filler: TFillerIngredient;
   index: number;
   moveItem: (dragIndex: number, hoverIndex: number) => void;
 }
 
-const Filler: FC<TFiller> = ({filler, index, moveItem}) => {
+const Filler: FC<TFillerProps> = ({filler, index, moveItem}) => {
   const dispatch = useDispatch();
 
   const [{isDragging}, dragRef] = useDrag({
