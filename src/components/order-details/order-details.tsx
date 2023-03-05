@@ -13,7 +13,7 @@ const OrderDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const elementsIds = [bun._id];
+    const elementsIds: Array<string> = [bun._id];
 
     for (const filler of fillers) {
       elementsIds.push(filler._id);

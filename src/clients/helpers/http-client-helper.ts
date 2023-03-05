@@ -1,46 +1,46 @@
 import {getCookie} from "../../helpers/cookie-helper";
 
-export function sendPostRequest(url, body) {
+export function sendPostRequest<TRequest, TResponse>(url: string, body: TRequest) {
   return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  }).then(checkResponse);
+  }).then(checkResponse<TResponse>);
 }
 
-export function sendGetRequest(url) {
+export function sendGetRequest<T>(url: string) {
   return fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
-  }).then(checkResponse);
+  }).then(checkResponse<T>);
 }
 
-export function sendGetRequestWithAuth(url) {
+export function sendGetRequestWithAuth<T>(url: string) {
   return fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: getCookie('token')
+      Authorization: getCookie('token') ?? ''
     },
-  }).then(checkResponse);
+  }).then(checkResponse<T>);
 }
 
-export function sendPatchRequestWithAuth(url, body) {
+export function sendPatchRequestWithAuth<TRequest, TResponse>(url: string, body: TRequest) {
   return fetch(url, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: getCookie('token')
+      Authorization: getCookie('token') ?? ''
     },
     body: JSON.stringify(body)
-  }).then(checkResponse);
+  }).then(checkResponse<TResponse>);
 }
 
-function checkResponse(response) {
+function checkResponse<T>(response: Response): Promise<T> {
   if (response.ok)
     return response.json();
 
