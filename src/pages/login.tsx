@@ -1,34 +1,25 @@
 import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {ChangeEvent, SyntheticEvent} from 'react';
+import React, {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {logIn} from '../services/auth/auth-actions';
 import styles from './auth.module.css'
+import {useForm} from "../services/hooks/use-form";
 
 function Login() {
   const dispatch = useDispatch();
 
-  const [state, setState] = React.useState({
+  const {values, handleChange} = useForm({
     email: '',
     password: '',
   });
 
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, email: e.target.value});
-  }
-
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, password: e.target.value});
-  }
-
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(logIn(state.email, state.password) as any);
+      dispatch(logIn(values.email, values.password) as any);
     },
-    [dispatch, state]
+    [dispatch, values]
   );
 
   return (
@@ -36,8 +27,8 @@ function Login() {
       <p className='text text_type_main-medium'>Вход</p>
 
       <div className={`${styles.inputs} mt-6`}>
-        <EmailInput value={state.email} onChange={onEmailChange}/>
-        <PasswordInput value={state.password} onChange={onPasswordChange}/>
+        <EmailInput name='email' value={values.email} onChange={handleChange}/>
+        <PasswordInput name='password' value={values.password} onChange={handleChange}/>
       </div>
 
       <div className='mt-6 mb-20'>

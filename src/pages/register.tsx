@@ -1,38 +1,26 @@
 import {Button, EmailInput, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
-import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent} from 'react';
 import {useDispatch} from 'react-redux';
 import {register} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
+import {useForm} from "../services/hooks/use-form";
 
 function Register() {
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+
+  const {values, handleChange} = useForm({
     name: '',
     email: '',
     password: '',
-  })
-  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, name: e.target.value});
-  }
-
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, email: e.target.value});
-  }
-
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, password: e.target.value});
-  }
+  });
 
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(register(state) as any);
+      dispatch(register(values) as any);
     },
-    [dispatch, state]
+    [dispatch, values]
   );
 
   return (
@@ -40,9 +28,9 @@ function Register() {
       <p className='text text_type_main-medium'>Регистрация</p>
 
       <div className={`${styles.inputs} mt-6`}>
-        <Input value={state.name} onChange={onNameChange} placeholder='Имя'/>
-        <EmailInput value={state.email} onChange={onEmailChange}/>
-        <PasswordInput value={state.password} onChange={onPasswordChange}/>
+        <Input name='name' value={values.name} onChange={handleChange} placeholder='Имя'/>
+        <EmailInput name='email' value={values.email} onChange={handleChange}/>
+        <PasswordInput name='password' value={values.password} onChange={handleChange}/>
       </div>
 
       <div className='mt-6 mb-20'>

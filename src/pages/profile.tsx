@@ -1,50 +1,36 @@
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {editUser, logOut} from '../services/auth/auth-actions';
 import styles from './profile.module.css';
 import {getAuthStateUser} from "../services/auth/auth-selectors";
+import {useForm} from "../services/hooks/use-form";
 
 function Profile() {
   const user = useSelector(getAuthStateUser);
   const dispatch = useDispatch();
 
-  const initState = {
+  const initValues = {
     name: user.name,
     email: user.email,
     password: '',
   };
-  const [state, setState] = useState(initState);
-
-  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, name: e.target.value});
-  }
-
-  const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, email: e.target.value});
-  }
-
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, password: e.target.value});
-  }
+  const {values, handleChange, setValues} = useForm(initValues);
 
   const wasEdited = React.useMemo(
-    () => state.name !== user.name || state.email !== user.email || !!state.password,
-    [user, state]
+    () => values.name !== user.name || values.email !== user.email || !!values.password,
+    [user, values]
   );
 
   const onCancelButtonClick = () => {
-    setState(initState);
+    setValues(initValues);
   }
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(editUser(state) as any);
+    dispatch(editUser(values) as any);
   }
 
   let onLogOutClick = React.useCallback(
@@ -68,9 +54,9 @@ function Profile() {
       </div>
 
       <div className={styles.inputs}>
-        <Input value={state.name} onChange={onNameChange} placeholder='Имя' icon='EditIcon'/>
-        <Input value={state.email} onChange={onLoginChange} placeholder='Логин' icon='EditIcon'/>
-        <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Пароль' icon='EditIcon'/>
+        <Input name='name' value={values.name} onChange={handleChange} placeholder='Имя' icon='EditIcon'/>
+        <Input name='email' value={values.email} onChange={handleChange} placeholder='Логин' icon='EditIcon'/>
+        <PasswordInput name='password' value={values.password} onChange={handleChange} placeholder='Пароль' icon='EditIcon'/>
 
         {wasEdited && (
           <div className={styles.buttons}>

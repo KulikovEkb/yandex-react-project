@@ -1,28 +1,27 @@
 import {Button, EmailInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate, useLocation} from 'react-router-dom';
-import React, {ChangeEvent, SyntheticEvent} from 'react';
+import React, {SyntheticEvent} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {sendResetPasswordEmail} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
 import {getAuthState} from "../services/auth/auth-selectors";
+import {useForm} from "../services/hooks/use-form";
 
 function ForgotPassword() {
   const location = useLocation();
   const {resetPasswordStarted} = useSelector(getAuthState);
   const dispatch = useDispatch();
 
-  const [email, setEmail] = React.useState('');
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setEmail(e.target.value);
-  }
+  const {values, handleChange} = useForm({
+    email: '',
+  });
 
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(sendResetPasswordEmail(email) as any);
+      dispatch(sendResetPasswordEmail(values.email) as any);
     },
-    [dispatch, email]);
+    [dispatch, values]);
 
   if (resetPasswordStarted) {
     return <Navigate to={'/reset-password'} state={{from: location}}/>
@@ -33,7 +32,7 @@ function ForgotPassword() {
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
       <div className={`${styles.inputs} mt-6`}>
-        <EmailInput value={email} onChange={onEmailChange} placeholder='Укажите e-mail'/>
+        <EmailInput name='email' value={values.email} onChange={handleChange} placeholder='Укажите e-mail'/>
       </div>
 
       <div className='mt-6 mb-20'>

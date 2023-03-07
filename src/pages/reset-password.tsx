@@ -1,37 +1,28 @@
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate, useLocation} from 'react-router-dom';
-import React, {ChangeEvent, SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {resetPassword} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
 import {getAuthState} from "../services/auth/auth-selectors";
-import {Simulate} from "react-dom/test-utils";
-import submit = Simulate.submit;
+import {useForm} from "../services/hooks/use-form";
 
 function ResetPassword() {
   const location = useLocation();
   const {resetPasswordStarted, resetPasswordFinished} = useSelector(getAuthState);
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({
+  const {values, handleChange} = useForm({
     emailCode: '',
     password: '',
-  })
-  const onEmailCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, emailCode: e.target.value});
-  }
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setState({...state, password: e.target.value});
-  }
+  });
 
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(resetPassword(state.password, state.emailCode) as any);
+      dispatch(resetPassword(values.password, values.emailCode) as any);
     },
-    [dispatch, state]);
+    [dispatch, values]);
 
   if (resetPasswordFinished) {
     return <Navigate to={'/login'} state={{from: location}}/>
@@ -46,8 +37,8 @@ function ResetPassword() {
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
       <div className={`${styles.inputs} mt-6`}>
-        <PasswordInput value={state.password} onChange={onPasswordChange} placeholder='Введите новый пароль'/>
-        <Input value={state.emailCode} onChange={onEmailCodeChange} placeholder='Введите код из письма'/>
+        <PasswordInput name='password' value={values.password} onChange={handleChange} placeholder='Введите новый пароль'/>
+        <Input name='emailCode' value={values.emailCode} onChange={handleChange} placeholder='Введите код из письма'/>
       </div>
 
       <div className='mt-6 mb-20'>
