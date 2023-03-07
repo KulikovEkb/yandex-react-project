@@ -17,9 +17,9 @@ export type TSendResetPasswordEmailResponse = TServerResponse<{ message: string 
 
 export type TResetPasswordResponse = TServerResponse<{ message: string }>;
 
-export type TRegisterResponse = TServerResponse<{ user: TUser & TTokens; }>;
+export type TRegisterResponse = TServerResponse<TTokens & { user: TUser }>;
 
-export type TLoginResponse = TServerResponse<{ user: TUser & TTokens }>;
+export type TLoginResponse = TServerResponse<TTokens & { user: TUser }>;
 
 export type TLogoutResponse = TServerResponse<{ message: string }>;
 

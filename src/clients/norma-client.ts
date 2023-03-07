@@ -16,7 +16,7 @@ import {
   TCreateOrderResponse, TEditUserResponse,
   TGetIngredientsResponse, TGetUserResponse, TLoginResponse, TLogoutResponse, TRefreshTokenResponse, TRegisterResponse,
   TResetPasswordResponse,
-  TSendResetPasswordEmailResponse
+  TSendResetPasswordEmailResponse, TServerResponse
 } from "./types/responses";
 
 const baseUri = 'https://norma.nomoreparties.space/api';
@@ -26,74 +26,48 @@ export function getIngredients() {
     .then(result => result.data);
 }
 
-export function createOrder(elementsIds: Array<string>) {
+export function createOrder(elementsIds: Array<string>): Promise<number> {
   return sendPostRequest<TCreateOrderRequest, TCreateOrderResponse>(`${baseUri}/orders`, {ingredients: elementsIds})
+    .then(checkSuccess)
     .then(result => {
-      if (result.success) return result.order.number;
-
-      return Promise.reject(`Ошибка ${result}`);
+      return result.order.number;
     });
 }
 
-export function sendResetPasswordEmail(email: string) {
+export function sendResetPasswordEmail(email: string): Promise<TSendResetPasswordEmailResponse> {
   return sendPostRequest<TSendResetPasswordEmailRequest, TSendResetPasswordEmailResponse>(
     `${baseUri}/password-reset`,
     {email}
   )
-    .then(result => {
-      if (result.success) return;
-
-      return Promise.reject(`Ошибка ${result}`);
-    });
+    .then(checkSuccess);
 }
 
-export function resetPassword(newPassword: string, emailCode: string) {
+export function resetPassword(newPassword: string, emailCode: string): Promise<TResetPasswordResponse> {
   return sendPostRequest<TResetPasswordRequest, TResetPasswordResponse>(
     `${baseUri}/password-reset/reset`,
     {password: newPassword, token: emailCode}
   )
-    .then(result => {
-      if (result.success) return;
-
-      return Promise.reject(`Ошибка ${result}`);
-    });
+    .then(checkSuccess);
 }
 
-export function register(payload: TRegisterRequest) {
+export function register(payload: TRegisterRequest): Promise<TRegisterResponse> {
   return sendPostRequest<TRegisterRequest, TRegisterResponse>(`${baseUri}/auth/register`, payload)
-    .then(result => {
-      if (result.success) return result;
-
-      return Promise.reject(`Ошибка ${result}`);
-    });
+    .then(checkSuccess);
 }
 
-export function login(email: string, password: string) {
+export function login(email: string, password: string): Promise<TLoginResponse> {
   return sendPostRequest<TLoginRequest, TLoginResponse>(`${baseUri}/auth/login`, {email, password})
-    .then(result => {
-      if (result.success) return result;
-
-      return Promise.reject(`Ошибка ${result}`);
-    });
+    .then(checkSuccess);
 }
 
-export function logout(token: string) {
+export function logout(token: string): Promise<TLogoutResponse> {
   return sendPostRequest<TLogoutRequest, TLogoutResponse>(`${baseUri}/auth/logout`, {token})
-    .then(result => {
-      if (result.success) return result;
-
-      return Promise.reject(`Ошибка ${result}`);
-    });
+    .then(checkSuccess);
 }
 
 export function getUser(): Promise<TGetUserResponse> {
   return executeWithAuth(async () => await sendGetRequestWithAuth<TGetUserResponse>(`${baseUri}/auth/user`))
-    .then(result => {
-      if (result.success)
-        return result;
-
-      return Promise.reject(result);
-    });
+    .then(checkSuccess);
 }
 
 export function editUser(user: TEditUserRequest): Promise<TEditUserResponse> {
@@ -101,12 +75,7 @@ export function editUser(user: TEditUserRequest): Promise<TEditUserResponse> {
     `${baseUri}/auth/user`,
     user)
   )
-    .then(result => {
-      if (result.success)
-        return result;
-
-      return Promise.reject(result);
-    });
+    .then(checkSuccess);
 }
 
 async function executeWithAuth<T>(request: Function) {
@@ -146,4 +115,12 @@ function refreshToken() {
 
       setTokenExpirationDate(15);
     });
+}
+
+export function checkSuccess<T>(response: TServerResponse<T>): Promise<TServerResponse<T>> {
+  if (response && response.success) {
+    return Promise.resolve(response);
+  }
+
+  return Promise.reject(`Ответ не success: ${response}`);
 }
