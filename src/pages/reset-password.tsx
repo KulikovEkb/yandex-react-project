@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {resetPassword} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
 import {getAuthState} from "../services/auth/auth-selectors";
+import {Simulate} from "react-dom/test-utils";
+import submit = Simulate.submit;
 
 function ResetPassword() {
   const location = useLocation();
@@ -24,7 +26,7 @@ function ResetPassword() {
     setState({...state, password: e.target.value});
   }
 
-  const onClick = React.useCallback(
+  const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
       dispatch(resetPassword(state.password, state.emailCode) as any);
@@ -40,7 +42,7 @@ function ResetPassword() {
   }
 
   return (
-    <div className={styles.mainContainer}>
+    <form className={styles.mainContainer} onSubmit={onSubmit}>
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
       <div className={`${styles.inputs} mt-6`}>
@@ -49,7 +51,7 @@ function ResetPassword() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+        <Button htmlType="submit" type="primary" size="large">
           Сохранить
         </Button>
       </div>
@@ -59,7 +61,7 @@ function ResetPassword() {
           Вспомнили пароль? <Link to='/login' className='text_color_accent'>Войти</Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }
 

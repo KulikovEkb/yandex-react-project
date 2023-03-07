@@ -27,7 +27,7 @@ function Register() {
     setState({...state, password: e.target.value});
   }
 
-  const onClick = React.useCallback(
+  const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
       dispatch(register(state) as any);
@@ -36,7 +36,7 @@ function Register() {
   );
 
   return (
-    <div className={styles.mainContainer}>
+    <form className={styles.mainContainer} onSubmit={onSubmit}>
       <p className='text text_type_main-medium'>Регистрация</p>
 
       <div className={`${styles.inputs} mt-6`}>
@@ -46,7 +46,7 @@ function Register() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button onClick={onClick} htmlType="button" type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Зарегистрироваться
         </Button>
       </div>
@@ -56,7 +56,7 @@ function Register() {
           Уже зарегистрированы? <Link to='/login' className='text_color_accent'>Войти</Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }
 

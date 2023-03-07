@@ -17,7 +17,7 @@ function ForgotPassword() {
     setEmail(e.target.value);
   }
 
-  const onClick = React.useCallback(
+  const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
       dispatch(sendResetPasswordEmail(email) as any);
@@ -29,7 +29,7 @@ function ForgotPassword() {
   }
 
   return (
-    <div className={styles.mainContainer}>
+    <form className={styles.mainContainer} onSubmit={onSubmit}>
       <p className='text text_type_main-medium'>Восстановление пароля</p>
 
       <div className={`${styles.inputs} mt-6`}>
@@ -37,7 +37,7 @@ function ForgotPassword() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+        <Button htmlType="submit" type="primary" size="large">
           Восстановить
         </Button>
       </div>
@@ -47,7 +47,7 @@ function ForgotPassword() {
           Вспомнили пароль? <Link to='/login' className='text_color_accent'>Войти</Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }
 

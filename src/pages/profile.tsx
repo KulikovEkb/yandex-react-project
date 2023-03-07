@@ -41,7 +41,7 @@ function Profile() {
     setState(initState);
   }
 
-  const onSaveButtonClick = (e: SyntheticEvent) => {
+  const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
     dispatch(editUser(state) as any);
@@ -56,7 +56,7 @@ function Profile() {
   );
 
   return (
-    <div className={styles.mainContainer}>
+    <form className={styles.mainContainer} onSubmit={onSubmit}>
       <div>
         <Link to={'/profile'} className={`${styles.tab} text text_type_main-medium text_color_primary`}>Профиль</Link>
         <Link to={'/orders'} className={`${styles.tab} text text_type_main-medium text_color_inactive`}>
@@ -83,13 +83,13 @@ function Profile() {
               Отмена
             </Button>
 
-            <Button htmlType='submit' type='primary' size='medium' onClick={onSaveButtonClick}>
+            <Button htmlType='submit' type='primary' size='medium'>
               Сохранить
             </Button>
           </div>
         )}
       </div>
-    </div>
+    </form>
   );
 }
 

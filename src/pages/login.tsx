@@ -23,7 +23,7 @@ function Login() {
     setState({...state, password: e.target.value});
   }
 
-  const onClick = React.useCallback(
+  const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
       dispatch(logIn(state.email, state.password) as any);
@@ -32,7 +32,7 @@ function Login() {
   );
 
   return (
-    <div className={styles.mainContainer}>
+    <form className={styles.mainContainer} onSubmit={onSubmit}>
       <p className='text text_type_main-medium'>Вход</p>
 
       <div className={`${styles.inputs} mt-6`}>
@@ -41,7 +41,7 @@ function Login() {
       </div>
 
       <div className='mt-6 mb-20'>
-        <Button onClick={onClick} htmlType="button" type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Войти
         </Button>
       </div>
@@ -54,7 +54,7 @@ function Login() {
           Забыли пароль? <Link to='/forgot-password' className='text_color_accent'>Восстановить пароль</Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }
 
