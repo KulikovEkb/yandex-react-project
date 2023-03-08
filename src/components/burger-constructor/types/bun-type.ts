@@ -1,0 +1,1 @@
+export type TBunType = 'top' | 'bottom';
