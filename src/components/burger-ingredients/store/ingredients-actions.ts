@@ -6,20 +6,41 @@ export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIEN
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAIL: 'GET_INGREDIENTS_FAIL' = 'GET_INGREDIENTS_FAIL';
 
-export const SET_BUN_ID: 'SET_BUN_COUNTER' = 'SET_BUN_COUNTER';
+export const SET_BUN_ID: 'SET_BUN_ID' = 'SET_BUN_ID';
 export const INCREMENT_INGREDIENT_COUNTER: 'INCREMENT_INGREDIENT_COUNTER' = 'INCREMENT_INGREDIENT_COUNTER';
 export const DECREMENT_INGREDIENT_COUNTER: 'DECREMENT_INGREDIENT_COUNTER' = 'DECREMENT_INGREDIENT_COUNTER';
 
 export interface IGetIngredientsAction {
   readonly type: 'GET_INGREDIENTS_REQUEST';
 }
-export interface IGetIngredientsSuccess {
+export interface IGetIngredientsSuccessAction {
   readonly type: 'GET_INGREDIENTS_SUCCESS';
   readonly ingredients: TIngredient[];
 }
 export interface IGetIngredientsFailedAction {
   readonly type: 'GET_INGREDIENTS_FAIL';
 }
+
+export interface ISetBunId {
+  readonly type: 'SET_BUN_ID';
+  readonly id: string;
+}
+export interface IIncrementIngredientCounter {
+  readonly type: 'INCREMENT_INGREDIENT_COUNTER';
+  readonly id: string;
+}
+export interface IDecrementIngredientCounter {
+  readonly type: 'DECREMENT_INGREDIENT_COUNTER';
+  readonly id: string;
+}
+
+export type TIngredientsActions =
+  | IGetIngredientsAction
+  | IGetIngredientsSuccessAction
+  | IGetIngredientsFailedAction
+  | ISetBunId
+  | IIncrementIngredientCounter
+  | IDecrementIngredientCounter;
 
 export function getIngredients() {
   return async function (dispatch) {
