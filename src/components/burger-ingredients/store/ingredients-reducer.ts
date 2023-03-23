@@ -21,7 +21,7 @@ const initialState: TIngredientsState = {
   countersMap: null,
 };
 
-export function ingredientsReducer(state = initialState, action: TIngredientsActions) {
+export function ingredientsReducer(state = initialState, action: TIngredientsActions): TIngredientsState {
   switch (action.type) {
     case actions.GET_INGREDIENTS_REQUEST: {
       return {...state, getIngredientsRequest: true};

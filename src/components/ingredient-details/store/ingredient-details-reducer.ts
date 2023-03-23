@@ -19,7 +19,7 @@ const initialState: TIngredientDetailsState = {
   carbohydrates: null,
 };
 
-export function ingredientDetailsReducer(state = initialState, action: TIngredientDetailsActions) {
+export function ingredientDetailsReducer(state = initialState, action: TIngredientDetailsActions): TIngredientDetailsState {
   switch (action.type) {
     case actions.SET_DETAILS: {
       return {

@@ -14,7 +14,7 @@ const initialState: TOrderDetailsState = {
   createOrderFail: false,
 };
 
-export function orderDetailsReducer(state = initialState, action: TOrderDetailsActions) {
+export function orderDetailsReducer(state = initialState, action: TOrderDetailsActions): TOrderDetailsState {
   switch (action.type) {
     case actions.CREATE_ORDER_REQUEST: {
       return {...state, createOrderRequest: true};

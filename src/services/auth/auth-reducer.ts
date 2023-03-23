@@ -15,7 +15,7 @@ const initialState: TAuthState = {
   resetPasswordFinished: false,
 }
 
-export function authReducer(state = initialState, action: TAuthActions) {
+export function authReducer(state = initialState, action: TAuthActions): TAuthState {
   switch (action.type) {
     case AUTH_CHECKED: {
       return {...state, authChecked: true};
