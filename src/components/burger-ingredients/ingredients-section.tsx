@@ -5,8 +5,8 @@ import {useInView} from "react-intersection-observer";
 import {IngredientCategory} from "./consts/ingredient-type";
 import IngredientsTabs from "./ingredients-tabs";
 import IngredientsCards from "./ingredients-cards";
-import {TIngredientCategories} from "./types/ingredient-categories";
 import {TIngredients} from "../../types/ingredients";
+import {TIngredientTabsRef} from "./consts/ingredient-tabs-refs";
 
 const IngredientsSection: FC<{ ingredients: TIngredients }> = ({ingredients}) => {
   const [current, setCurrent] = React.useState<string>(IngredientCategory.Buns);
@@ -21,12 +21,7 @@ const IngredientsSection: FC<{ ingredients: TIngredients }> = ({ingredients}) =>
     threshold: 0.5
   });
 
-  const tabsRef = useRef<{
-    [size in TIngredientCategories]: {
-      scrollRef: (node?: Element | null) => void;
-      clickRef: RefObject<HTMLDivElement>
-    }
-  }>({
+  const tabsRef = useRef<TIngredientTabsRef>({
     'Булки': {scrollRef: bunsRef, clickRef: useRef<HTMLDivElement>(null)},
     'Соусы': {scrollRef: saucesRef, clickRef: useRef<HTMLDivElement>(null)},
     'Начинки': {scrollRef: fillersRef, clickRef: useRef<HTMLDivElement>(null)},
