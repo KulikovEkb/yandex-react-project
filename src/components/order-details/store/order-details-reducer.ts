@@ -1,4 +1,5 @@
 import * as actions from './order-details-actions';
+import {TOrderDetailsActions} from "./order-details-actions";
 
 const initialState = {
   orderNumber: {},
@@ -6,7 +7,7 @@ const initialState = {
   createOrderFail: false,
 };
 
-export function orderDetailsReducer(state = initialState, action) {
+export function orderDetailsReducer(state = initialState, action: TOrderDetailsActions) {
   switch (action.type) {
     case actions.CREATE_ORDER_REQUEST: {
       return {...state, createOrderRequest: true};
