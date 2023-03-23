@@ -1,6 +1,16 @@
 import * as actions from './ingredient-details-actions';
+import {TIngredientDetailsActions} from "./ingredient-details-actions";
 
-const initialState = {
+type TIngredientDetailsState = {
+  name: string | null,
+  image: string | null,
+  calories: number | null,
+  proteins: number | null,
+  fat: number | null,
+  carbohydrates: number | null,
+};
+
+const initialState: TIngredientDetailsState = {
   name: null,
   image: null,
   calories: null,
@@ -9,7 +19,7 @@ const initialState = {
   carbohydrates: null,
 };
 
-export function ingredientDetailsReducer(state = initialState, action) {
+export function ingredientDetailsReducer(state = initialState, action: TIngredientDetailsActions) {
   switch (action.type) {
     case actions.SET_DETAILS: {
       return {
