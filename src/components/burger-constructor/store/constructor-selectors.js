@@ -1,1 +1,0 @@
-export const getConstructorState = (store) => store.burgerConstructor;

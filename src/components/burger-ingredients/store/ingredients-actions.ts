@@ -1,6 +1,7 @@
 import * as normaClient from "../../../clients/norma-client";
 import {ADD_BUN, ADD_INGREDIENT} from "../../burger-constructor/store/constructor-actions";
 import {TIngredient} from "../../../types/ingredient";
+import {AppDispatch, AppThunk} from "../../../types";
 
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
@@ -21,15 +22,15 @@ export interface IGetIngredientsFailedAction {
   readonly type: 'GET_INGREDIENTS_FAIL';
 }
 
-export interface ISetBunId {
+export interface ISetBunIdAction {
   readonly type: 'SET_BUN_ID';
   readonly id: string;
 }
-export interface IIncrementIngredientCounter {
+export interface IIncrementIngredientCounterAction {
   readonly type: 'INCREMENT_INGREDIENT_COUNTER';
   readonly id: string;
 }
-export interface IDecrementIngredientCounter {
+export interface IDecrementIngredientCounterAction {
   readonly type: 'DECREMENT_INGREDIENT_COUNTER';
   readonly id: string;
 }
@@ -38,36 +39,32 @@ export type TIngredientsActions =
   | IGetIngredientsAction
   | IGetIngredientsSuccessAction
   | IGetIngredientsFailedAction
-  | ISetBunId
-  | IIncrementIngredientCounter
-  | IDecrementIngredientCounter;
+  | ISetBunIdAction
+  | IIncrementIngredientCounterAction
+  | IDecrementIngredientCounterAction;
 
-export function getIngredients() {
-  return async function (dispatch) {
-    dispatch({type: GET_INGREDIENTS_REQUEST});
+export const getIngredients: AppThunk = () => async function (dispatch: AppDispatch) {
+  dispatch({type: GET_INGREDIENTS_REQUEST});
 
-    try {
-      const ingredients = await normaClient.getIngredients();
+  try {
+    const ingredients = await normaClient.getIngredients();
 
-      if (!ingredients) {
-        dispatch({type: GET_INGREDIENTS_FAIL});
-      } else {
-        dispatch({type: GET_INGREDIENTS_SUCCESS, ingredients});
-      }
-    } catch {
+    if (!ingredients) {
       dispatch({type: GET_INGREDIENTS_FAIL});
-    }
-  };
-}
-
-export function addIngredient(ingredient) {
-  return function (dispatch) {
-    if (ingredient.type === 'bun') {
-      dispatch({type: SET_BUN_ID, id: ingredient._id});
-      dispatch({type: ADD_BUN, bun: ingredient});
     } else {
-      dispatch({type: INCREMENT_INGREDIENT_COUNTER, id: ingredient._id});
-      dispatch({type: ADD_INGREDIENT, ingredient});
+      dispatch({type: GET_INGREDIENTS_SUCCESS, ingredients});
     }
+  } catch {
+    dispatch({type: GET_INGREDIENTS_FAIL});
   }
-}
+};
+
+export const addIngredient: AppThunk = (ingredient: TIngredient) => (dispatch: AppDispatch) => {
+  if (ingredient.type === 'bun') {
+    dispatch({type: SET_BUN_ID, id: ingredient._id});
+    dispatch({type: ADD_BUN, bun: ingredient});
+  } else {
+    dispatch({type: INCREMENT_INGREDIENT_COUNTER, id: ingredient._id});
+    dispatch({type: ADD_INGREDIENT, ingredient});
+  }
+};

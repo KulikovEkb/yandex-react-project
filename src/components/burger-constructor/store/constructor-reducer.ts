@@ -1,13 +1,21 @@
 import {v4 as newGuid} from 'uuid';
 
 import * as actions from './constructor-actions';
+import {TConstructorActions} from "./constructor-actions";
+import {TIngredients} from "../../../types/ingredients";
+import {TIngredient} from "../../../types/ingredient";
+import {TFillerIngredient} from "../types/filler-type";
 
-const initialState = {
+type TConstructorState = {
+  bun: TIngredient | null,
+  fillers: TFillerIngredient[],
+}
+const initialState: TConstructorState = {
   bun: null,
   fillers: [],
 };
 
-export function constructorReducer(state = initialState, action) {
+export function constructorReducer(state = initialState, action: TConstructorActions) {
   switch (action.type) {
     case actions.ADD_BUN: {
       return {...state, bun: {...action.bun}};
