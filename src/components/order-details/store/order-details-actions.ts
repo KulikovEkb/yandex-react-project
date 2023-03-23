@@ -23,7 +23,7 @@ export type TOrderDetailsActions =
   | ICreateOrderRequestSuccessAction
   | ICreateOrderRequestFailedAction;
 
-export const createOrder: AppThunk = elementsIds => async function (dispatch: AppDispatch) {
+export const createOrder = (elementsIds: string[]): AppThunk => async function (dispatch: AppDispatch) {
   dispatch({type: CREATE_ORDER_REQUEST});
 
   try {

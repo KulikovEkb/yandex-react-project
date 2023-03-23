@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type InputValues = {
+export type InputValues = {
   [key: string]: any;
 }
 

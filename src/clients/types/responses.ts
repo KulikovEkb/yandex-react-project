@@ -29,7 +29,7 @@ export type TEditUserResponse = TServerResponse<{ user: TUser }>;
 
 export type TRefreshTokenResponse = TServerResponse<TTokens>;
 
-type TUser = {
+export type TUser = {
   email: string;
   name: string;
 };

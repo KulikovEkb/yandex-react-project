@@ -1,7 +1,14 @@
 import * as actions from './order-details-actions';
 import {TOrderDetailsActions} from "./order-details-actions";
 
-const initialState = {
+type TOrderDetailsState = {
+  // todo(kulikov): remove object
+  orderNumber: number | object,
+  createOrderRequest: boolean,
+  createOrderFail: boolean,
+};
+
+const initialState: TOrderDetailsState = {
   orderNumber: {},
   createOrderRequest: false,
   createOrderFail: false,

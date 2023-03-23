@@ -1,3 +1,3 @@
-import {RootState} from "../../../types";
+import {TRootState} from "../../../types";
 
-export const getConstructorState = (store: RootState) => store.burgerConstructor;
+export const getConstructorState = (store: TRootState) => store.burgerConstructor;

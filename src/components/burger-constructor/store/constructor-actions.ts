@@ -35,7 +35,7 @@ export type TConstructorActions =
   | IRemoveIngredientAction
   | ISetIngredientsAction;
 
-export const removeIngredient: AppThunk = (id: string, key: typeof v4) => function (dispatch: AppDispatch) {
+export const removeIngredient = (id: string, key: typeof v4): AppThunk => (dispatch: AppDispatch) => {
   dispatch({type: DECREMENT_INGREDIENT_COUNTER, id})
   dispatch({type: REMOVE_INGREDIENT, key})
 };

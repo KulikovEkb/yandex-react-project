@@ -1,3 +1,3 @@
-import {RootState} from "../../../types";
+import {TRootState} from "../../../types";
 
-export const getIngredientDetailsState = (store: RootState) => store.ingredientDetails;
+export const getIngredientDetailsState = (store: TRootState) => store.ingredientDetails;

@@ -1,13 +1,21 @@
-import {AUTH_CHECKED, RESET_PASSWORD_STARTED, RESET_PASSWORD_FINISHED, SET_USER} from "./auth-actions";
+import {AUTH_CHECKED, RESET_PASSWORD_STARTED, RESET_PASSWORD_FINISHED, SET_USER, TAuthActions} from "./auth-actions";
+import {TUser} from "../../clients/types/responses";
 
-const initialState = {
+type TAuthState = {
+  authChecked: boolean,
+  user: TUser | null,
+  resetPasswordStarted: boolean,
+  resetPasswordFinished: boolean,
+}
+
+const initialState: TAuthState = {
   authChecked: false,
   user: null,
   resetPasswordStarted: false,
   resetPasswordFinished: false,
 }
 
-export function authReducer(state = initialState, action) {
+export function authReducer(state = initialState, action: TAuthActions) {
   switch (action.type) {
     case AUTH_CHECKED: {
       return {...state, authChecked: true};

@@ -43,7 +43,7 @@ export type TIngredientsActions =
   | IIncrementIngredientCounterAction
   | IDecrementIngredientCounterAction;
 
-export const getIngredients: AppThunk = () => async function (dispatch: AppDispatch) {
+export const getIngredients = (): AppThunk => async function (dispatch: AppDispatch) {
   dispatch({type: GET_INGREDIENTS_REQUEST});
 
   try {
@@ -59,7 +59,7 @@ export const getIngredients: AppThunk = () => async function (dispatch: AppDispa
   }
 };
 
-export const addIngredient: AppThunk = (ingredient: TIngredient) => (dispatch: AppDispatch) => {
+export const addIngredient = (ingredient: TIngredient): AppThunk => (dispatch: AppDispatch) => {
   if (ingredient.type === 'bun') {
     dispatch({type: SET_BUN_ID, id: ingredient._id});
     dispatch({type: ADD_BUN, bun: ingredient});
