@@ -1,15 +1,15 @@
 import styles from './burger-ingredients.module.css';
 import scrollBarStyles from '../../helpers/scroll-bar.module.css'
-import React, {FC, RefObject, useEffect, useRef} from "react";
+import React, {FC, useEffect, useRef} from "react";
 import {useInView} from "react-intersection-observer";
-import {IngredientCategory} from "./consts/ingredient-type";
 import IngredientsTabs from "./ingredients-tabs";
 import IngredientsCards from "./ingredients-cards";
 import {TIngredients} from "../../types/ingredients";
-import {TIngredientTabsRef} from "./consts/ingredient-tabs-refs";
+import {TIngredientTabsRef} from "./types/ingredient-tabs-refs";
+import {TIngredientCategories} from "./types/ingredient-categories";
 
 const IngredientsSection: FC<{ ingredients: TIngredients }> = ({ingredients}) => {
-  const [current, setCurrent] = React.useState<string>(IngredientCategory.Buns);
+  const [current, setCurrent] = React.useState<TIngredientCategories>('Булки');
 
   const [bunsRef, inView] = useInView({
     threshold: 0.5

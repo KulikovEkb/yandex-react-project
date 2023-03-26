@@ -1,5 +1,4 @@
 import styles from "./burger-constructor.module.css";
-import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,6 +6,8 @@ import {removeIngredient} from "./store/constructor-actions";
 import React, {FC} from "react";
 import * as consts from "./consts/consts";
 import {TFillerIngredient} from "./types/filler-type";
+import {useDispatch} from "../../types";
+import {TIngredient} from "../../types/ingredient";
 
 type TFillerProps = {
   filler: TFillerIngredient;
@@ -27,9 +28,9 @@ const Filler: FC<TFillerProps> = ({filler, index, moveItem}) => {
 
   const [{isHover}, dropRef] = useDrop({
     accept: [consts.DndTypes.Main, consts.DndTypes.Sauce, consts.DndTypes.Sorting],
-    drop(ingredient: {isSorting: boolean; index: number}) {
+    drop(ingredient: TIngredient & {isSorting: boolean; index: number}) {
       if (!ingredient.isSorting) {
-        dispatch(addIngredient(ingredient) as any);
+        dispatch(addIngredient(ingredient));
         return;
       }
 
@@ -60,7 +61,7 @@ const Filler: FC<TFillerProps> = ({filler, index, moveItem}) => {
           text={filler.name}
           price={filler.price}
           thumbnail={filler.image}
-          handleClose={() => dispatch(removeIngredient(filler._id, filler.key) as any)}
+          handleClose={() => dispatch(removeIngredient(filler._id, filler.key))}
         />
       </div>
     </div>

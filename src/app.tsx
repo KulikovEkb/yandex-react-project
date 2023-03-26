@@ -11,10 +11,10 @@ import ResetPassword from "./pages/reset-password";
 import Profile from "./pages/profile";
 import Ingredient from "./pages/ingredient";
 import {ProtectedRoute} from "./components/protected-route";
-import {useDispatch} from "react-redux";
 import {getIngredients} from "./components/burger-ingredients/store/ingredients-actions";
 import {checkUserAuth} from "./services/auth/auth-actions";
 import IngredientDetails from "./components/ingredient-details";
+import {useDispatch} from "./types";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ function App() {
   const background = location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getIngredients() as any);
-    dispatch(checkUserAuth() as any);
+    dispatch(getIngredients());
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (

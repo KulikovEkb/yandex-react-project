@@ -2,21 +2,21 @@ import * as actions from './ingredient-details-actions';
 import {TIngredientDetailsActions} from "./ingredient-details-actions";
 
 type TIngredientDetailsState = {
-  name: string | null,
-  image: string | null,
-  calories: number | null,
-  proteins: number | null,
-  fat: number | null,
-  carbohydrates: number | null,
+  name: string,
+  image: string,
+  calories: number,
+  proteins: number,
+  fat: number,
+  carbohydrates: number,
 };
 
 const initialState: TIngredientDetailsState = {
-  name: null,
-  image: null,
-  calories: null,
-  proteins: null,
-  fat: null,
-  carbohydrates: null,
+  name: '',
+  image: '',
+  calories: 0,
+  proteins: 0,
+  fat: 0,
+  carbohydrates: 0,
 };
 
 export function ingredientDetailsReducer(state = initialState, action: TIngredientDetailsActions): TIngredientDetailsState {

@@ -1,5 +1,4 @@
 import {DECREMENT_INGREDIENT_COUNTER} from "../../burger-ingredients/store/ingredients-actions";
-import {v4} from "uuid";
 import {AppDispatch, AppThunk} from "../../../types";
 import {TIngredient} from "../../../types/ingredient";
 import {TFillerIngredient} from "../types/filler-type";
@@ -21,7 +20,7 @@ export interface IAddIngredientAction {
 
 export interface IRemoveIngredientAction {
   readonly type: 'REMOVE_INGREDIENT';
-  readonly key: typeof v4;
+  readonly key: string;
 }
 
 export interface ISetIngredientsAction {
@@ -35,7 +34,7 @@ export type TConstructorActions =
   | IRemoveIngredientAction
   | ISetIngredientsAction;
 
-export const removeIngredient = (id: string, key: typeof v4): AppThunk => (dispatch: AppDispatch) => {
+export const removeIngredient = (id: string, key: string): AppThunk => (dispatch: AppDispatch) => {
   dispatch({type: DECREMENT_INGREDIENT_COUNTER, id})
   dispatch({type: REMOVE_INGREDIENT, key})
 };

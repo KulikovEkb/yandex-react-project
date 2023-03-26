@@ -9,7 +9,7 @@ type TIngredientsState = {
   getIngredientsFail: boolean;
 
   bunId: string | null;
-  countersMap: Map<string, number> | null;
+  countersMap: Map<string, number>;
 }
 
 const initialState: TIngredientsState = {
@@ -18,7 +18,7 @@ const initialState: TIngredientsState = {
   getIngredientsFail: false,
 
   bunId: null,
-  countersMap: null,
+  countersMap: new Map<string, number>(),
 };
 
 export function ingredientsReducer(state = initialState, action: TIngredientsActions): TIngredientsState {

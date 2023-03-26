@@ -1,5 +1,4 @@
 import styles from './ingredient-details.module.css'
-import {useDispatch, useSelector} from "react-redux";
 import Detail from "./detail";
 import Modal from "../modal";
 import React, {useMemo} from "react";
@@ -10,6 +9,7 @@ import {getIngredientsState} from "../burger-ingredients/store/ingredients-selec
 import {getIngredientDetailsState} from "./store/ingredient-details-selectors";
 import {TIngredient} from "../../types/ingredient";
 import {TIngredients} from "../../types/ingredients";
+import {useDispatch, useSelector} from "../../types";
 
 const IngredientDetails = () => {
   const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(getIngredientsState);

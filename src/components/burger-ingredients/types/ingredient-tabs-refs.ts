@@ -1,4 +1,4 @@
-import {TIngredientCategories} from "../types/ingredient-categories";
+import {TIngredientCategories} from "./ingredient-categories";
 import {RefObject} from "react";
 
 export type TIngredientTabsRef = {
