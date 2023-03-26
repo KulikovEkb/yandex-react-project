@@ -1,14 +1,15 @@
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
 import {editUser, logOut} from '../services/auth/auth-actions';
 import styles from './profile.module.css';
 import {getAuthStateUser} from "../services/auth/auth-selectors";
 import {useForm} from "../services/hooks/use-form";
+import {useDispatch, useSelector} from "../types";
+import {TEditUserRequest} from "../clients/types/requests";
 
 function Profile() {
-  const user = useSelector(getAuthStateUser);
+  const user = useSelector(getAuthStateUser)!;
   const dispatch = useDispatch();
 
   const initValues = {
@@ -30,13 +31,13 @@ function Profile() {
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(editUser(values) as any);
+    dispatch(editUser(values as TEditUserRequest));
   }
 
   let onLogOutClick = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(logOut() as any);
+      dispatch(logOut());
     },
     [dispatch]
   );

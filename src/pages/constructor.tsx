@@ -1,11 +1,11 @@
 import styles from './constructor.module.css';
-import {useSelector} from "react-redux";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {Loader} from "../components/loader/loader";
 import BurgerIngredients from "../components/burger-ingredients";
 import BurgerConstructor from "../components/burger-constructor";
 import {getIngredientsState} from "../components/burger-ingredients/store/ingredients-selectors";
+import {useSelector} from "../types";
 
 function Constructor() {
   const {getIngredientsRequest, getIngredientsFail} = useSelector(getIngredientsState);

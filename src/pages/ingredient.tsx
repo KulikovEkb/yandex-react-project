@@ -1,7 +1,6 @@
 import detailsStyles from "../components/ingredient-details/ingredient-details.module.css";
 import styles from "./ingredient.module.css";
 import Detail from "../components/ingredient-details/detail";
-import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import React, {useMemo} from "react";
 import {Loader} from "../components/loader/loader";
@@ -9,6 +8,7 @@ import {SET_DETAILS} from "../components/ingredient-details/store/ingredient-det
 import {getIngredientsState} from "../components/burger-ingredients/store/ingredients-selectors";
 import {getIngredientDetailsState} from "../components/ingredient-details/store/ingredient-details-selectors";
 import {TIngredients} from "../types/ingredients";
+import {useDispatch, useSelector} from "../types";
 
 function Ingredient() {
   const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(getIngredientsState);

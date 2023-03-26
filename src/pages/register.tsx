@@ -1,10 +1,11 @@
 import {Button, EmailInput, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
 import React, {SyntheticEvent} from 'react';
-import {useDispatch} from 'react-redux';
 import {register} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
 import {useForm} from "../services/hooks/use-form";
+import {useDispatch} from "../types";
+import {TRegisterRequest} from "../clients/types/requests";
 
 function Register() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function Register() {
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(register(values) as any);
+      dispatch(register(values as TRegisterRequest));
     },
     [dispatch, values]
   );

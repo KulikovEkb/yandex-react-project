@@ -33,7 +33,7 @@ const IngredientCard: FC<{ingredient: TIngredient}> = ({ingredient}) => {
     <div className={styles.card}>
       <div ref={dragRef} className={className}>
         <Link to={`/ingredients/${ingredient._id}`} state={{background: location}} className={styles.link}>
-          {count && count > 0 && <Counter count={count} size='default'/>}
+          {!!count && count > 0 && <Counter count={count} size='default'/>}
           <img className={styles.image}
                src={ingredient.image}
                alt={ingredient.name}/>

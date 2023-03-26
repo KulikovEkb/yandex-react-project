@@ -1,10 +1,10 @@
 import {Button, EmailInput, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {SyntheticEvent} from 'react';
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import {logIn} from '../services/auth/auth-actions';
 import styles from './auth.module.css'
 import {useForm} from "../services/hooks/use-form";
+import {useDispatch} from "../types";
 
 function Login() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function Login() {
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(logIn(values.email, values.password) as any);
+      dispatch(logIn(values.email, values.password));
     },
     [dispatch, values]
   );
