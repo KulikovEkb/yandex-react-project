@@ -15,6 +15,7 @@ import {getIngredients} from "./components/burger-ingredients/store/ingredients-
 import {checkUserAuth} from "./services/auth/auth-actions";
 import IngredientDetails from "./components/ingredient-details";
 import {useDispatch} from "./types";
+import OrdersFeed from "./pages/orders-feed";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,18 +33,39 @@ function App() {
 
       <Routes location={background || location}>
         <Route path="/" element={<Constructor/>}/>
+
         <Route path="/login" element={<ProtectedRoute onlyUnAuth={true} element={<Login/>}/>}/>
         <Route path="/register" element={<ProtectedRoute onlyUnAuth={true} element={<Register/>}/>}/>
         <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth={true} element={<ForgotPassword/>}/>}/>
         <Route path="/reset-password" element={<ProtectedRoute onlyUnAuth={true} element={<ResetPassword/>}/>}/>
-        <Route path="/profile/*" element={<ProtectedRoute element={<Profile/>}/>}/>
+
+        <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}>
+          {/*
+          // todo(kulikov): implement & uncomment
+          <Route path="/profile" element={<ProfileInfo/>}/>
+          <Route path='/profile/orders' element={<OrderHistory/>}/>
+          <Route path="/profile/orders/:id" element={<Order/>}/>
+          */}
+        </Route>
+
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
+
+        <Route path="/feed" element={<OrdersFeed/>}/>
+        {/*
+        // todo(kulikov): implement & uncomment
+        <Route path="/feed/:id" element={<ProtectedRoute element={<Order/>}/>}/>
+        */}
 
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       {background && (
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
+          {/*
+          // todo(kulikov): implement & uncomment
+          <Route path="/feed/:id" element={<ProtectedRoute element={<Order/>}/>}/>
+          <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Order/>}/>}/>
+          */}
         </Routes>
       )}
     </ErrorBoundary>

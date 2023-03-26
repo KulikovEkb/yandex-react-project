@@ -18,9 +18,9 @@ const Menu: FC<TMenuProps> = ({active, setActive}) => {
         <p className={getLinkTextType({isActive: active === consts.Tabs.Constructor})}>Конструктор</p>
       </HeaderLink>
 
-      <HeaderLink link='/orders-flow' onClick={() => setActive(consts.Tabs.OrdersFlow)}>
-        <ListIcon type={getIconType({isActive: active === consts.Tabs.OrdersFlow})}/>
-        <p className={getLinkTextType({isActive: active === consts.Tabs.OrdersFlow})}>Лента&nbsp;заказов</p>
+      <HeaderLink link='/feed' onClick={() => setActive(consts.Tabs.OrdersFeed)}>
+        <ListIcon type={getIconType({isActive: active === consts.Tabs.OrdersFeed})}/>
+        <p className={getLinkTextType({isActive: active === consts.Tabs.OrdersFeed})}>Лента&nbsp;заказов</p>
       </HeaderLink>
     </nav>
   );
