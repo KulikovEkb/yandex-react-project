@@ -1,5 +1,5 @@
 import {AUTH_CHECKED, RESET_PASSWORD_STARTED, RESET_PASSWORD_FINISHED, SET_USER, TAuthActions} from "./auth-actions";
-import {TUser} from "../../clients/types/responses";
+import {TUser} from "../../helpers/http-clients/types/responses";
 
 type TAuthState = {
   authChecked: boolean,

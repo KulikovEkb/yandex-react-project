@@ -4,8 +4,8 @@ import {
   sendPatchRequestWithAuth,
   sendPostRequest
 } from "./helpers/http-client-helper";
-import {setCookie} from "../helpers/cookie-helper";
-import setTokenExpirationDate from "../helpers/local-storage-helper";
+import {setCookie} from "../cookie-helper";
+import setTokenExpirationDate from "../local-storage-helper";
 import {
   TCreateOrderRequest, TEditUserRequest, TLoginRequest, TLogoutRequest, TRefreshTokenRequest,
   TRegisterRequest,

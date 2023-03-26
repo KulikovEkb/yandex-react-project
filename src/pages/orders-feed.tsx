@@ -1,5 +1,5 @@
-function OrdersFeed(){
-  return(
+function OrdersFeed() {
+  return (
     <div>
       Orders feed
     </div>

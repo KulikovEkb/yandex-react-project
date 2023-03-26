@@ -1,4 +1,4 @@
-import {TIngredient} from "../../types/ingredient";
+import {TIngredient} from "../../../types/ingredient";
 
 export type TServerResponse<T> = {
   success: boolean;

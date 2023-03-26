@@ -1,4 +1,4 @@
-import * as normaClient from "../../../clients/norma-client";
+import * as normaClient from "../../../helpers/http-clients/norma-client";
 import {ADD_BUN, ADD_INGREDIENT} from "../../burger-constructor/store/constructor-actions";
 import {TIngredient} from "../../../types/ingredient";
 import {AppDispatch, AppThunk} from "../../../types";

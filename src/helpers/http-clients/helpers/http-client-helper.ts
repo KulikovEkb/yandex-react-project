@@ -1,4 +1,4 @@
-import {getCookie} from "../../helpers/cookie-helper";
+import {getCookie} from "../../cookie-helper";
 
 export function sendPostRequest<TRequest, TResponse>(url: string, body: TRequest) {
   return fetch(url, {

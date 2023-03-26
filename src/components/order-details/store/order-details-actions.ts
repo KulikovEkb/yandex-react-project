@@ -1,4 +1,4 @@
-import * as normaClient from "../../../clients/norma-client";
+import * as normaClient from "../../../helpers/http-clients/norma-client";
 import {AppDispatch, AppThunk} from "../../../types";
 
 export const CREATE_ORDER_REQUEST: 'CREATE_ORDER_REQUEST' = 'CREATE_ORDER_REQUEST';

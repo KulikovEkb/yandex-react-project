@@ -6,7 +6,7 @@ import styles from './profile.module.css';
 import {getAuthStateUser} from "../services/auth/auth-selectors";
 import {useForm} from "../services/hooks/use-form";
 import {useDispatch, useSelector} from "../types";
-import {TEditUserRequest} from "../clients/types/requests";
+import {TEditUserRequest} from "../helpers/http-clients/types/requests";
 
 function Profile() {
   const user = useSelector(getAuthStateUser)!;

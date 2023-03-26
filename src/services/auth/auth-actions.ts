@@ -1,9 +1,9 @@
 import {expireCookie, getCookie, setCookie} from "../../helpers/cookie-helper";
-import * as normaClient from "../../clients/norma-client";
+import * as normaClient from "../../helpers/http-clients/norma-client";
 import setTokenExpirationDate from "../../helpers/local-storage-helper";
 import {AppDispatch, AppThunk} from "../../types";
-import {TEditUserRequest, TRegisterRequest} from "../../clients/types/requests";
-import {TUser} from "../../clients/types/responses";
+import {TEditUserRequest, TRegisterRequest} from "../../helpers/http-clients/types/requests";
+import {TUser} from "../../helpers/http-clients/types/responses";
 
 export const AUTH_CHECKED: 'AUTH_CHECKED' = 'AUTH_CHECKED';
 export const SET_USER: 'SET_USER' = 'SET_USER';
