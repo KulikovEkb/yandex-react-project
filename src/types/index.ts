@@ -6,6 +6,7 @@ import {TIngredientDetailsActions} from "../components/ingredient-details/store/
 import {TOrderDetailsActions} from "../components/order-details/store/order-details-actions";
 import {TAuthActions} from "../services/auth/auth-actions";
 import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook} from "react-redux";
+import {rootReducer} from "../services/root-reducer";
 
 export type TApplicationActions =
   | TIngredientsActions
@@ -14,7 +15,7 @@ export type TApplicationActions =
   | TOrderDetailsActions
   | TAuthActions;
 
-export type TRootState = ReturnType<typeof store.getState>;
+export type TRootState = ReturnType<typeof rootReducer>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, TRootState, never, TApplicationActions>;
 
