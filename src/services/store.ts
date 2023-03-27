@@ -4,10 +4,10 @@ import {compose} from 'redux';
 import {rootReducer} from "./root-reducer";
 import webSocketMiddleware from "../helpers/web-sockets/middleware";
 import {
-  ConnectOrdersFeedWebSocketClosedAction,
-  ConnectOrdersFeedWebSocketSuccessAction,
-  GetOrdersFeedMessageAction,
-  OrdersFeedWebSocketErrorAction,
+  connectOrdersFeedWebSocketClosedAction,
+  connectOrdersFeedWebSocketSuccessAction,
+  getOrdersFeedMessageAction,
+  ordersFeedWebSocketErrorAction,
   ORDERS_FEED_CONNECTION_START,
   ORDERS_FEED_CONNECTION_STOP,
 } from "../components/orders-feed/store/orders-feed-actions";
@@ -33,10 +33,10 @@ const enhancer = composeEnhancers(applyMiddleware(
   webSocketMiddleware({
     wsStart: ORDERS_FEED_CONNECTION_START,
     wsStop: ORDERS_FEED_CONNECTION_STOP,
-    onOpen: ConnectOrdersFeedWebSocketSuccessAction,
-    onClose: ConnectOrdersFeedWebSocketClosedAction,
-    onError: OrdersFeedWebSocketErrorAction,
-    onMessage: GetOrdersFeedMessageAction,
+    onOpen: connectOrdersFeedWebSocketSuccessAction,
+    onClose: connectOrdersFeedWebSocketClosedAction,
+    onError: ordersFeedWebSocketErrorAction,
+    onMessage: getOrdersFeedMessageAction,
   }),
   webSocketMiddleware({
     wsStart: USER_ORDERS_FEED_CONNECTION_START,

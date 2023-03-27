@@ -5,12 +5,16 @@ import {TOrdersResponse} from "../../../types/orders-response";
 
 type TOrdersFeedState = {
   isConnected: boolean;
+  total: number;
+  totalToday: number;
   orders: TOrder[];
   error?: Event;
 }
 
 const initialState: TOrdersFeedState = {
   isConnected: false,
+  total: 0,
+  totalToday: 0,
   orders: [],
 };
 
@@ -28,7 +32,7 @@ export function ordersFeedReducer(state = initialState, action: TOrdersFeedActio
     case actions.ORDERS_FEED_GET_MESSAGE:
       const allOrders = JSON.parse(action.message) as TOrdersResponse;
 
-      return {...state, orders: allOrders.orders};
+      return {...state, orders: allOrders.orders, total: allOrders.total, totalToday: allOrders.totalToday};
 
     default:
       return state;

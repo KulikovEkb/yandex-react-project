@@ -46,26 +46,26 @@ export type TOrdersFeedActions =
   | IGetOrdersFeedMessageAction
   | ISendOrdersFeedMessageAction;
 
-export function StartOrdersFeedConnectionAction(): IStartOrdersFeedConnectionAction {
+export function startOrdersFeedConnectionAction(): IStartOrdersFeedConnectionAction {
   return {type: ORDERS_FEED_CONNECTION_START, endpoint: 'wss://norma.nomoreparties.space/orders/all'};
 }
 
-export function StopOrdersFeedConnectionAction(): IStopOrdersFeedConnectionAction {
+export function stopOrdersFeedConnectionAction(): IStopOrdersFeedConnectionAction {
   return {type: ORDERS_FEED_CONNECTION_STOP};
 }
 
-export function ConnectOrdersFeedWebSocketSuccessAction(): IConnectOrdersFeedWebSocketSuccessAction {
+export function connectOrdersFeedWebSocketSuccessAction(): IConnectOrdersFeedWebSocketSuccessAction {
   return {type: ORDERS_FEED_CONNECTION_SUCCESS};
 }
 
-export function ConnectOrdersFeedWebSocketClosedAction(): IConnectOrdersFeedWebSocketClosedAction {
+export function connectOrdersFeedWebSocketClosedAction(): IConnectOrdersFeedWebSocketClosedAction {
   return {type: ORDERS_FEED_CONNECTION_CLOSED};
 }
 
-export function OrdersFeedWebSocketErrorAction(error: Event): IOrdersFeedWebSocketErrorAction {
+export function ordersFeedWebSocketErrorAction(error: Event): IOrdersFeedWebSocketErrorAction {
   return {type: ORDERS_FEED_CONNECTION_ERROR, error};
 }
 
-export function GetOrdersFeedMessageAction(message: string): IGetOrdersFeedMessageAction {
+export function getOrdersFeedMessageAction(message: string): IGetOrdersFeedMessageAction {
   return {type: ORDERS_FEED_GET_MESSAGE, message};
 }

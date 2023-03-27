@@ -1,10 +1,11 @@
 import * as actions from './ingredients-actions';
 import {TIngredientsActions} from "./ingredients-actions";
-import categorizeIngredients from "../../../helpers/ingredients-categorizer";
 import {TIngredients} from "../../../types/ingredients";
+import {TIngredient} from "../../../types/ingredient";
 
 type TIngredientsState = {
   ingredients: TIngredients | null;
+  ingredientsMap: Map<string, TIngredient>;
   getIngredientsRequest: boolean;
   getIngredientsFail: boolean;
 
@@ -14,6 +15,7 @@ type TIngredientsState = {
 
 const initialState: TIngredientsState = {
   ingredients: null,
+  ingredientsMap: new Map<string, TIngredient>(),
   getIngredientsRequest: false,
   getIngredientsFail: false,
 
@@ -28,11 +30,38 @@ export function ingredientsReducer(state = initialState, action: TIngredientsAct
     }
 
     case actions.GET_INGREDIENTS_SUCCESS: {
+      const ingredients: TIngredients = {buns: [], sauces: [], fillers: []};
+      const countersMap: Map<string, number> = new Map<string, number>();
+      const ingredientsMap: Map<string, TIngredient> = new Map<string, TIngredient>();
+
+      for (const i of action.ingredients) {
+        ingredientsMap.set(i._id, i);
+        countersMap.set(i._id, 0);
+
+        switch (i.type) {
+          case 'main':
+            ingredients.fillers.push(i);
+            break;
+
+          case 'sauce':
+            ingredients.sauces.push(i);
+            break;
+
+          case 'bun':
+            ingredients.buns.push(i);
+            break;
+
+          default:
+            break;
+        }
+      }
+
       return {
         ...state,
         getIngredientsRequest: false,
-        ingredients: categorizeIngredients(action.ingredients),
-        countersMap: new Map(action.ingredients.map(x => [x._id, 0])),
+        ingredients: ingredients,
+        ingredientsMap: ingredientsMap,
+        countersMap: countersMap,
       };
     }
 

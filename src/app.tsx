@@ -15,7 +15,7 @@ import {getIngredients} from "./components/burger-ingredients/store/ingredients-
 import {checkUserAuth} from "./services/auth/auth-actions";
 import IngredientDetails from "./components/ingredient-details";
 import {useDispatch} from "./types";
-import OrdersFeed from "./pages/orders-feed";
+import OrdersFeedPage from "./pages/orders-feed-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function App() {
 
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
 
-        <Route path="/feed" element={<OrdersFeed/>}/>
+        <Route path="/feed" element={<OrdersFeedPage/>}/>
         {/*
         // todo(kulikov): implement & uncomment
         <Route path="/feed/:id" element={<ProtectedRoute element={<Order/>}/>}/>
