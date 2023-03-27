@@ -16,6 +16,8 @@ import {checkUserAuth} from "./services/auth/auth-actions";
 import IngredientDetails from "./components/ingredient-details";
 import {useDispatch} from "./types";
 import OrdersFeedPage from "./pages/orders-feed-page";
+import FeedOrderPage from "./pages/feed-order-page";
+import FeedOrderDetails from "./components/feed-order-details";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +44,6 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}>
           {/*
           // todo(kulikov): implement & uncomment
-          <Route path="/profile" element={<ProfileInfo/>}/>
           <Route path='/profile/orders' element={<OrderHistory/>}/>
           <Route path="/profile/orders/:id" element={<Order/>}/>
           */}
@@ -51,19 +52,16 @@ function App() {
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
 
         <Route path="/feed" element={<OrdersFeedPage/>}/>
-        {/*
-        // todo(kulikov): implement & uncomment
-        <Route path="/feed/:id" element={<ProtectedRoute element={<Order/>}/>}/>
-        */}
+        <Route path="/feed/:id" element={<FeedOrderPage/>}/>
 
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       {background && (
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
+          <Route path="/feed/:id" element={<FeedOrderDetails/>}/>
           {/*
           // todo(kulikov): implement & uncomment
-          <Route path="/feed/:id" element={<ProtectedRoute element={<Order/>}/>}/>
           <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Order/>}/>}/>
           */}
         </Routes>

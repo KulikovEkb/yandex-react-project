@@ -1,0 +1,30 @@
+.error{
+  display: flex;
+  justify-content: center;
+}
+
+.ingredientImage{
+  height: 240px;
+}
+
+.ingredientName{
+  min-height: 30px;
+}
+
+.ingredientDetails{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.ingredientDetail{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ingredientDetailText{
+  text-align: center;
+}

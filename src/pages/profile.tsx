@@ -61,12 +61,7 @@ function Profile() {
 
         {wasEdited && (
           <div className={styles.buttons}>
-            <Button
-              htmlType='button'
-              type='secondary'
-              size='medium'
-              onClick={onCancelButtonClick}
-            >
+            <Button htmlType='button' type='secondary' size='medium' onClick={onCancelButtonClick}>
               Отмена
             </Button>
 

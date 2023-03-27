@@ -7,12 +7,12 @@ import {TIngredient} from "../../types/ingredient";
 import {useSelector} from "../../types";
 import {getIngredientsState} from "../burger-ingredients/store/ingredients-selectors";
 
-type TOrderLiElement = {
+type TOrdersFeedOrder = {
   data: TOrder;
   profileOrder?: boolean
 }
 
-function Order({data, profileOrder = false}: TOrderLiElement) {
+function Order({data, profileOrder = false}: TOrdersFeedOrder) {
   const {ingredientsMap} = useSelector(getIngredientsState);
   let location = useLocation();
   const {_id, name, number, ingredients, status, createdAt} = data;
