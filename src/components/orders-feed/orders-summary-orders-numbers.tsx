@@ -6,7 +6,7 @@ const OrdersSummaryOrdersNumbers: FC<{ orders: TOrder[], isForCompletedOrders: b
   ({orders, isForCompletedOrders}) => {
     return (
       <div className={styles.orderNumbers}>
-        <h3 className={`mb-6 text text_type_main-medium`}>В работе:</h3>
+        <h3 className={`mb-6 text text_type_main-medium`}>{isForCompletedOrders ? 'Готовы:' : 'В работе:'}</h3>
         <ul className={
           `text
         text_type_digits-default
