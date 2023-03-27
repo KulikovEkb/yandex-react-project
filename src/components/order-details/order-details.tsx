@@ -35,7 +35,7 @@ const OrderDetails = () => {
       <>
         <div className='mt-4'>
           <p className={`${styles.orderId} text text_type_digits-large`}>
-            {orderNumber.toString().padStart(6, '0')}
+            {orderNumber?.toString().padStart(6, '0')}
           </p>
         </div>
 

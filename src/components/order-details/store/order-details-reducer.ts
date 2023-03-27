@@ -2,14 +2,13 @@ import * as actions from './order-details-actions';
 import {TOrderDetailsActions} from "./order-details-actions";
 
 type TOrderDetailsState = {
-  // todo(kulikov): remove object
-  orderNumber: number | object,
+  orderNumber: number | null,
   createOrderRequest: boolean,
   createOrderFail: boolean,
 };
 
 const initialState: TOrderDetailsState = {
-  orderNumber: {},
+  orderNumber: null,
   createOrderRequest: false,
   createOrderFail: false,
 };

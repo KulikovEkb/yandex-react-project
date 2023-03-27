@@ -1,8 +1,10 @@
+import {TApplicationActions} from "../../../types";
+
 export type TWsActions = {
   wsStart: string;
   wsStop: string;
-  onOpen: string;
-  onMessage: string;
-  onError: string;
-  onClose: string;
+  onOpen: () => TApplicationActions;
+  onMessage: (message: string) => TApplicationActions;
+  onError: (error: Event) => TApplicationActions;
+  onClose: () => TApplicationActions;
 }

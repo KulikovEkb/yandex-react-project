@@ -1,8 +1,6 @@
 function OrdersFeed() {
   return (
-    <div>
-      Orders feed
-    </div>
+    <OrdersFeed/>
   )
 }
 

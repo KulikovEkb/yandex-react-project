@@ -2,41 +2,27 @@ import {Middleware, MiddlewareAPI} from 'redux'
 import {AppDispatch, TApplicationActions, TRootState} from "../../types";
 import {TWsActions} from "./types/actions";
 
-type TWsMessage =
-  | { success: false; message: string }
-  | { success: true; orders: []; total: number; totalToday: number }
-
-const webSocketMiddleware = (url: string, wsActions: TWsActions): Middleware =>
+const webSocketMiddleware = (wsActions: TWsActions): Middleware =>
   ((store: MiddlewareAPI<AppDispatch, TRootState>) => {
     let socket: WebSocket | null = null;
 
     return next => (action: TApplicationActions) => {
-      const { dispatch, getState } = store;
-      const { type, payload } = action;
-      const { wsStart, wsStop, onOpen, onClose, onError, onMessage } = wsActions;
+      const { dispatch} = store;
 
       if (action.type === wsActions.wsStart)
-        socket = new WebSocket(url);
+        socket = new WebSocket((action as { endpoint: string }).endpoint);
 
       if (socket) {
-        socket.onopen = event => {
-          dispatch({type: onOpen, payload: event});
-        }
+        socket.onopen = () => dispatch(wsActions.onOpen())
 
-        socket.onerror = event => {
-          dispatch({ type: onError, payload: event });
-        }
+        socket.onerror = event => dispatch(wsActions.onError(event))
 
         socket.onmessage = (event: MessageEvent<string>) => {
           // todo(kulikov): deal with token refresh
-          const data = JSON.parse(event.data) as TWsMessage;
-
-          dispatch({ type: onMessage, payload: data });
+          dispatch(wsActions.onMessage(event.data));
         }
 
-        socket.onclose = event => {
-          dispatch({ type: onClose, payload: event });
-        }
+        socket.onclose = () => dispatch(wsActions.onClose())
 
         if (action.type === wsActions.wsStop)
           socket.close();

@@ -7,13 +7,15 @@ import {TOrderDetailsActions} from "../components/order-details/store/order-deta
 import {TAuthActions} from "../services/auth/auth-actions";
 import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook} from "react-redux";
 import {rootReducer} from "../services/root-reducer";
+import {TOrdersFeedActions} from "../components/orders-feed/store/orders-feed-actions";
 
 export type TApplicationActions =
   | TIngredientsActions
   | TConstructorActions
   | TIngredientDetailsActions
   | TOrderDetailsActions
-  | TAuthActions;
+  | TAuthActions
+  | TOrdersFeedActions;
 
 export type TRootState = ReturnType<typeof rootReducer>;
 

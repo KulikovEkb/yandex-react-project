@@ -4,6 +4,7 @@ import {constructorReducer} from "../components/burger-constructor/store/constru
 import {ingredientDetailsReducer} from "../components/ingredient-details/store/ingredient-details-reducer";
 import {orderDetailsReducer} from "../components/order-details/store/order-details-reducer";
 import {authReducer} from "./auth/auth-reducer";
+import {ordersFeedReducer} from "../components/orders-feed/store/orders-feed-reducer";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   ingredientDetails: ingredientDetailsReducer,
   burgerConstructor: constructorReducer,
   orderDetails: orderDetailsReducer,
+  ordersFeed: ordersFeedReducer,
 });
