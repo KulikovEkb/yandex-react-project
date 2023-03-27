@@ -3,7 +3,7 @@ import styles from './orders-feed.module.css';
 import {useSelector} from "../../types";
 import {getOrdersFeedState} from "./store/orders-feed-selectors";
 import {TOrder} from "../../types/order";
-import OrdersSummaryNumbers from "./orders-summary-numbers";
+import OrdersSummaryOrdersNumbers from "./orders-summary-orders-numbers";
 import OrdersSummaryOrdersCount from "./orders-summary-orders-count";
 
 function OrdersSummary() {
@@ -26,8 +26,8 @@ function OrdersSummary() {
   return (
     <div className={styles.ordersSummary}>
       <div className={styles.ordersNumbersSection}>
-        <OrdersSummaryNumbers orders={completedOrders} isForCompletedOrders={true}/>
-        <OrdersSummaryNumbers orders={ordersInProcess} isForCompletedOrders={false}/>
+        <OrdersSummaryOrdersNumbers orders={completedOrders} isForCompletedOrders={true}/>
+        <OrdersSummaryOrdersNumbers orders={ordersInProcess} isForCompletedOrders={false}/>
       </div>
       <OrdersSummaryOrdersCount header='Выполнено за все время:' count={total}/>
       <OrdersSummaryOrdersCount header='Выполнено за сегодня:' count={totalToday}/>

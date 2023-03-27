@@ -2,7 +2,7 @@ import styles from "./orders-feed.module.css";
 import React, {FC} from "react";
 import {TOrder} from "../../types/order";
 
-const OrdersSummaryNumbers: FC<{ orders: TOrder[], isForCompletedOrders: boolean }> =
+const OrdersSummaryOrdersNumbers: FC<{ orders: TOrder[], isForCompletedOrders: boolean }> =
   ({orders, isForCompletedOrders}) => {
     return (
       <div className={styles.orderNumbers}>
@@ -21,4 +21,4 @@ const OrdersSummaryNumbers: FC<{ orders: TOrder[], isForCompletedOrders: boolean
     )
   }
 
-export default OrdersSummaryNumbers;
+export default OrdersSummaryOrdersNumbers;
