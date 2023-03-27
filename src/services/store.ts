@@ -11,6 +11,14 @@ import {
   ORDERS_FEED_CONNECTION_START,
   ORDERS_FEED_CONNECTION_STOP,
 } from "../components/orders-feed/store/orders-feed-actions";
+import {
+  ConnectUserOrdersFeedWebSocketClosedAction,
+  ConnectUserOrdersFeedWebSocketSuccessAction,
+  GetUserOrdersFeedMessageAction,
+  UserOrdersFeedWebSocketErrorAction,
+  USER_ORDERS_FEED_CONNECTION_START,
+  USER_ORDERS_FEED_CONNECTION_STOP,
+} from "../components/user-orders-feed/store/user-orders-feed-actions";
 
 declare global {
   interface Window {
@@ -30,7 +38,14 @@ const enhancer = composeEnhancers(applyMiddleware(
     onError: OrdersFeedWebSocketErrorAction,
     onMessage: GetOrdersFeedMessageAction,
   }),
-  //webSocketMiddleware('wss://norma.nomoreparties.space/orders', {}),
+  webSocketMiddleware({
+    wsStart: USER_ORDERS_FEED_CONNECTION_START,
+    wsStop: USER_ORDERS_FEED_CONNECTION_STOP,
+    onOpen: ConnectUserOrdersFeedWebSocketSuccessAction,
+    onClose: ConnectUserOrdersFeedWebSocketClosedAction,
+    onError: UserOrdersFeedWebSocketErrorAction,
+    onMessage: GetUserOrdersFeedMessageAction,
+  }),
 ));
 
 // todo(kulikov): replace with configureStore
