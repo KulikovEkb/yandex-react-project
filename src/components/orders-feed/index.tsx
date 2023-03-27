@@ -1,13 +1,13 @@
 import styles from './orders-feed.module.css';
 import React from 'react';
-import FeedList from "./feed-list";
-import FeedInfo from "./feed-info";
+import Orders from "./orders";
+import OrdersSummary from "./orders-summary";
 
 function OrdersFeed() {
   return (
-    <div className={styles.content}>
-      <FeedList/>
-      <FeedInfo/>
+    <div className={styles.feed}>
+      <Orders/>
+      <OrdersSummary/>
     </div>
   )
 }
