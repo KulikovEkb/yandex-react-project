@@ -11,7 +11,7 @@
 .ordersList {
   height: 852px;
   padding: 0;
-  overflow-y: overlay;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;

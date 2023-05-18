@@ -52,14 +52,14 @@ function App() {
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
 
         <Route path="/feed" element={<OrdersFeedPage/>}/>
-        <Route path="/feed/:id" element={<FeedOrderPage/>}/>
+        <Route path="/feed/:number" element={<FeedOrderPage/>}/>
 
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       {background && (
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
-          <Route path="/feed/:id" element={<FeedOrderDetails/>}/>
+          <Route path="/feed/:number" element={<FeedOrderDetails/>}/>
           {/*
           // todo(kulikov): implement & uncomment
           <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Order/>}/>}/>

@@ -6,10 +6,11 @@ import Header from "./header";
 
 type TModalProps = {
   headerText: string;
+  headerIsNumber?: boolean;
   closeModal: () => void;
 }
 
-const Modal: FC<PropsWithChildren<TModalProps>> = ({headerText, closeModal, children}) => {
+const Modal: FC<PropsWithChildren<TModalProps>> = ({headerText, headerIsNumber = false, closeModal, children}) => {
   function handleKeyDown(event: KeyboardEvent) {
     if (event.code === 'Escape') {
       closeModal();
@@ -28,7 +29,7 @@ const Modal: FC<PropsWithChildren<TModalProps>> = ({headerText, closeModal, chil
     <>
       <ModalOverlay closeModal={closeModal}/>
       <div className={`${styles.modalContent} pt-10 pr-10 pl-10 pb-15`}>
-        <Header text={headerText} closeModal={closeModal}/>
+        <Header text={headerText} isNumber={headerIsNumber} closeModal={closeModal}/>
 
         {children}
       </div>

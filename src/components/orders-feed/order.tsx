@@ -6,6 +6,7 @@ import {TOrder} from "../../types/order";
 import {TIngredient} from "../../types/ingredient";
 import {useSelector} from "../../types";
 import {getIngredientsState} from "../burger-ingredients/store/ingredients-selectors";
+import {getStatusText} from "../../helpers/order-helper";
 
 type TOrdersFeedOrder = {
   data: TOrder;
@@ -15,7 +16,7 @@ type TOrdersFeedOrder = {
 function Order({data, profileOrder = false}: TOrdersFeedOrder) {
   const {ingredientsMap} = useSelector(getIngredientsState);
   let location = useLocation();
-  const {_id, name, number, ingredients, status, createdAt} = data;
+  const {name, number, ingredients, status, createdAt} = data;
 
   const width = profileOrder ? '796px' : '536px'
 
@@ -38,7 +39,7 @@ function Order({data, profileOrder = false}: TOrdersFeedOrder) {
     : 'mt-2 text text_type_main-default';
 
   return (
-    <Link to={`${profileOrder ? '/profile/orders' : '/feed'}/${_id}`} state={{background: location}}
+    <Link to={`${profileOrder ? '/profile/orders' : '/feed'}/${number}`} state={{background: location}}
           className={styles.link}>
       <li className={styles.order} style={{width: width}}>
         <div className={styles.info}>
@@ -78,19 +79,6 @@ function Order({data, profileOrder = false}: TOrdersFeedOrder) {
       </li>
     </Link>
   )
-}
-
-function getStatusText(status: 'created' | 'pending' | 'done'): string {
-  switch (status) {
-    case 'done':
-      return 'Выполнен';
-
-    case 'pending':
-      return 'В процессе';
-
-    case 'created':
-      return 'Создан';
-  }
 }
 
 export default Order;

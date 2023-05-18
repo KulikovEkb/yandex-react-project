@@ -65,8 +65,8 @@
 }
 
 .image {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border: 2px solid transparent;
   border-radius: 50%;
   background: linear-gradient(#1C1C21, #1C1C21),

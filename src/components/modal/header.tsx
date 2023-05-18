@@ -4,13 +4,14 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type THeaderProps = {
   text: string;
+  isNumber: boolean;
   closeModal: () => void;
 }
 
-const Header: FC<THeaderProps> = ({text, closeModal}) => {
+const Header: FC<THeaderProps> = ({text, isNumber, closeModal}) => {
   return (
     <div className={styles.modalHeader}>
-      <p className="text text_type_main-large">{text}</p>
+      <p className={`text ${isNumber ? 'text_type_digits-default' : 'text_type_main-large'}`}>{text}</p>
 
       <div className={styles.closeIconWrapper} onClick={closeModal}>
         <CloseIcon type="primary"/>
