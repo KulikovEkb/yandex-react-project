@@ -102,24 +102,23 @@ async function executeWithAuth<T>(request: Function) {
   }
 }
 
-function refreshToken() {
+async function refreshToken(): Promise<void> {
   const refreshTokenValue = localStorage.getItem('refreshToken');
   if (!refreshTokenValue)
     return Promise.reject('Refresh token is missing in local storage');
 
-  return sendPostRequest<TRefreshTokenRequest, TRefreshTokenResponse>(
+  const result = await sendPostRequest<TRefreshTokenRequest, TRefreshTokenResponse>(
     `${baseUri}/auth/token`,
     {token: refreshTokenValue}
-  )
-    .then(result => {
-      if (!result.success)
-        return Promise.reject(`Ошибка ${result}`);
+  );
 
-      setCookie('token', result.accessToken);
-      localStorage.setItem('refreshToken', result.refreshToken);
+  if (!result.success)
+    return Promise.reject(`Ошибка ${result}`);
 
-      setTokenExpirationDate(15);
-    });
+  setCookie('normaToken', result.accessToken);
+  localStorage.setItem('refreshToken', result.refreshToken);
+
+  setTokenExpirationDate(15);
 }
 
 export function checkSuccess<T>(response: TServerResponse<T>): Promise<TServerResponse<T>> {

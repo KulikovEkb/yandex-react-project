@@ -24,7 +24,7 @@ export function sendPostRequestWithAuth<TRequest, TResponse>(url: string, body: 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: getCookie('token') ?? ''
+      Authorization: getCookie('normaToken') ?? ''
     },
     body: JSON.stringify(body)
   }).then(checkResponse<TResponse>);
@@ -35,7 +35,7 @@ export function sendGetRequestWithAuth<T>(url: string) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: getCookie('token') ?? ''
+      Authorization: getCookie('normaToken') ?? ''
     },
   }).then(checkResponse<T>);
 }
@@ -45,7 +45,7 @@ export function sendPatchRequestWithAuth<TRequest, TResponse>(url: string, body:
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: getCookie('token') ?? ''
+      Authorization: getCookie('normaToken') ?? ''
     },
     body: JSON.stringify(body)
   }).then(checkResponse<TResponse>);

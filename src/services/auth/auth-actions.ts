@@ -41,7 +41,7 @@ export const getUser = (): AppThunk => (dispatch: AppDispatch) => {
 };
 
 export const checkUserAuth = (): AppThunk => (dispatch: AppDispatch) => {
-  if (getCookie('token'))
+  if (getCookie('normaToken'))
     dispatch(getUser());
 
   dispatch({type: AUTH_CHECKED});
@@ -57,7 +57,7 @@ export const editUser = (user: TEditUserRequest): AppThunk => function (dispatch
 export const register = (payload: TRegisterRequest): AppThunk => (dispatch: AppDispatch) => {
   normaClient.register(payload)
     .then(result => {
-      setCookie('token', result.accessToken);
+      setCookie('normaToken', result.accessToken);
       localStorage.setItem('refreshToken', result.refreshToken);
 
       setTokenExpirationDate(15);
@@ -69,7 +69,7 @@ export const register = (payload: TRegisterRequest): AppThunk => (dispatch: AppD
 export const logIn = (email: string, password: string): AppThunk => (dispatch: AppDispatch) => {
   normaClient.login(email, password)
     .then(result => {
-      setCookie('token', result.accessToken);
+      setCookie('normaToken', result.accessToken);
       localStorage.setItem('refreshToken', result.refreshToken);
 
       setTokenExpirationDate(15);
@@ -83,7 +83,7 @@ export const logOut = (): AppThunk => (dispatch: AppDispatch) => {
     .finally(() => {
       dispatch({type: SET_USER, user: null as unknown as TUser});
 
-      expireCookie('token');
+      expireCookie('normaToken');
       localStorage.clear();
     });
 };

@@ -10,7 +10,7 @@ import {getUserOrdersFeedState} from "../components/user-orders-feed/store/user-
 
 function UserOrdersFeedPage() {
   const dispatch = useDispatch();
-  const token = getCookie('token')?.replace('Bearer ', '');
+  const token = getCookie('normaToken')?.replace('Bearer ', '');
 
   useEffect(() => {
     dispatch(startUserOrdersFeedConnectionAction(`wss://norma.nomoreparties.space/orders?token=${token}`));

@@ -4,13 +4,9 @@ import {Link} from "react-router-dom";
 import {FC} from "react";
 import * as consts from "./consts/consts";
 
-type TLogoWrapperProps = {
-  setActive: (active: string) => void;
-}
-
-const LogoWrapper: FC<TLogoWrapperProps> = ({setActive}) => {
+const LogoWrapper = () => {
   return (
-    <Link to='/' className={styles.logo} onClick={() => setActive(consts.Tabs.Constructor)}>
+    <Link to='/' className={styles.logo}>
       <Logo/>
     </Link>
   );
