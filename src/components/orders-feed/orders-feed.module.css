@@ -8,8 +8,13 @@
   width: 608px;
 }
 
+
+.profileOrders {
+  width: 860px;
+}
+
 .ordersList {
-  height: 852px;
+  height: calc(100vh - 220px);
   padding: 0;
   overflow-y: auto;
   display: flex;
@@ -35,7 +40,8 @@
 
 .ordersNumbersList{
   list-style: none;
-  height: 250px;
+  max-height: min(250px, calc(100vh - 700px));
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

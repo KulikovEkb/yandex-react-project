@@ -18,6 +18,9 @@ import {useDispatch} from "./types";
 import OrdersFeedPage from "./pages/orders-feed-page";
 import FeedOrderPage from "./pages/feed-order-page";
 import FeedOrderDetails from "./components/feed-order-details";
+import UserOrdersFeedPage from "./pages/user-orders-feed-page";
+import ProfileInfo from "./components/profile-info/profile-info";
+import UserFeedOrderPage from "./pages/user-feed-order-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,11 +45,9 @@ function App() {
         <Route path="/reset-password" element={<ProtectedRoute onlyUnAuth={true} element={<ResetPassword/>}/>}/>
 
         <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}>
-          {/*
-          // todo(kulikov): implement & uncomment
-          <Route path='/profile/orders' element={<OrderHistory/>}/>
-          <Route path="/profile/orders/:id" element={<Order/>}/>
-          */}
+          <Route path="/profile" element={<ProfileInfo/>}/>
+          <Route path='/profile/orders' element={<UserOrdersFeedPage/>}/>
+          <Route path="/profile/orders/:number" element={<UserFeedOrderPage/>}/>
         </Route>
 
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
@@ -60,10 +61,7 @@ function App() {
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
           <Route path="/feed/:number" element={<FeedOrderDetails/>}/>
-          {/*
-          // todo(kulikov): implement & uncomment
-          <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Order/>}/>}/>
-          */}
+          <Route path="/profile/orders/:number" element={<ProtectedRoute element={<FeedOrderDetails/>}/>}/>
         </Routes>
       )}
     </ErrorBoundary>

@@ -12,10 +12,10 @@ import {
   ORDERS_FEED_CONNECTION_STOP,
 } from "../components/orders-feed/store/orders-feed-actions";
 import {
-  ConnectUserOrdersFeedWebSocketClosedAction,
-  ConnectUserOrdersFeedWebSocketSuccessAction,
-  GetUserOrdersFeedMessageAction,
-  UserOrdersFeedWebSocketErrorAction,
+  connectUserOrdersFeedWebSocketClosedAction,
+  connectUserOrdersFeedWebSocketSuccessAction,
+  getUserOrdersFeedMessageAction,
+  userOrdersFeedWebSocketErrorAction,
   USER_ORDERS_FEED_CONNECTION_START,
   USER_ORDERS_FEED_CONNECTION_STOP,
 } from "../components/user-orders-feed/store/user-orders-feed-actions";
@@ -41,10 +41,10 @@ const enhancer = composeEnhancers(applyMiddleware(
   webSocketMiddleware({
     wsStart: USER_ORDERS_FEED_CONNECTION_START,
     wsStop: USER_ORDERS_FEED_CONNECTION_STOP,
-    onOpen: ConnectUserOrdersFeedWebSocketSuccessAction,
-    onClose: ConnectUserOrdersFeedWebSocketClosedAction,
-    onError: UserOrdersFeedWebSocketErrorAction,
-    onMessage: GetUserOrdersFeedMessageAction,
+    onOpen: connectUserOrdersFeedWebSocketSuccessAction,
+    onClose: connectUserOrdersFeedWebSocketClosedAction,
+    onError: userOrdersFeedWebSocketErrorAction,
+    onMessage: getUserOrdersFeedMessageAction,
   }),
 ));
 

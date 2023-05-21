@@ -19,6 +19,17 @@ export function sendGetRequest<T>(url: string) {
   }).then(checkResponse<T>);
 }
 
+export function sendPostRequestWithAuth<TRequest, TResponse>(url: string, body: TRequest) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getCookie('token') ?? ''
+    },
+    body: JSON.stringify(body)
+  }).then(checkResponse<TResponse>);
+}
+
 export function sendGetRequestWithAuth<T>(url: string) {
   return fetch(url, {
     method: 'GET',

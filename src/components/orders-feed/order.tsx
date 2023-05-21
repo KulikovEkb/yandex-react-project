@@ -10,14 +10,15 @@ import {getStatusText} from "../../helpers/order-helper";
 
 type TOrdersFeedOrder = {
   data: TOrder;
-  profileOrder?: boolean
+  profileOrder: boolean
 }
 
-function Order({data, profileOrder = false}: TOrdersFeedOrder) {
+function Order({data, profileOrder}: TOrdersFeedOrder) {
   const {ingredientsMap} = useSelector(getIngredientsState);
   let location = useLocation();
   const {name, number, ingredients, status, createdAt} = data;
 
+  // todo(kulikov): styles
   const width = profileOrder ? '796px' : '536px'
 
   const orderIngredientsMap = new Map<string, TIngredient>;

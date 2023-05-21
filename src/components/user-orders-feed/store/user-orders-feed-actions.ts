@@ -46,26 +46,26 @@ export type TUserOrdersFeedActions =
   | IGetUserOrdersFeedMessageAction
   | ISendUserOrdersFeedMessageAction;
 
-export function StartUserOrdersFeedConnectionAction(endpoint: string): IStartUserOrdersFeedConnectionAction {
+export function startUserOrdersFeedConnectionAction(endpoint: string): IStartUserOrdersFeedConnectionAction {
   return {type: USER_ORDERS_FEED_CONNECTION_START, endpoint};
 }
 
-export function StopUserOrdersFeedConnectionAction(): IStopUserOrdersFeedConnectionAction {
+export function stopUserOrdersFeedConnectionAction(): IStopUserOrdersFeedConnectionAction {
   return {type: USER_ORDERS_FEED_CONNECTION_STOP};
 }
 
-export function ConnectUserOrdersFeedWebSocketSuccessAction(): IConnectUserOrdersFeedWebSocketSuccessAction {
+export function connectUserOrdersFeedWebSocketSuccessAction(): IConnectUserOrdersFeedWebSocketSuccessAction {
   return {type: USER_ORDERS_FEED_CONNECTION_SUCCESS};
 }
 
-export function ConnectUserOrdersFeedWebSocketClosedAction(): IConnectUserOrdersFeedWebSocketClosedAction {
+export function connectUserOrdersFeedWebSocketClosedAction(): IConnectUserOrdersFeedWebSocketClosedAction {
   return {type: USER_ORDERS_FEED_CONNECTION_CLOSED};
 }
 
-export function UserOrdersFeedWebSocketErrorAction(error: Event): IUserOrdersFeedWebSocketErrorAction {
+export function userOrdersFeedWebSocketErrorAction(error: Event): IUserOrdersFeedWebSocketErrorAction {
   return {type: USER_ORDERS_FEED_CONNECTION_ERROR, error};
 }
 
-export function GetUserOrdersFeedMessageAction(message: string): IGetUserOrdersFeedMessageAction {
+export function getUserOrdersFeedMessageAction(message: string): IGetUserOrdersFeedMessageAction {
   return {type: USER_ORDERS_FEED_GET_MESSAGE, message};
 }

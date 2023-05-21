@@ -2,7 +2,8 @@ import {
   sendGetRequest,
   sendGetRequestWithAuth,
   sendPatchRequestWithAuth,
-  sendPostRequest
+  sendPostRequest,
+  sendPostRequestWithAuth
 } from "./helpers/http-client-helper";
 import {setCookie} from "../cookie-helper";
 import setTokenExpirationDate from "../local-storage-helper";
@@ -27,7 +28,11 @@ export function getIngredients() {
 }
 
 export function createOrder(elementsIds: Array<string>): Promise<number> {
-  return sendPostRequest<TCreateOrderRequest, TCreateOrderResponse>(`${baseUri}/orders`, {ingredients: elementsIds})
+  return executeWithAuth(
+    async () => await sendPostRequestWithAuth<TCreateOrderRequest, TCreateOrderResponse>(
+      `${baseUri}/orders`, {ingredients: elementsIds}
+    )
+  )
     .then(checkSuccess)
     .then(result => {
       return result.order.number;
@@ -88,7 +93,7 @@ async function executeWithAuth<T>(request: Function) {
   try {
     return await request();
   } catch (exc) {
-    if ((exc as Error).message.includes('jwt expired'))
+    if (!(exc as Error).message.includes('jwt expired'))
       return Promise.reject(exc);
 
     await refreshToken();

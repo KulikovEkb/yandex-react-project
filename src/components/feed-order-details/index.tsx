@@ -8,11 +8,14 @@ import {getOrdersFeedState} from "../orders-feed/store/orders-feed-selectors";
 import scrollBarStyles from "../../helpers/scroll-bar.module.css";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {getStatusText} from "../../helpers/order-helper";
+import {getUserOrdersFeedState} from "../user-orders-feed/store/user-orders-feed-selectors";
 
 // todo(kulikov): styles
 const FeedOrderDetails = () => {
   const {ingredientsMap} = useSelector(getIngredientsState);
+  // todo(kulikov): fix
   const {orders} = useSelector(getOrdersFeedState);
+  const userOrders = useSelector(getUserOrdersFeedState).orders;
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,7 +38,9 @@ const FeedOrderDetails = () => {
     const number = parseInt(numberString);
 
     // todo(kulikov): fetch order if it is missing
-    const order = orders.find(x => x.number === number)!;
+    let order = orders.find(x => x.number === number);
+    if (!order) order = userOrders.find(x => x.number === number)!;
+
     const orderIngredientsMap = new Map<string, { ingredient: TIngredient, quantity: number }>();
     let sum = 0;
 
@@ -63,7 +68,7 @@ const FeedOrderDetails = () => {
       sum: sum,
       ingredients: Array.from(orderIngredientsMap.values()),
     }
-  }, [numberString, orders, ingredientsMap]);
+  }, [numberString, orders, userOrders, ingredientsMap]);
 
 
   return (
