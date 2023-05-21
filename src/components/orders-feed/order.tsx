@@ -24,7 +24,9 @@ function Order({data, profileOrder = false}: TOrdersFeedOrder) {
   let totalPrice = 0;
 
   for (const ingredientId of ingredients) {
-    const ingredient = ingredientsMap.get(ingredientId)!;
+    const ingredient = ingredientsMap.get(ingredientId);
+
+    if (!ingredient) continue;
 
     totalPrice += ingredient.price;
 

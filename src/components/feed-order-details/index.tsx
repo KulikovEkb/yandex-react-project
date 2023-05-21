@@ -33,11 +33,15 @@ const FeedOrderDetails = () => {
 
   const orderData = useMemo(() => {
     const number = parseInt(numberString);
+
+    // todo(kulikov): fetch order if it is missing
     const order = orders.find(x => x.number === number)!;
     const orderIngredientsMap = new Map<string, { ingredient: TIngredient, quantity: number }>();
     let sum = 0;
 
     for (const ingredientId of order.ingredients) {
+      if (!ingredientId) continue;
+
       let orderIngredient = orderIngredientsMap.get(ingredientId);
 
       if (orderIngredient) {
