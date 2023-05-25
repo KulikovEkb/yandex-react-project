@@ -34,7 +34,7 @@ function ProfileInfo() {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} style={{marginTop: '120px', marginLeft: '60px'}}>
       <div className={styles.inputs}>
         <Input name='name' value={values.name} onChange={handleChange} placeholder='Имя' icon='EditIcon'/>
         <Input name='email' value={values.email} onChange={handleChange} placeholder='Логин' icon='EditIcon'/>

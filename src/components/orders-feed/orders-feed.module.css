@@ -8,18 +8,25 @@
   width: 608px;
 }
 
-
 .profileOrders {
   width: 860px;
+  margin-left: 48px;
+  margin-top: 40px;
 }
 
 .ordersList {
   height: calc(100vh - 220px);
   padding: 0;
+  margin: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.profileOrdersList{
+  composes: ordersList;
+  height: calc(100vh - 160px);
 }
 
 .ordersSummary{
@@ -49,7 +56,7 @@
 
 .completedOrdersNumbersList{
   composes: ordersNumbersList;
-  color: #00CCCC;
+  color: var(--colors-interface-success);
 }
 
 .orderNumber{

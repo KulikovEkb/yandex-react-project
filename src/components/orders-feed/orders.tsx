@@ -10,10 +10,14 @@ type TOrdersFeedOrders = {
 }
 
 function Orders({orders, profileOrders = false}: TOrdersFeedOrders) {
+  const ordersListClassName = profileOrders
+    ? `${styles.profileOrdersList} ${scrollBarStyles.scrollBar}`
+    : `${styles.ordersList} ${scrollBarStyles.scrollBar}`;
+
   return (
     <div className={profileOrders ? styles.profileOrders : styles.orders}>
-      <h1 className="mt-10 mb-5 text text_type_main-large">Лента заказов</h1>
-      <ul className={`${styles.ordersList} ${scrollBarStyles.scrollBar}`}>
+      {!profileOrders && <h1 className="mt-10 mb-5 text text_type_main-large">Лента заказов</h1>}
+      <ul className={ordersListClassName}>
         {orders.length > 0
           ? orders.map((el) => <Order key={el._id} data={el} profileOrder={profileOrders}/>)
           : (

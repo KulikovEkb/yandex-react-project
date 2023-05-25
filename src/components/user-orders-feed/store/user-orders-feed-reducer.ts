@@ -28,7 +28,7 @@ export function userOrdersFeedReducer(state = initialState, action: TUserOrdersF
     case actions.USER_ORDERS_FEED_GET_MESSAGE:
       const allOrders = JSON.parse(action.message) as TOrdersResponse;
 
-      return {...state, orders: allOrders.orders};
+      return {...state, orders: allOrders.orders.sort((a, b) => b.number - a.number)};
 
     default:
       return state;

@@ -24,7 +24,7 @@
 }
 
 .doneStatus {
-  color: var(--background-element);
+  color: var(--colors-interface-success);
 }
 
 .number {

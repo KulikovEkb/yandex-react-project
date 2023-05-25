@@ -76,7 +76,7 @@ const FeedOrderDetails = () => {
       <div style={{display: 'flex', flexDirection: 'column', width: 'inherit'}}>
         <p className='text text_type_main-medium' style={{marginTop: '20px'}}>{orderData.name}</p>
         <p className='text text_type_main-default'
-           style={{marginTop: '8px', color: '#00CCCC'}}>{getStatusText(orderData.status)}</p>
+           style={{marginTop: '8px', color: 'var(--colors-interface-success)'}}>{getStatusText(orderData.status)}</p>
         <p className='text text_type_main-medium' style={{marginTop: '60px'}}>Состав:</p>
         <ul className={`${scrollBarStyles.scrollBar}`}
             style={{

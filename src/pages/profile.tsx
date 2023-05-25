@@ -22,8 +22,9 @@ function Profile() {
   );
 
   return (
-    <main className={styles.mainContainer}>
-      <aside>
+    // <main className={styles.mainContainer}>
+    <main style={{display: 'flex', paddingLeft: '10vw'}}>
+      <aside style={{paddingTop: '120px'}}>
         <div>
           <NavLink to={'/profile'} className={className} end>Профиль</NavLink>
           <NavLink to={'/profile/orders'} className={className} end>История заказов</NavLink>
