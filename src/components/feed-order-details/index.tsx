@@ -1,37 +1,61 @@
 import Modal from "../modal";
-import React, {useMemo} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {useSelector} from "../../types";
-import {getOrdersFeedState} from "../orders-feed/store/orders-feed-selectors";
-import {getUserOrdersFeedState} from "../user-orders-feed/store/user-orders-feed-selectors";
 import FeedOrder from "./feed-order";
+import {getOrder} from "../../helpers/http-clients/norma-client";
+import {TOrder} from "../../types/order";
+import {Loader} from "../loader/loader";
+import styles from "../order-details/order-details.module.css";
+
+interface IFeedOrderDetailsState {
+  isLoading: boolean
+  hasError: boolean
+  order: TOrder | null
+}
 
 const FeedOrderDetails = () => {
-  // todo(kulikov): fix
-  const {orders} = useSelector(getOrdersFeedState);
-  const userOrders = useSelector(getUserOrdersFeedState).orders;
   const location = useLocation();
   const navigate = useNavigate();
-  const numberString = useParams().number!;
+  const orderNumber = useParams().number!;
 
   const closeModal = React.useCallback(() => {
     location?.state?.background && navigate(location.state.background);
   }, [location.state, navigate]);
 
-  const order = useMemo(() => {
-    const number = parseInt(numberString);
+  const [state, setState] = useState<IFeedOrderDetailsState>({
+    isLoading: true,
+    hasError: false,
+    order: null,
+  });
 
-    // todo(kulikov): fetch order if it is missing
-    let order = orders.find(x => x.number === number);
-    if (!order) order = userOrders.find(x => x.number === number)!;
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      setState({...state, isLoading: true});
+      const getOrderResult = await getOrder(orderNumber);
 
-    return order;
-  }, [numberString, orders, userOrders]);
+      if (!!getOrderResult) {
+        setState({...state, isLoading: false, order: getOrderResult});
+      } else {
+        setState({...state, isLoading: false, hasError: true});
+      }
+    }
+
+    fetchOrderData();
+  }, [orderNumber]);
 
   return (
-    <Modal headerText={`#${order.number}`} headerIsNumber={true} closeModal={closeModal}>
-      <FeedOrder order={order}/>
-    </Modal>);
+    <Modal headerText={`#${orderNumber}`} headerIsNumber={true} closeModal={closeModal}>
+      {state.isLoading ? (
+        <Loader size='huge'/>
+      ) : state.hasError ? (
+        <p className={`${styles.error} text text_type_main-medium`}>
+          Ошибка при получении заказа.<br/>Попробуйте ещё раз.
+        </p>
+      ) : (
+        <FeedOrder order={state.order!}/>
+      )}
+    </Modal>
+  );
 }
 
 export default FeedOrderDetails;

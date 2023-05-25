@@ -34,9 +34,7 @@ function Order({data, isProfileOrder}: TOrdersFeedOrder) {
 
   const orderIngredients = Array.from(orderIngredientsMap.values());
 
-  const statusClassName = status === 'done'
-    ? `mt-2 text text_type_main-default ${styles.doneStatus}`
-    : 'mt-2 text text_type_main-default';
+  const statusClassName = `mt-2 text text_type_main-default ${status === 'done' ? styles.doneStatus : ''}`;
 
   return (
     <Link to={`${isProfileOrder ? '/profile/orders' : '/feed'}/${number}`}

@@ -14,17 +14,31 @@ import {
   TSendResetPasswordEmailRequest
 } from "./types/requests";
 import {
-  TCreateOrderResponse, TEditUserResponse,
-  TGetIngredientsResponse, TGetUserResponse, TLoginResponse, TLogoutResponse, TRefreshTokenResponse, TRegisterResponse,
+  TCreateOrderResponse,
+  TEditUserResponse,
+  TGetIngredientsResponse,
+  TGetOrderResponse,
+  TGetUserResponse,
+  TLoginResponse,
+  TLogoutResponse,
+  TRefreshTokenResponse,
+  TRegisterResponse,
   TResetPasswordResponse,
-  TSendResetPasswordEmailResponse, TServerResponse
+  TSendResetPasswordEmailResponse,
+  TServerResponse
 } from "./types/responses";
+import {TOrder} from "../../types/order";
 
 const baseUri = 'https://norma.nomoreparties.space/api';
 
 export function getIngredients() {
   return sendGetRequest<TGetIngredientsResponse>(`${baseUri}/ingredients`)
     .then(result => result.data);
+}
+
+export function getOrder(number: string): Promise<TOrder | null> {
+  return sendGetRequest<TGetOrderResponse>(`${baseUri}/orders/${number}`)
+    .then(result => result.orders.length === 1 ? result.orders[0] : null);
 }
 
 export function createOrder(elementsIds: Array<string>): Promise<number> {

@@ -1,10 +1,13 @@
 import {TIngredient} from "../../../types/ingredient";
+import {TOrder} from "../../../types/order";
 
 export type TServerResponse<T> = {
   success: boolean;
 } & T;
 
 export type TGetIngredientsResponse = TServerResponse<{ data: Array<TIngredient> }>;
+
+export type TGetOrderResponse = TServerResponse<{ orders: TOrder[] }>;
 
 export type TCreateOrderResponse = TServerResponse<{
   name: string;
