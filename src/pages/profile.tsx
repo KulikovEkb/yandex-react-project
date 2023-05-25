@@ -15,19 +15,18 @@ function Profile() {
     [dispatch]
   );
 
-  const className = React.useCallback(
+  const navLinkClassName = React.useCallback(
     ({ isActive }: { isActive: boolean }) =>
       `${styles.tab} text text_type_main-medium ${isActive ? 'text_color_primary' : 'text_color_inactive'}`,
     [],
   );
 
   return (
-    // <main className={styles.mainContainer}>
-    <main style={{display: 'flex', paddingLeft: '10vw'}}>
-      <aside style={{paddingTop: '120px'}}>
+    <main className={styles.mainContainer}>
+      <aside className={styles.aside}>
         <div>
-          <NavLink to={'/profile'} className={className} end>Профиль</NavLink>
-          <NavLink to={'/profile/orders'} className={className} end>История заказов</NavLink>
+          <NavLink to={'/profile'} className={navLinkClassName} end>Профиль</NavLink>
+          <NavLink to={'/profile/orders'} className={navLinkClassName} end>История заказов</NavLink>
           <p className={`${styles.tab} text text_type_main-medium text_color_inactive`} onClick={onLogOutClick}>Выход</p>
         </div>
 

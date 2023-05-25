@@ -24,7 +24,7 @@ function UserOrdersFeedPage() {
   const {orders} = useSelector(getUserOrdersFeedState);
 
   return (
-    <Orders orders={orders} profileOrders={true}/>
+    <Orders orders={orders} areProfileOrders={true}/>
   )
 }
 

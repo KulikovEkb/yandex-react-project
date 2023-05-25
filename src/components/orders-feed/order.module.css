@@ -4,6 +4,7 @@
 }
 
 .order {
+  width: 536px;
   background-color: #1C1C21;
   display: flex;
   flex-direction: column;
@@ -14,6 +15,11 @@
   border-radius: 40px;
   list-style: none;
   cursor: pointer;
+}
+
+.profileOrder {
+  composes: order;
+  width: 796px;
 }
 
 .info {
@@ -56,7 +62,7 @@
   box-sizing: border-box;
 }
 
-.borderImage {
+.orderImage {
   position: relative;
   display: flex;
   align-items: center;
@@ -83,35 +89,35 @@
   opacity: 0.6;
 }
 
-.borderImage:nth-of-type(1) {
+.orderImage:nth-of-type(1) {
   z-index: 10;
 }
 
-.borderImage:nth-of-type(2) {
+.orderImage:nth-of-type(2) {
   z-index: 9;
   position: absolute;
   left: 48px
 }
 
-.borderImage:nth-of-type(3) {
+.orderImage:nth-of-type(3) {
   z-index: 8;
   position: absolute;
   left: 96px
 }
 
-.borderImage:nth-of-type(4) {
+.orderImage:nth-of-type(4) {
   z-index: 7;
   position: absolute;
   left: 144px;
 }
 
-.borderImage:nth-of-type(5) {
+.orderImage:nth-of-type(5) {
   z-index: 6;
   position: absolute;
   left: 192px;
 }
 
-.borderImage:nth-of-type(6) {
+.orderImage:nth-of-type(6) {
   z-index: 5;
   position: absolute;
   left: 240px;

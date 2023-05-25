@@ -1,6 +1,6 @@
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {SyntheticEvent} from 'react';
-import styles from '../../pages/profile.module.css';
+import styles from './profile-info.module.css';
 import {useDispatch, useSelector} from "../../types";
 import {getAuthStateUser} from "../../services/auth/auth-selectors";
 import {useForm} from "../../services/hooks/use-form";
@@ -34,14 +34,14 @@ function ProfileInfo() {
   }
 
   return (
-    <form onSubmit={onSubmit} style={{marginTop: '120px', marginLeft: '60px'}}>
+    <form onSubmit={onSubmit} className={styles.form}>
       <div className={styles.inputs}>
         <Input name='name' value={values.name} onChange={handleChange} placeholder='Имя' icon='EditIcon'/>
         <Input name='email' value={values.email} onChange={handleChange} placeholder='Логин' icon='EditIcon'/>
         <PasswordInput name='password' value={values.password} onChange={handleChange} placeholder='Пароль' icon='EditIcon'/>
 
         {wasEdited && (
-          <div className={styles.buttons}>
+          <div>
             <Button htmlType='button' type='secondary' size='medium' onClick={onCancelButtonClick}>
               Отмена
             </Button>

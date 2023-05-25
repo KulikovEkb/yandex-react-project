@@ -47,8 +47,8 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}>
           <Route path="/profile" element={<ProfileInfo/>}/>
           <Route path='/profile/orders' element={<UserOrdersFeedPage/>}/>
-          <Route path="/profile/orders/:number" element={<UserFeedOrderPage/>}/>
         </Route>
+        <Route path="/profile/orders/:number" element={<UserFeedOrderPage/>}/>
 
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
 

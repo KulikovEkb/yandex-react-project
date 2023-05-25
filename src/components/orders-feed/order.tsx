@@ -10,18 +10,15 @@ import {getStatusText} from "../../helpers/order-helper";
 
 type TOrdersFeedOrder = {
   data: TOrder;
-  profileOrder: boolean
+  isProfileOrder: boolean
 }
 
-function Order({data, profileOrder}: TOrdersFeedOrder) {
+function Order({data, isProfileOrder}: TOrdersFeedOrder) {
   const {ingredientsMap} = useSelector(getIngredientsState);
   let location = useLocation();
   const {name, number, ingredients, status, createdAt} = data;
 
-  // todo(kulikov): styles
-  const width = profileOrder ? '796px' : '536px'
-
-  const orderIngredientsMap = new Map<string, TIngredient>;
+  const orderIngredientsMap = new Map<string, TIngredient>();
   let totalPrice = 0;
 
   for (const ingredientId of ingredients) {
@@ -42,17 +39,20 @@ function Order({data, profileOrder}: TOrdersFeedOrder) {
     : 'mt-2 text text_type_main-default';
 
   return (
-    <Link to={`${profileOrder ? '/profile/orders' : '/feed'}/${number}`} state={{background: location}}
+    <Link to={`${isProfileOrder ? '/profile/orders' : '/feed'}/${number}`}
+          state={{background: location}}
           className={styles.link}>
-      <li className={styles.order} style={{width: width}}>
+      <div className={isProfileOrder ? styles.profileOrder : styles.order}>
         <div className={styles.info}>
           <p className={`text text_type_digits-default ${styles.number}`}>#{number}</p>
           <FormattedDate date={new Date(createdAt)} className={`text text_type_main-small text_color_inactive`}/>
         </div>
+
         <div>
           <p className={`text text_type_main-medium ${styles.name}`}>{name}</p>
-          {profileOrder && <p className={statusClassName}>{getStatusText(status)} </p>}
+          {isProfileOrder && <p className={statusClassName}>{getStatusText(status)} </p>}
         </div>
+
         <div className={styles.ingredients}>
           <ul className={styles.images}>{
             orderIngredients.map((ingredient, index) => {
@@ -62,7 +62,7 @@ function Order({data, profileOrder}: TOrdersFeedOrder) {
               const isExtraIngredients = orderIngredients.length > 6 && index === 5;
 
               return (
-                <li className={styles.borderImage} key={ingredient._id}>
+                <li className={styles.orderImage} key={ingredient._id}>
                   <img className={isExtraIngredients ? styles.extraIngredientsImage : styles.image}
                        src={ingredient.image} alt={ingredient.name}/>
                   {isExtraIngredients && (
@@ -79,7 +79,7 @@ function Order({data, profileOrder}: TOrdersFeedOrder) {
             <CurrencyIcon type="primary"/>
           </div>
         </div>
-      </li>
+      </div>
     </Link>
   )
 }
