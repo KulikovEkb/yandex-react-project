@@ -1,54 +1,58 @@
 import {getCookie} from "../../cookie-helper";
 
 export function sendPostRequest<TRequest, TResponse>(url: string, body: TRequest) {
-  return fetch(url, {
+  return request<TResponse>(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  }).then(checkResponse<TResponse>);
+  });
 }
 
 export function sendGetRequest<T>(url: string) {
-  return fetch(url, {
+  return request<T>(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
-  }).then(checkResponse<T>);
+  });
 }
 
 export function sendPostRequestWithAuth<TRequest, TResponse>(url: string, body: TRequest) {
-  return fetch(url, {
+  return request<TResponse>(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getCookie('normaToken') ?? ''
     },
     body: JSON.stringify(body)
-  }).then(checkResponse<TResponse>);
+  });
 }
 
 export function sendGetRequestWithAuth<T>(url: string) {
-  return fetch(url, {
+  return request<T>(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getCookie('normaToken') ?? ''
     },
-  }).then(checkResponse<T>);
+  });
 }
 
 export function sendPatchRequestWithAuth<TRequest, TResponse>(url: string, body: TRequest) {
-  return fetch(url, {
+  return request<TResponse>(url, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: getCookie('normaToken') ?? ''
     },
     body: JSON.stringify(body)
-  }).then(checkResponse<TResponse>);
+  });
+}
+
+function request<TResponse>(url: string, options: RequestInit): Promise<TResponse> {
+  return fetch(url, options).then(checkResponse<TResponse>);
 }
 
 function checkResponse<T>(response: Response): Promise<T> {
