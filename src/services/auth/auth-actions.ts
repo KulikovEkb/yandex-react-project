@@ -11,20 +11,20 @@ export const RESET_PASSWORD_STARTED: 'RESET_PASSWORD_STARTED' = 'RESET_PASSWORD_
 export const RESET_PASSWORD_FINISHED: 'RESET_PASSWORD_FINISHED' = 'RESET_PASSWORD_FINISHED';
 
 export interface IAuthCheckedAction {
-  readonly type: 'AUTH_CHECKED';
+  readonly type: typeof AUTH_CHECKED;
 }
 
 export interface ISetUserAction {
-  readonly type: 'SET_USER';
+  readonly type: typeof SET_USER;
   readonly user: TUser;
 }
 
 export interface IResetPasswordStartedAction {
-  readonly type: 'RESET_PASSWORD_STARTED';
+  readonly type: typeof RESET_PASSWORD_STARTED;
 }
 
 export interface IResetPasswordFinishedAction {
-  readonly type: 'RESET_PASSWORD_FINISHED';
+  readonly type: typeof RESET_PASSWORD_FINISHED;
 }
 
 export type TAuthActions =

@@ -9,22 +9,22 @@ export const REMOVE_INGREDIENT: 'REMOVE_INGREDIENT' = 'REMOVE_INGREDIENT';
 export const SET_INGREDIENTS: 'SET_INGREDIENTS' = 'SET_INGREDIENTS';
 
 export interface IAddBunAction {
-  readonly type: 'ADD_BUN';
+  readonly type: typeof ADD_BUN;
   readonly bun: TIngredient;
 }
 
 export interface IAddIngredientAction {
-  readonly type: 'ADD_INGREDIENT';
+  readonly type: typeof ADD_INGREDIENT;
   readonly ingredient: TIngredient;
 }
 
 export interface IRemoveIngredientAction {
-  readonly type: 'REMOVE_INGREDIENT';
+  readonly type: typeof REMOVE_INGREDIENT;
   readonly key: string;
 }
 
 export interface ISetIngredientsAction {
-  readonly type: 'SET_INGREDIENTS';
+  readonly type: typeof SET_INGREDIENTS;
   readonly ingredients: TFillerIngredient[];
 }
 
@@ -35,6 +35,6 @@ export type TConstructorActions =
   | ISetIngredientsAction;
 
 export const removeIngredient = (id: string, key: string): AppThunk => (dispatch: AppDispatch) => {
-  dispatch({type: DECREMENT_INGREDIENT_COUNTER, id})
-  dispatch({type: REMOVE_INGREDIENT, key})
+  dispatch({type: DECREMENT_INGREDIENT_COUNTER, id});
+  dispatch({type: REMOVE_INGREDIENT, key});
 };

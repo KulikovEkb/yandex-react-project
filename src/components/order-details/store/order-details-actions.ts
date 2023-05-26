@@ -6,16 +6,16 @@ export const CREATE_ORDER_SUCCESS: 'CREATE_ORDER_SUCCESS' = 'CREATE_ORDER_SUCCES
 export const CREATE_ORDER_FAIL: 'CREATE_ORDER_FAIL' = 'CREATE_ORDER_FAIL';
 
 export interface ICreateOrderRequestAction {
-  readonly type: 'CREATE_ORDER_REQUEST';
+  readonly type: typeof CREATE_ORDER_REQUEST;
 }
 
 export interface ICreateOrderRequestSuccessAction {
-  readonly type: 'CREATE_ORDER_SUCCESS';
+  readonly type: typeof CREATE_ORDER_SUCCESS;
   readonly orderNumber: number;
 }
 
 export interface ICreateOrderRequestFailedAction {
-  readonly type: 'CREATE_ORDER_FAIL';
+  readonly type: typeof CREATE_ORDER_FAIL;
 }
 
 export type TOrderDetailsActions =

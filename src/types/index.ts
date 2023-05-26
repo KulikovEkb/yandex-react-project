@@ -1,5 +1,4 @@
 import {TIngredientsActions} from "../components/burger-ingredients/store/ingredients-actions";
-import {store} from "../services/store";
 import {TConstructorActions} from "../components/burger-constructor/store/constructor-actions";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TIngredientDetailsActions} from "../components/ingredient-details/store/ingredient-details-actions";

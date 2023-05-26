@@ -12,26 +12,26 @@ export const INCREMENT_INGREDIENT_COUNTER: 'INCREMENT_INGREDIENT_COUNTER' = 'INC
 export const DECREMENT_INGREDIENT_COUNTER: 'DECREMENT_INGREDIENT_COUNTER' = 'DECREMENT_INGREDIENT_COUNTER';
 
 export interface IGetIngredientsAction {
-  readonly type: 'GET_INGREDIENTS_REQUEST';
+  readonly type: typeof GET_INGREDIENTS_REQUEST;
 }
 export interface IGetIngredientsSuccessAction {
-  readonly type: 'GET_INGREDIENTS_SUCCESS';
+  readonly type: typeof GET_INGREDIENTS_SUCCESS;
   readonly ingredients: TIngredient[];
 }
 export interface IGetIngredientsFailedAction {
-  readonly type: 'GET_INGREDIENTS_FAIL';
+  readonly type: typeof GET_INGREDIENTS_FAIL;
 }
 
 export interface ISetBunIdAction {
-  readonly type: 'SET_BUN_ID';
+  readonly type: typeof SET_BUN_ID;
   readonly id: string;
 }
 export interface IIncrementIngredientCounterAction {
-  readonly type: 'INCREMENT_INGREDIENT_COUNTER';
+  readonly type: typeof INCREMENT_INGREDIENT_COUNTER;
   readonly id: string;
 }
 export interface IDecrementIngredientCounterAction {
-  readonly type: 'DECREMENT_INGREDIENT_COUNTER';
+  readonly type: typeof DECREMENT_INGREDIENT_COUNTER;
   readonly id: string;
 }
 

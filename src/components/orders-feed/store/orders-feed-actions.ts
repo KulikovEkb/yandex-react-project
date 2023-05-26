@@ -7,34 +7,34 @@ export const ORDERS_FEED_GET_MESSAGE: 'ORDERS_FEED_GET_MESSAGE' = 'ORDERS_FEED_G
 export const ORDERS_FEED_SEND_MESSAGE: 'ORDERS_FEED_SEND_MESSAGE' = 'ORDERS_FEED_SEND_MESSAGE';
 
 interface IStartOrdersFeedConnectionAction {
-  readonly type: 'ORDERS_FEED_CONNECTION_START';
+  readonly type: typeof ORDERS_FEED_CONNECTION_START;
   readonly endpoint: string;
 }
 
 interface IStopOrdersFeedConnectionAction {
-  readonly type: 'ORDERS_FEED_CONNECTION_STOP';
+  readonly type: typeof ORDERS_FEED_CONNECTION_STOP;
 }
 
 export interface IConnectOrdersFeedWebSocketSuccessAction {
-  readonly type: 'ORDERS_FEED_CONNECTION_SUCCESS';
+  readonly type: typeof ORDERS_FEED_CONNECTION_SUCCESS;
 }
 
 export interface IConnectOrdersFeedWebSocketClosedAction {
-  readonly type: 'ORDERS_FEED_CONNECTION_CLOSED';
+  readonly type: typeof ORDERS_FEED_CONNECTION_CLOSED;
 }
 
 export interface IOrdersFeedWebSocketErrorAction {
-  readonly type: 'ORDERS_FEED_CONNECTION_ERROR';
+  readonly type: typeof ORDERS_FEED_CONNECTION_ERROR;
   readonly error: Event;
 }
 
 export interface IGetOrdersFeedMessageAction {
-  readonly type: 'ORDERS_FEED_GET_MESSAGE';
+  readonly type: typeof ORDERS_FEED_GET_MESSAGE;
   readonly message: string;
 }
 
 export interface ISendOrdersFeedMessageAction {
-  readonly type: 'ORDERS_FEED_SEND_MESSAGE';
+  readonly type: typeof ORDERS_FEED_SEND_MESSAGE;
 }
 
 export type TOrdersFeedActions =

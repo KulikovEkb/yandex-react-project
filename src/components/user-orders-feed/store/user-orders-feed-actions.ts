@@ -7,34 +7,34 @@ export const USER_ORDERS_FEED_GET_MESSAGE: 'USER_ORDERS_FEED_GET_MESSAGE' = 'USE
 export const USER_ORDERS_FEED_SEND_MESSAGE: 'USER_ORDERS_FEED_SEND_MESSAGE' = 'USER_ORDERS_FEED_SEND_MESSAGE';
 
 interface IStartUserOrdersFeedConnectionAction {
-  readonly type: 'USER_ORDERS_FEED_CONNECTION_START';
+  readonly type: typeof USER_ORDERS_FEED_CONNECTION_START;
   readonly endpoint: string;
 }
 
 interface IStopUserOrdersFeedConnectionAction {
-  readonly type: 'USER_ORDERS_FEED_CONNECTION_STOP';
+  readonly type: typeof USER_ORDERS_FEED_CONNECTION_STOP;
 }
 
 export interface IConnectUserOrdersFeedWebSocketSuccessAction {
-  readonly type: 'USER_ORDERS_FEED_CONNECTION_SUCCESS';
+  readonly type: typeof USER_ORDERS_FEED_CONNECTION_SUCCESS;
 }
 
 export interface IConnectUserOrdersFeedWebSocketClosedAction {
-  readonly type: 'USER_ORDERS_FEED_CONNECTION_CLOSED';
+  readonly type: typeof USER_ORDERS_FEED_CONNECTION_CLOSED;
 }
 
 export interface IUserOrdersFeedWebSocketErrorAction {
-  readonly type: 'USER_ORDERS_FEED_CONNECTION_ERROR';
+  readonly type: typeof USER_ORDERS_FEED_CONNECTION_ERROR;
   readonly error: Event;
 }
 
 export interface IGetUserOrdersFeedMessageAction {
-  readonly type: 'USER_ORDERS_FEED_GET_MESSAGE';
+  readonly type: typeof USER_ORDERS_FEED_GET_MESSAGE;
   readonly message: string;
 }
 
 export interface ISendUserOrdersFeedMessageAction {
-  readonly type: 'USER_ORDERS_FEED_SEND_MESSAGE';
+  readonly type: typeof USER_ORDERS_FEED_SEND_MESSAGE;
 }
 
 export type TUserOrdersFeedActions =
