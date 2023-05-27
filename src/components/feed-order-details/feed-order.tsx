@@ -10,7 +10,7 @@ import {getOrder} from "./store/feed-order-details-actions";
 
 const FeedOrder = ({orderNumber}: { orderNumber: string }) => {
   const dispatch = useDispatch();
-  const {ingredientsMap} = useSelector(getIngredientsState);
+  const {getIngredientsRequest, ingredientsMap} = useSelector(getIngredientsState);
   const {isLoading, hasError, order} = useSelector(getFeedOrderDetailsState);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const FeedOrder = ({orderNumber}: { orderNumber: string }) => {
   }, [orderNumber]);
 
   const orderData = useMemo(() => {
-    if (!order) return null;
+    if (getIngredientsRequest || !order) return null;
 
     const orderIngredientsMap = new Map<string, { ingredient: TIngredient, quantity: number }>();
     let sum = 0;
