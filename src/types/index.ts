@@ -8,11 +8,13 @@ import {TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispat
 import {rootReducer} from "../services/root-reducer";
 import {TOrdersFeedActions} from "../components/orders-feed/store/orders-feed-actions";
 import {TUserOrdersFeedActions} from "../components/user-orders-feed/store/user-orders-feed-actions";
+import {TFeedOrderDetailsActions} from "../components/feed-order-details/store/feed-order-details-actions";
 
 export type TApplicationActions =
   | TIngredientsActions
   | TConstructorActions
   | TIngredientDetailsActions
+  | TFeedOrderDetailsActions
   | TOrderDetailsActions
   | TAuthActions
   | TOrdersFeedActions
