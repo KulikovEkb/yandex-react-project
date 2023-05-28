@@ -1,5 +1,4 @@
 import styles from './ingredient-details.module.css'
-import {useDispatch, useSelector} from "react-redux";
 import Detail from "./detail";
 import Modal from "../modal";
 import React, {useMemo} from "react";
@@ -9,10 +8,10 @@ import {Loader} from "../loader/loader";
 import {getIngredientsState} from "../burger-ingredients/store/ingredients-selectors";
 import {getIngredientDetailsState} from "./store/ingredient-details-selectors";
 import {TIngredient} from "../../types/ingredient";
-import {TIngredients} from "../../types/ingredients";
+import {useDispatch, useSelector} from "../../types";
 
 const IngredientDetails = () => {
-  const {getIngredientsRequest, getIngredientsFail, ingredients} = useSelector(getIngredientsState);
+  const {getIngredientsRequest, getIngredientsFail, ingredientsMap} = useSelector(getIngredientsState);
   const {name, image, calories, proteins, fat, carbohydrates} = useSelector(getIngredientDetailsState);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -20,12 +19,8 @@ const IngredientDetails = () => {
   const {id} = useParams();
 
   const ingredient = useMemo<TIngredient | undefined>(() => {
-    const castedIngredients = ingredients as TIngredients;
-
-    return castedIngredients?.buns.find(x => x._id === id)
-      || castedIngredients?.fillers.find(x => x._id === id)
-      || castedIngredients?.sauces.find(x => x._id === id);
-  }, [ingredients]);
+    return ingredientsMap.get(id!);
+  }, [ingredientsMap]);
 
   React.useEffect(() => {
     ingredient && dispatch({type: SET_DETAILS, ingredient});

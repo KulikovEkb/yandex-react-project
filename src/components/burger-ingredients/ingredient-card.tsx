@@ -1,4 +1,3 @@
-import {useSelector} from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
@@ -6,6 +5,7 @@ import React, {FC} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {getIngredientsState} from "./store/ingredients-selectors";
 import {TIngredient} from "../../types/ingredient";
+import {useSelector} from "../../types";
 
 const IngredientCard: FC<{ingredient: TIngredient}> = ({ingredient}) => {
   const location = useLocation();
@@ -33,7 +33,7 @@ const IngredientCard: FC<{ingredient: TIngredient}> = ({ingredient}) => {
     <div className={styles.card}>
       <div ref={dragRef} className={className}>
         <Link to={`/ingredients/${ingredient._id}`} state={{background: location}} className={styles.link}>
-          {count > 0 && <Counter count={count} size='default'/>}
+          {!!count && count > 0 && <Counter count={count} size='default'/>}
           <img className={styles.image}
                src={ingredient.image}
                alt={ingredient.name}/>

@@ -1,0 +1,68 @@
+.feed {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.orders {
+  width: 608px;
+}
+
+.profileOrders {
+  width: 860px;
+  margin-left: 48px;
+  margin-top: 40px;
+}
+
+.ordersList {
+  height: calc(100vh - 220px);
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profileOrdersList{
+  composes: ordersList;
+  height: calc(100vh - 160px);
+}
+
+.ordersSummary{
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-top: 100px;
+}
+
+.ordersNumbersSection{
+  display: flex;
+  gap: 36px;
+}
+
+.orderNumbers{
+  width: 272px;
+}
+
+.ordersNumbersList{
+  list-style: none;
+  max-height: min(250px, calc(100vh - 700px));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.completedOrdersNumbersList{
+  composes: ordersNumbersList;
+  color: var(--colors-interface-success);
+}
+
+.orderNumber{
+  width: 100px;
+}
+
+.ordersCountText{
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}

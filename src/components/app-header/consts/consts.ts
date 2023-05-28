@@ -1,5 +1,5 @@
 export const Tabs = {
   Constructor: 'Constructor',
-  OrdersFlow: 'Orders flow',
+  OrdersFeed: 'Orders feed',
   Profile: 'Profile',
 }

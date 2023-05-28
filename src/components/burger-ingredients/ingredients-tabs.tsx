@@ -1,21 +1,23 @@
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {forwardRef, RefObject} from "react";
+import React, {forwardRef} from "react";
+import {TIngredientTabsRef} from "./types/ingredient-tabs-refs";
 import {TIngredientCategories} from "./types/ingredient-categories";
-import {TIngredientTabsRef} from "./consts/ingredient-tabs-refs";
 
 type TIngredientsTabsProps = {
-  current: string;
-  setCurrent: (current: string) => void;
+  current: TIngredientCategories;
+  setCurrent: (current: TIngredientCategories) => void;
 };
 
 const IngredientsTabs = forwardRef<TIngredientTabsRef, TIngredientsTabsProps>(({current, setCurrent}, ref) => {
   const onTabClick = (tab: string) => {
-    setCurrent(tab);
+    if (ref === null || typeof ref === "function" || ref.current === null)
+      throw new Error("forwarded refs for  are invalid");
 
-    // todo(kulikov): uncomment if possible
-    // @ts-ignore
-    ref.current[tab].clickRef.current.scrollIntoView({behavior: 'smooth'});
+    const castedTab = tab as TIngredientCategories;
+    setCurrent(castedTab);
+
+    ref.current[castedTab].clickRef.current!.scrollIntoView({behavior: 'smooth'});
   }
 
   return (

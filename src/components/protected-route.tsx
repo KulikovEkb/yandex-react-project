@@ -1,7 +1,7 @@
 import {Navigate, useLocation} from 'react-router-dom';
-import {useSelector} from "react-redux";
 import {getAuthState, getAuthStateUser} from "../services/auth/auth-selectors";
 import {FC} from "react";
+import {useSelector} from "../types";
 
 type TProtectedRouteProps = {
   onlyUnAuth?: boolean;

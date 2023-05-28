@@ -1,11 +1,11 @@
 import {Button, EmailInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate, useLocation} from 'react-router-dom';
 import React, {SyntheticEvent} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {sendResetPasswordEmail} from '../services/auth/auth-actions';
 import styles from './auth.module.css';
 import {getAuthState} from "../services/auth/auth-selectors";
 import {useForm} from "../services/hooks/use-form";
+import {useDispatch, useSelector} from "../types";
 
 function ForgotPassword() {
   const location = useLocation();
@@ -19,7 +19,7 @@ function ForgotPassword() {
   const onSubmit = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(sendResetPasswordEmail(values.email) as any);
+      dispatch(sendResetPasswordEmail(values.email));
     },
     [dispatch, values]);
 

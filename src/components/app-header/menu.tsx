@@ -1,27 +1,28 @@
 import {BurgerIcon, ListIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from '../app-header/app-header.module.css';
-import HeaderLink from "./header-link";
 import {getIconType, getLinkTextType} from "./helpers/header-link-helper";
-import {FC} from "react";
-import * as consts from "./consts/consts";
+import {NavLink} from "react-router-dom";
 
-type TMenuProps = {
-  active: string;
-  setActive: (active: string) => void;
-}
-
-const Menu: FC<TMenuProps> = ({active, setActive}) => {
+const Menu = () => {
   return (
     <nav className={styles.menu}>
-      <HeaderLink link='/' onClick={() => setActive(consts.Tabs.Constructor)}>
-        <BurgerIcon type={getIconType({isActive: active === consts.Tabs.Constructor})}/>
-        <p className={getLinkTextType({isActive: active === consts.Tabs.Constructor})}>Конструктор</p>
-      </HeaderLink>
+      <NavLink to='/' className={`${styles.headerLink} pt-4 pr-5 pb-4 pl-5`}>
+        {({isActive}) => (
+          <>
+            <BurgerIcon type={getIconType({isActive})}/>
+            <p className={getLinkTextType({isActive})}>Конструктор</p>
+          </>
+        )}
+      </NavLink>
 
-      <HeaderLink link='/orders-flow' onClick={() => setActive(consts.Tabs.OrdersFlow)}>
-        <ListIcon type={getIconType({isActive: active === consts.Tabs.OrdersFlow})}/>
-        <p className={getLinkTextType({isActive: active === consts.Tabs.OrdersFlow})}>Лента&nbsp;заказов</p>
-      </HeaderLink>
+      <NavLink to='/feed' className={`${styles.headerLink} pt-4 pr-5 pb-4 pl-5`}>
+        {({isActive}) => (
+          <>
+            <ListIcon type={getIconType({isActive})}/>
+            <p className={getLinkTextType({isActive})}>Лента&nbsp;заказов</p>
+          </>
+        )}
+      </NavLink>
     </nav>
   );
 }

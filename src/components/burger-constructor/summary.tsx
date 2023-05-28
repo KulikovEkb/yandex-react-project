@@ -4,8 +4,8 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import Modal from "../modal";
 import OrderDetails from "../order-details/order-details";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {getAuthStateUser} from "../../services/auth/auth-selectors";
+import {useSelector} from "../../types";
 
 type TSummaryProps = {
   totalSum: number;

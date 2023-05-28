@@ -6,7 +6,7 @@ import {TIngredient} from "../../types/ingredient";
 import {TFillerIngredient} from "./types/filler-type";
 
 type TIngredientsProps = {
-  bun: TIngredient,
+  bun: TIngredient | null,
   fillers: Array<TFillerIngredient>
 };
 

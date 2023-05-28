@@ -1,12 +1,12 @@
 import styles from './burger-constructor.module.css'
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {FC} from "react";
-import {useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addIngredient} from "../burger-ingredients/store/ingredients-actions";
 import {TIngredient} from "../../types/ingredient";
 import * as consts from "./consts/consts";
 import {TBunType} from "./types/bun-type";
+import {useDispatch} from "../../types";
 
 type TBunProps = {
   bun: TIngredient | null;
@@ -18,8 +18,8 @@ const Bun: FC<TBunProps> = ({bun, type}) => {
 
   const [{isHover}, dropRef] = useDrop({
     accept: consts.DndTypes.Bun,
-    drop(ingredient){
-      dispatch(addIngredient(ingredient) as any);
+    drop(ingredient: TIngredient){
+      dispatch(addIngredient(ingredient));
     },
     collect: monitor => ({
       isHover: monitor.isOver(),

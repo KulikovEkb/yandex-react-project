@@ -1,12 +1,12 @@
 import {arrayIsEmpty} from "../../helpers/collection-helper";
 import styles from "./burger-constructor.module.css";
 import scrollBarStyles from "../../helpers/scroll-bar.module.css";
-import {useDispatch} from "react-redux";
 import {SET_INGREDIENTS} from "./store/constructor-actions";
 import React, {FC} from "react";
 import EmptyFiller from "./empty-filler";
 import Filler from "./filler";
 import {TFillerIngredient} from "./types/filler-type";
+import {useDispatch} from "../../types";
 
 type TFillersListProps = {
   fillers: Array<TFillerIngredient>;

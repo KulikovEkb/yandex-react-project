@@ -1,81 +1,42 @@
-import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {SyntheticEvent} from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {editUser, logOut} from '../services/auth/auth-actions';
+import {NavLink, Outlet} from 'react-router-dom';
+import {logOut} from '../services/auth/auth-actions';
 import styles from './profile.module.css';
-import {getAuthStateUser} from "../services/auth/auth-selectors";
-import {useForm} from "../services/hooks/use-form";
+import {useDispatch} from "../types";
 
 function Profile() {
-  const user = useSelector(getAuthStateUser);
   const dispatch = useDispatch();
-
-  const initValues = {
-    name: user.name,
-    email: user.email,
-    password: '',
-  };
-  const {values, handleChange, setValues} = useForm(initValues);
-
-  const wasEdited = React.useMemo(
-    () => values.name !== user.name || values.email !== user.email || !!values.password,
-    [user, values]
-  );
-
-  const onCancelButtonClick = () => {
-    setValues(initValues);
-  }
-
-  const onSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    dispatch(editUser(values) as any);
-  }
 
   let onLogOutClick = React.useCallback(
     (e: SyntheticEvent) => {
       e.preventDefault();
-      dispatch(logOut() as any);
+      dispatch(logOut());
     },
     [dispatch]
   );
 
+  const navLinkClassName = React.useCallback(
+    ({ isActive }: { isActive: boolean }) =>
+      `${styles.tab} text text_type_main-medium ${isActive ? 'text_color_primary' : 'text_color_inactive'}`,
+    [],
+  );
+
   return (
-    <form className={styles.mainContainer} onSubmit={onSubmit}>
-      <div>
-        <Link to={'/profile'} className={`${styles.tab} text text_type_main-medium text_color_primary`}>Профиль</Link>
-        <Link to={'/orders'} className={`${styles.tab} text text_type_main-medium text_color_inactive`}>
-          История заказов
-        </Link>
-        <p className={`${styles.tab} text text_type_main-medium text_color_inactive`} onClick={onLogOutClick}>Выход</p>
-        <p className={`${styles.disclaimer} mt-20 text text_type_main-default text_color_inactive`}>В этом
-          разделе вы можете изменить свои персональные данные</p>
-      </div>
+    <main className={styles.mainContainer}>
+      <aside className={styles.aside}>
+        <div>
+          <NavLink to={'/profile'} className={navLinkClassName} end>Профиль</NavLink>
+          <NavLink to={'/profile/orders'} className={navLinkClassName} end>История заказов</NavLink>
+          <p className={`${styles.tab} text text_type_main-medium text_color_inactive`} onClick={onLogOutClick}>Выход</p>
+        </div>
 
-      <div className={styles.inputs}>
-        <Input name='name' value={values.name} onChange={handleChange} placeholder='Имя' icon='EditIcon'/>
-        <Input name='email' value={values.email} onChange={handleChange} placeholder='Логин' icon='EditIcon'/>
-        <PasswordInput name='password' value={values.password} onChange={handleChange} placeholder='Пароль' icon='EditIcon'/>
+        <p className={`${styles.disclaimer} mt-20 text text_type_main-default text_color_inactive`}>
+          В этом разделе вы можете изменить свои персональные данные
+        </p>
+      </aside>
 
-        {wasEdited && (
-          <div className={styles.buttons}>
-            <Button
-              htmlType='button'
-              type='secondary'
-              size='medium'
-              onClick={onCancelButtonClick}
-            >
-              Отмена
-            </Button>
-
-            <Button htmlType='submit' type='primary' size='medium'>
-              Сохранить
-            </Button>
-          </div>
-        )}
-      </div>
-    </form>
+      <Outlet />
+    </main>
   );
 }
 

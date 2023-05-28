@@ -3,7 +3,7 @@ import {FC} from "react";
 
 type TDetailProps = {
   header: string,
-  value: string,
+  value: string | number,
 }
 
 const Detail: FC<TDetailProps> = ({header, value}) => {

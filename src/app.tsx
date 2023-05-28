@@ -11,10 +11,16 @@ import ResetPassword from "./pages/reset-password";
 import Profile from "./pages/profile";
 import Ingredient from "./pages/ingredient";
 import {ProtectedRoute} from "./components/protected-route";
-import {useDispatch} from "react-redux";
 import {getIngredients} from "./components/burger-ingredients/store/ingredients-actions";
 import {checkUserAuth} from "./services/auth/auth-actions";
 import IngredientDetails from "./components/ingredient-details";
+import {useDispatch} from "./types";
+import OrdersFeedPage from "./pages/orders-feed-page";
+import FeedOrderPage from "./pages/feed-order-page";
+import FeedOrderDetails from "./components/feed-order-details";
+import UserOrdersFeedPage from "./pages/user-orders-feed-page";
+import ProfileInfo from "./components/profile-info/profile-info";
+import UserFeedOrderPage from "./pages/user-feed-order-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,8 +28,8 @@ function App() {
   const background = location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getIngredients() as any);
-    dispatch(checkUserAuth() as any);
+    dispatch(getIngredients());
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (
@@ -32,18 +38,30 @@ function App() {
 
       <Routes location={background || location}>
         <Route path="/" element={<Constructor/>}/>
+
         <Route path="/login" element={<ProtectedRoute onlyUnAuth={true} element={<Login/>}/>}/>
         <Route path="/register" element={<ProtectedRoute onlyUnAuth={true} element={<Register/>}/>}/>
         <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth={true} element={<ForgotPassword/>}/>}/>
         <Route path="/reset-password" element={<ProtectedRoute onlyUnAuth={true} element={<ResetPassword/>}/>}/>
-        <Route path="/profile/*" element={<ProtectedRoute element={<Profile/>}/>}/>
+
+        <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}>
+          <Route path="/profile" element={<ProfileInfo/>}/>
+          <Route path='/profile/orders' element={<UserOrdersFeedPage/>}/>
+        </Route>
+        <Route path="/profile/orders/:number" element={<UserFeedOrderPage/>}/>
+
         <Route path="/ingredients/:id" element={<Ingredient/>}/>
+
+        <Route path="/feed" element={<OrdersFeedPage/>}/>
+        <Route path="/feed/:number" element={<FeedOrderPage/>}/>
 
         <Route path="*" element={<NotFound/>}/>
       </Routes>
       {background && (
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
+          <Route path="/feed/:number" element={<FeedOrderDetails/>}/>
+          <Route path="/profile/orders/:number" element={<ProtectedRoute element={<FeedOrderDetails/>}/>}/>
         </Routes>
       )}
     </ErrorBoundary>

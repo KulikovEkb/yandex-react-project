@@ -1,11 +1,11 @@
 import styles from './order-details.module.css'
 import doneImage from "../../images/done.png";
-import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {createOrder} from "./store/order-details-actions";
 import {Loader} from "../loader/loader";
 import {getConstructorState} from "../burger-constructor/store/constructor-selectors";
 import {getOrderDetailsState} from "./store/order-details-selectors";
+import {useDispatch, useSelector} from "../../types";
 
 const OrderDetails = () => {
   const {orderNumber, createOrderRequest, createOrderFail} = useSelector(getOrderDetailsState);
@@ -13,15 +13,15 @@ const OrderDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const elementsIds: Array<string> = [bun._id];
+    const elementsIds: Array<string> = [bun!._id];
 
     for (const filler of fillers) {
       elementsIds.push(filler._id);
     }
 
-    elementsIds.push(bun._id);
+    elementsIds.push(bun!._id);
 
-    dispatch(createOrder(elementsIds) as any)
+    dispatch(createOrder(elementsIds))
   }, [dispatch, bun, fillers]);
 
   return (
@@ -35,7 +35,7 @@ const OrderDetails = () => {
       <>
         <div className='mt-4'>
           <p className={`${styles.orderId} text text_type_digits-large`}>
-            {orderNumber.toString().padStart(6, '0')}
+            {orderNumber?.toString().padStart(6, '0')}
           </p>
         </div>
 
