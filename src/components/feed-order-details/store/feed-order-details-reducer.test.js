@@ -7,7 +7,7 @@ const initialState = {
   order: null,
 };
 
-describe('burger ingredients reducer', function () {
+describe('orders feed details reducer', function () {
   it('should return the initial state', function () {
     expect(feedOrderDetailsReducer(undefined, {})).toEqual(initialState);
   });
