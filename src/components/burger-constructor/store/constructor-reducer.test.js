@@ -3,7 +3,8 @@ import * as types from './constructor-actions'
 import {v4 as newGuid} from 'uuid'
 
 const initialState = {
-  bun: null, fillers: [],
+  bun: null,
+  fillers: [],
 };
 
 describe('burger constructor reducer', () => {
