@@ -2,6 +2,7 @@ import * as normaClient from "../../../helpers/http-clients/norma-client";
 import {ADD_BUN, ADD_INGREDIENT} from "../../burger-constructor/store/constructor-actions";
 import {TIngredient} from "../../../types/ingredient";
 import {AppDispatch, AppThunk} from "../../../types";
+import {v4 as newGuid} from "uuid";
 
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
@@ -65,6 +66,6 @@ export const addIngredient = (ingredient: TIngredient): AppThunk => (dispatch: A
     dispatch({type: ADD_BUN, bun: ingredient});
   } else {
     dispatch({type: INCREMENT_INGREDIENT_COUNTER, id: ingredient._id});
-    dispatch({type: ADD_INGREDIENT, ingredient});
+    dispatch({type: ADD_INGREDIENT, ingredient: {...ingredient, key: newGuid()}});
   }
 };

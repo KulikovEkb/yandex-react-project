@@ -15,7 +15,7 @@ export interface IAddBunAction {
 
 export interface IAddIngredientAction {
   readonly type: typeof ADD_INGREDIENT;
-  readonly ingredient: TIngredient;
+  readonly ingredient: TFillerIngredient;
 }
 
 export interface IRemoveIngredientAction {
