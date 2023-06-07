@@ -13,7 +13,7 @@ const Header: FC<THeaderProps> = ({text, isNumber, closeModal}) => {
     <div className={styles.modalHeader}>
       <p className={`text ${isNumber ? 'text_type_digits-default' : 'text_type_main-large'}`}>{text}</p>
 
-      <div className={styles.closeIconWrapper} onClick={closeModal}>
+      <div className={styles.closeIconWrapper} onClick={closeModal} data-testid="button-close">
         <CloseIcon type="primary"/>
       </div>
     </div>

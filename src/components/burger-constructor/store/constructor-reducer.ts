@@ -1,4 +1,3 @@
-import {v4 as newGuid} from 'uuid';
 import * as actions from './constructor-actions';
 import {TConstructorActions} from "./constructor-actions";
 import {TIngredient} from "../../../types/ingredient";
@@ -22,7 +21,7 @@ export function constructorReducer(state = initialState, action: TConstructorAct
     case actions.ADD_INGREDIENT: {
       return {
         ...state,
-        fillers: [{...action.ingredient, key: newGuid()}, ...state.fillers],
+        fillers: [{...action.ingredient}, ...state.fillers],
       };
     }
 
